@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# CV generator virtualenv
+CV_DOCX/.venv/
