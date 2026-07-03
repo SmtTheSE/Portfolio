@@ -20,11 +20,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                             { name: 'About', href: '#about' },
                             { name: 'Arsenal', href: '#experience' },
                             { name: 'Work', href: '#projects' },
+                            { name: 'CV', href: '/Sitt_Min_Thar_CV.pdf', download: true },
                             { name: 'Contact', href: 'mailto:sittminthar005@gmail.com' }
-                        ].map((link, i) => (
+                        ].map((link, i, arr) => (
                             <React.Fragment key={link.name}>
-                                <a href={link.href} className="hover:text-text-main transition-colors duration-300">{link.name}</a>
-                                {i < 3 && <span className="w-px h-2 bg-border-light"></span>}
+                                <a href={link.href} download={link.download} className="hover:text-text-main transition-colors duration-300">{link.name}</a>
+                                {i < arr.length - 1 && <span className="w-px h-2 bg-border-light"></span>}
                             </React.Fragment>
                         ))}
                     </nav>

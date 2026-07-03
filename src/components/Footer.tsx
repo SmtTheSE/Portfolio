@@ -23,6 +23,8 @@ const Footer = () => {
                                 <a href="https://github.com/SmtTheSE" target="_blank" rel="noreferrer" className="text-xs font-medium uppercase tracking-widest text-text-main hover:opacity-50 transition-opacity">Github</a>
                                 <span className="text-border-light">/</span>
                                 <a href="https://www.facebook.com/aiot.global.inc" target="_blank" rel="noreferrer" className="text-xs font-medium uppercase tracking-widest text-text-main hover:opacity-50 transition-opacity">AIOT</a>
+                                <span className="text-border-light">/</span>
+                                <a href="/Sitt_Min_Thar_CV.pdf" download className="text-xs font-medium uppercase tracking-widest text-text-main hover:opacity-50 transition-opacity">CV</a>
                             </div>
                         </div>
                     </div>
