@@ -6,7 +6,7 @@ const Footer = () => {
                 {/* Minimalist Contact Area */}
                 <div className="flex flex-col gap-8 w-full">
                     <div className="flex flex-col gap-1">
-                        <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">// 05</span>
+                        <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">// 08</span>
                         <h2 className="text-xl md:text-2xl font-light tracking-tight uppercase text-text-main">Connection <br className="hidden md:block" /> Protocol</h2>
                     </div>
 
@@ -19,8 +19,10 @@ const Footer = () => {
                         </a>
                         <div className="flex flex-col gap-2">
                             <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">social_links</span>
-                            <div className="flex gap-4">
+                            <div className="flex flex-wrap gap-4">
                                 <a href="https://github.com/SmtTheSE" target="_blank" rel="noreferrer" className="text-xs font-medium uppercase tracking-widest text-text-main hover:opacity-50 transition-opacity">Github</a>
+                                <span className="text-border-light">/</span>
+                                <a href="#identity" className="text-xs font-medium uppercase tracking-widest text-text-main hover:opacity-50 transition-opacity">AT Proto</a>
                                 <span className="text-border-light">/</span>
                                 <a href="https://www.facebook.com/aiot.global.inc" target="_blank" rel="noreferrer" className="text-xs font-medium uppercase tracking-widest text-text-main hover:opacity-50 transition-opacity">AIOT</a>
                                 <span className="text-border-light">/</span>
@@ -38,6 +40,8 @@ const Footer = () => {
 
                     <div className="flex items-center gap-2">
                         <span>LCL: HCMC, VN</span>
+                        <span className="w-1 h-1 bg-border-light rounded-full"></span>
+                        <span>ATPROTO-READY</span>
                     </div>
 
                     <div className="flex items-center gap-2">

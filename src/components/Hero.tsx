@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
 import profile from '/profile.jpeg';
+import { nowStatus } from '../data/now';
 
 const Hero = () => {
     const ref = useRef(null);
@@ -31,13 +32,18 @@ const Hero = () => {
                             Backend Developer / Data Science Student. <br className="hidden md:block" />
                             Building intelligent infrastructure and data-driven solutions.
                         </p>
+                        <div className="flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-widest text-text-muted font-light">
+                            <span className="inline-flex items-center gap-1.5">
+                                <span className={`w-1.5 h-1.5 rounded-full ${nowStatus.availableForWork ? 'bg-green-500 animate-pulse' : 'bg-border-light'}`} />
+                                {nowStatus.availableForWork ? 'Available for Work' : 'Heads down'}
+                            </span>
+                            <span className="w-1 h-1 bg-border-light rounded-full hidden sm:block" />
+                            <a href="#now" className="hover:text-text-main transition-colors max-w-[16rem] truncate">
+                                Now: {nowStatus.status}
+                            </a>
+                        </div>
                         <div className="flex flex-wrap items-center gap-4 text-[10px] uppercase tracking-widest text-text-muted font-light">
                             <span>Ho Chi Minh City, VN</span>
-                            <span className="w-1 h-1 bg-border-light rounded-full"></span>
-                            <span className="flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                                Available for Work
-                            </span>
                             <span className="w-1 h-1 bg-border-light rounded-full hidden sm:block"></span>
                             <a href="/Sitt_Min_Thar_CV.pdf" download className="flex items-center gap-1.5 hover:text-text-main transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -46,6 +52,10 @@ const Hero = () => {
                                     <line x1="12" y1="15" x2="12" y2="3"></line>
                                 </svg>
                                 Download CV
+                            </a>
+                            <span className="w-1 h-1 bg-border-light rounded-full hidden sm:block"></span>
+                            <a href="#activity" className="hover:text-text-main transition-colors duration-300">
+                                AT Protocol Feed
                             </a>
                         </div>
                     </div>

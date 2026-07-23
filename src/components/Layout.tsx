@@ -15,11 +15,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         <a href="/" className="font-sans font-medium tracking-tight text-sm uppercase">Sitt Min Thar</a>
                     </div>
 
-                    <nav className="hidden md:flex items-center gap-8 text-[10px] uppercase tracking-[0.2em] text-text-muted">
+                    <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-[10px] uppercase tracking-[0.2em] text-text-muted">
                         {[
                             { name: 'About', href: '#about' },
-                            { name: 'Arsenal', href: '#experience' },
                             { name: 'Work', href: '#projects' },
+                            { name: 'Now', href: '#now' },
+                            { name: 'Activity', href: '#activity' },
                             { name: 'CV', href: '/Sitt_Min_Thar_CV.pdf', download: true },
                             { name: 'Contact', href: 'mailto:sittminthar005@gmail.com' }
                         ].map((link, i, arr) => (
