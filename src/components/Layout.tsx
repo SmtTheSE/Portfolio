@@ -7,12 +7,12 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
-        <div className="min-h-screen bg-primary-bg text-text-main font-sans selection:bg-text-main selection:text-primary-bg selection:text-white">
+        <div id="top" className="min-h-screen bg-primary-bg text-text-main font-sans selection:bg-text-main selection:text-primary-bg selection:text-white">
             <div className="min-h-screen flex flex-col relative w-full">
                 {/* Navbar - Refined */}
                 <header className="fixed top-0 left-0 w-full z-[100] flex justify-between items-center px-6 md:px-12 py-4 bg-primary-bg/80 backdrop-blur-md border-b border-border-light">
                     <div className="flex-1">
-                        <a href="/" className="font-sans font-medium tracking-tight text-sm uppercase">Sitt Min Thar</a>
+                        <a href="#top" className="font-sans font-medium tracking-tight text-sm uppercase">Sitt Min Thar</a>
                     </div>
 
                     <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-[10px] uppercase tracking-[0.2em] text-text-muted">
@@ -22,12 +22,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                             { name: 'Now', href: '#now' },
                             { name: 'Activity', href: '#activity' },
                             { name: 'CV', href: '/Sitt_Min_Thar_CV.pdf', download: true },
-                            { name: 'Contact', href: 'mailto:sittminthar005@gmail.com' }
-                        ].map((link, i, arr) => (
-                            <React.Fragment key={link.name}>
-                                <a href={link.href} download={link.download} className="hover:text-text-main transition-colors duration-300">{link.name}</a>
-                                {i < arr.length - 1 && <span className="w-px h-2 bg-border-light"></span>}
-                            </React.Fragment>
+                            { name: 'Contact', href: '#contact' }
+                        ].map((link) => (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                {...(link.download ? { download: true } : {})}
+                                className="hover:text-text-main transition-colors duration-300"
+                            >
+                                {link.name}
+                            </a>
                         ))}
                     </nav>
 
