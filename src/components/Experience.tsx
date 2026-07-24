@@ -8,6 +8,7 @@ const Experience = () => {
         },
         {
             org: 'BRAVESTEP',
+            href: 'https://bravestep.ai/',
             title: 'FOUNDING ENGINEER',
             year: 'PRESENT',
             detail: 'Founding engineering role — systems direction and product infrastructure.',
