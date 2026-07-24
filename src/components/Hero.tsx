@@ -30,7 +30,16 @@ const Hero = () => {
                     <div className="flex flex-col gap-4 max-w-md">
                         <p className="text-sm md:text-base text-text-main/90 font-light leading-relaxed">
                             Software Engineer at Ad Venture Studio. <br className="hidden md:block" />
-                            Founding Engineer at Bravestep. Data Science student.
+                            Founding Engineer at{' '}
+                            <a
+                                href="https://bravestep.ai/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="border-b border-border-light hover:border-text-main transition-colors"
+                            >
+                                Bravestep
+                            </a>
+                            . Data Science student.
                         </p>
                         <div className="flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-widest text-text-muted font-light">
                             <span className="inline-flex items-center gap-1.5">

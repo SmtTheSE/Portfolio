@@ -29,7 +29,16 @@ const About = () => {
                             I build with a focus on structure and performance, currently as a{' '}
                             <span className="font-medium">Software Engineer at Ad Venture Studio</span>
                             {' '}— a venture studio shipping mobile apps to the App Store and Google Play —
-                            and as a Founding Engineer at Bravestep.
+                            and as a Founding Engineer at{' '}
+                            <a
+                                href="https://bravestep.ai/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-medium border-b border-border-light hover:border-text-main transition-colors pb-0.5"
+                            >
+                                Bravestep
+                            </a>
+                            .
                         </p>
                     </motion.div>
 
