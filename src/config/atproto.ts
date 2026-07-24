@@ -11,8 +11,13 @@ export const atprotoConfig = {
   service: 'https://api.bsky.app',
   feedLimit: 6,
   followsLimit: 16,
+  digestPerAuthor: 2,
   /** Optional custom "now" record collection on your PDS (falls back to local data). */
   nowCollection: 'com.sittminthar.status.now',
+  /** Digital garden notes collection (falls back to local notes). */
+  notesCollection: 'com.sittminthar.garden.note',
+  /** Teal.fm music plays — Dame-style listening status when present. */
+  tealPlayCollection: 'fm.teal.alpha.feed.play',
 } as const;
 
 export function bskyProfileUrl(actor: string) {

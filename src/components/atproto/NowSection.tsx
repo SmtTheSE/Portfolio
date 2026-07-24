@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
-import { useNowStatus } from '../../hooks/useAtproto';
+import { useNowStatus, useTealListening } from '../../hooks/useAtproto';
 import { formatRelativeTime } from '../../lib/atproto/format';
 
-/** Full Now section — local record with optional PDS override. */
+/** Full Now section — status from PDS/local, plus Teal listening when available. */
 export default function NowSection() {
   const { data, loading } = useNowStatus();
+  const { data: listening, loading: listeningLoading } = useTealListening();
 
   return (
     <section id="now" className="py-24 md:py-32 px-6 md:px-12 w-full border-t border-border-light flex justify-center">
@@ -13,13 +14,14 @@ export default function NowSection() {
           <div className="flex flex-col gap-1">
             <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">// 05</span>
             <h2 className="text-xl md:text-2xl font-light tracking-tight uppercase text-text-main">
-              Now <br className="hidden md:block" /> Status
+              Now
             </h2>
           </div>
           <div className="w-8 h-px bg-border-light" />
           <p className="text-xs text-text-muted font-light leading-relaxed max-w-xs">
-            A live status surface. Sourced from local portfolio data
-            {data.source === 'pds' ? ', synced from an AT Protocol record on my PDS.' : ', ready to sync from my PDS.'}
+            What I am working on right now
+            {data.source === 'pds' ? ', read from my PDS.' : '.'}
+            {listening ? ' Listening data comes from Teal records when present.' : ''}
           </p>
         </div>
 
@@ -35,7 +37,7 @@ export default function NowSection() {
               <div className="flex items-center gap-2">
                 <span className={`w-2 h-2 rounded-full ${data.availableForWork ? 'bg-green-500' : 'bg-text-muted'}`} />
                 <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">
-                  {loading ? 'resolving…' : data.source === 'pds' ? 'pds_record' : 'local_record'}
+                  {loading ? 'loading…' : data.source === 'pds' ? 'from pds' : 'local'}
                 </span>
               </div>
               <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">
@@ -58,12 +60,37 @@ export default function NowSection() {
                   <span className="text-xs font-medium tracking-wide text-text-main">{data.location}</span>
                 </div>
                 <div className="bg-primary-bg p-5 flex flex-col gap-2">
-                  <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">Availability</span>
+                  <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">Work</span>
                   <span className="text-xs font-medium tracking-wide text-text-main">
                     {data.availableForWork ? 'Open to opportunities' : 'Not seeking roles'}
                   </span>
                 </div>
               </div>
+
+              {(listening || listeningLoading) && (
+                <div className="border border-border-light p-5 flex flex-col gap-2">
+                  <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">Listening</span>
+                  {listeningLoading && !listening && (
+                    <span className="text-xs text-text-muted">Checking Teal…</span>
+                  )}
+                  {listening && (
+                    <>
+                      <span className="text-sm font-medium tracking-tight text-text-main">
+                        {listening.trackName}
+                        {listening.artists.length > 0 ? ` — ${listening.artists.join(', ')}` : ''}
+                      </span>
+                      {listening.releaseName && (
+                        <span className="text-xs text-text-muted">{listening.releaseName}</span>
+                      )}
+                      {listening.playedTime && (
+                        <span className="text-[9px] uppercase tracking-[0.15em] font-mono text-text-muted">
+                          {formatRelativeTime(listening.playedTime)}
+                        </span>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </motion.div>
         </div>

@@ -3,6 +3,7 @@ import { atprotoConfig, bskyPostUrl, parseAtUri } from '../../config/atproto';
 import { publicAgent, hasAtprotoActor } from './client';
 import type { NowStatus } from '../../data/now';
 import { nowStatus as localNow } from '../../data/now';
+import { localNotes } from '../../data/notes';
 
 export type PortfolioProfile = {
   did: string;
@@ -120,6 +121,20 @@ export async function fetchFollows(actor = atprotoConfig.actor, limit = atprotoC
   }));
 }
 
+export type TealPlay = {
+  trackName: string;
+  artists: string[];
+  releaseName?: string;
+  playedTime?: string;
+  originUrl?: string;
+};
+
+export type DigestItem = PortfolioPost & {
+  authorHandle: string;
+  authorName: string;
+  authorAvatar?: string;
+};
+
 /**
  * Prefer a custom PDS "now" record when present; otherwise use local portfolio data.
  */
@@ -152,4 +167,136 @@ export async function resolveNowStatus(actor = atprotoConfig.actor): Promise<Now
   }
 
   return { ...localNow, source: 'local' };
+}
+
+/** Latest Teal.fm play from the actor's PDS, if any. */
+export async function fetchLatestTealPlay(actor = atprotoConfig.actor): Promise<TealPlay | null> {
+  if (!actor) return null;
+  try {
+    const profile = await publicAgent.getProfile({ actor });
+    const { data } = await publicAgent.com.atproto.repo.listRecords({
+      repo: profile.data.did,
+      collection: atprotoConfig.tealPlayCollection,
+      limit: 1,
+    });
+    const value = data.records[0]?.value as {
+      trackName?: string;
+      artists?: { name?: string }[] | string[];
+      releaseName?: string;
+      playedTime?: string;
+      originUrl?: string;
+    } | undefined;
+    if (!value?.trackName) return null;
+    const artists = (value.artists || [])
+      .map((a) => (typeof a === 'string' ? a : a.name || ''))
+      .filter(Boolean);
+    return {
+      trackName: value.trackName,
+      artists,
+      releaseName: value.releaseName,
+      playedTime: value.playedTime,
+      originUrl: value.originUrl,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/** Digital garden notes from PDS, falling back to local seed notes. */
+export async function fetchGardenNotes(actor = atprotoConfig.actor) {
+  if (!actor) return { notes: localNotes, source: 'local' as const };
+
+  try {
+    const profile = await publicAgent.getProfile({ actor });
+    const { data } = await publicAgent.com.atproto.repo.listRecords({
+      repo: profile.data.did,
+      collection: atprotoConfig.notesCollection,
+      limit: 20,
+    });
+    if (!data.records.length) return { notes: localNotes, source: 'local' as const };
+
+    const notes = data.records.map((rec) => {
+      const v = rec.value as {
+        title?: string;
+        body?: string;
+        tags?: string[];
+        updatedAt?: string;
+        id?: string;
+      };
+      const rkey = parseAtUri(rec.uri)?.rkey || 'note';
+      return {
+        id: v.id || rkey,
+        title: v.title || 'Untitled',
+        body: v.body || '',
+        tags: v.tags || [],
+        updatedAt: v.updatedAt || new Date().toISOString(),
+      };
+    });
+    return { notes, source: 'pds' as const };
+  } catch {
+    return { notes: localNotes, source: 'local' as const };
+  }
+}
+
+/** Enrich garden people with live Bluesky profiles. */
+export async function fetchGardenPeople(handles: string[]) {
+  const results = await Promise.all(
+    handles.map(async (handle) => {
+      try {
+        const profile = await fetchProfile(handle);
+        return { handle, profile };
+      } catch {
+        return { handle, profile: null };
+      }
+    }),
+  );
+  return results;
+}
+
+/**
+ * Atmosphere digest — recent posts from curated garden handles + own feed.
+ * Bailey-inspired aggregation without a Firehose backend.
+ */
+export async function fetchAtmosphereDigest(
+  handles: string[],
+  options?: { includeSelf?: boolean; perAuthor?: number },
+): Promise<DigestItem[]> {
+  const perAuthor = options?.perAuthor ?? atprotoConfig.digestPerAuthor;
+  const actors = [...handles];
+  if (options?.includeSelf !== false && atprotoConfig.actor) {
+    actors.unshift(atprotoConfig.actor);
+  }
+  const unique = [...new Set(actors)];
+
+  const batches = await Promise.all(
+    unique.map(async (actor) => {
+      try {
+        const { data } = await publicAgent.getAuthorFeed({
+          actor,
+          limit: perAuthor + 2,
+          filter: 'posts_no_replies',
+        });
+        const items: DigestItem[] = [];
+        for (const entry of data.feed) {
+          const mapped = mapPost(entry, actor);
+          if (!mapped) continue;
+          items.push({
+            ...mapped,
+            authorHandle: entry.post.author.handle,
+            authorName: entry.post.author.displayName || entry.post.author.handle,
+            authorAvatar: entry.post.author.avatar,
+          });
+          if (items.length >= perAuthor) break;
+        }
+        return items;
+      } catch {
+        return [] as DigestItem[];
+      }
+    }),
+  );
+
+  return batches
+    .flat()
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 12);
 }

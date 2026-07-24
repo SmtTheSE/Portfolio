@@ -20,7 +20,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                             { name: 'About', href: '#about' },
                             { name: 'Work', href: '#projects' },
                             { name: 'Now', href: '#now' },
-                            { name: 'Activity', href: '#activity' },
+                            { name: 'Garden', href: '#garden' },
+                            { name: 'Digest', href: '#digest' },
                             { name: 'CV', href: '/Sitt_Min_Thar_CV.pdf', download: true },
                             { name: 'Contact', href: '#contact' }
                         ].map((link) => (

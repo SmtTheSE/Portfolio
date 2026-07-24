@@ -9,6 +9,9 @@ const AtprotoIdentity = lazy(() => import('./components/atproto/AtprotoIdentity'
 const NowSection = lazy(() => import('./components/atproto/NowSection'));
 const ActivityFeed = lazy(() => import('./components/atproto/ActivityFeed'));
 const AtprotoNetwork = lazy(() => import('./components/atproto/AtprotoNetwork'));
+const CommunityGarden = lazy(() => import('./components/atproto/CommunityGarden'));
+const GardenNotes = lazy(() => import('./components/atproto/GardenNotes'));
+const AtmosphereDigest = lazy(() => import('./components/atproto/AtmosphereDigest'));
 
 function AtprotoFallback() {
   return (
@@ -35,6 +38,9 @@ function App() {
       <Suspense fallback={<AtprotoFallback />}>
         <NowSection />
         <ActivityFeed />
+        <CommunityGarden />
+        <GardenNotes />
+        <AtmosphereDigest />
         <AtprotoNetwork />
       </Suspense>
     </Layout>
