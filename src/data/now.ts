@@ -11,9 +11,9 @@ export type NowStatus = {
 };
 
 export const nowStatus: NowStatus = {
-  status: 'Shipping AT Protocol integrations into my developer portfolio',
-  focus: 'Backend systems · Data science · Decentralized identity',
+  status: 'Building and shipping mobile apps at Ad Venture Studio',
+  focus: 'Mobile apps · Store releases · Backend systems',
   location: 'Ho Chi Minh City, VN',
-  availableForWork: true,
-  updatedAt: '2026-07-23',
+  availableForWork: false,
+  updatedAt: '2026-07-24',
 };

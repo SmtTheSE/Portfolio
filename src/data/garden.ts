@@ -55,10 +55,4 @@ export const gardenEntries: GardenEntry[] = [
     url: 'https://teal.fm',
     note: 'Music listening as portable AT Proto records.',
   },
-  {
-    kind: 'site',
-    title: 'AIOT Inc',
-    url: 'https://www.facebook.com/aiot.global.inc',
-    note: 'Where I intern on intelligent systems and software.',
-  },
 ];

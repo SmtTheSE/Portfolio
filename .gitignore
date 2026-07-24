@@ -26,3 +26,4 @@ dist-ssr
 
 # CV generator virtualenv
 CV_DOCX/.venv/
+CV_DOCX/.venv-new/

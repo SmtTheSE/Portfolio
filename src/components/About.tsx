@@ -25,17 +25,19 @@ const About = () => {
                         className="text-lg md:text-xl font-light leading-relaxed tracking-tight text-text-main"
                     >
                         <p>
-                            I'm <span className="font-medium">Sitt Min Thar</span>, a backend developer based in Vietnam. 
-                            I approach software with a focus on structural integrity and performance, currently 
-                            interning in Software Development at <a href="https://www.facebook.com/aiot.global.inc" target="_blank" rel="noopener noreferrer" className="border-b border-border-light hover:border-text-main transition-colors pb-0.5">AIOT Inc</a>.
+                            I'm <span className="font-medium">Sitt Min Thar</span>, a software engineer based in Vietnam.
+                            I build with a focus on structure and performance, currently as a{' '}
+                            <span className="font-medium">Software Engineer at Ad Venture Studio</span>
+                            {' '}— a venture studio shipping mobile apps to the App Store and Google Play —
+                            and as a Founding Engineer at Bravestep.
                         </p>
                     </motion.div>
 
                     {/* Status Info - Refined Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border-light border border-border-light overflow-hidden shadow-sm">
                         <div className="bg-primary-bg p-6 flex flex-col gap-3">
-                            <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">Current Status</span>
-                            <span className="text-xs font-medium tracking-wide uppercase text-text-main">Developing intelligent pipelines</span>
+                            <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">Current role</span>
+                            <span className="text-xs font-medium tracking-wide uppercase text-text-main">Software Engineer · Ad Venture Studio</span>
                         </div>
                         <div className="bg-primary-bg p-6 flex flex-col gap-3">
                             <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">Education</span>

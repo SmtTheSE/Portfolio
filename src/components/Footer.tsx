@@ -24,8 +24,6 @@ const Footer = () => {
                                 <span className="text-border-light">/</span>
                                 <a href="https://bsky.app/profile/sitt03.bsky.social" target="_blank" rel="noreferrer" className="text-xs font-medium uppercase tracking-widest text-text-main hover:opacity-50 transition-opacity">Bluesky</a>
                                 <span className="text-border-light">/</span>
-                                <a href="https://www.facebook.com/aiot.global.inc" target="_blank" rel="noreferrer" className="text-xs font-medium uppercase tracking-widest text-text-main hover:opacity-50 transition-opacity">AIOT</a>
-                                <span className="text-border-light">/</span>
                                 <a href="/Sitt_Min_Thar_CV.pdf" download className="text-xs font-medium uppercase tracking-widest text-text-main hover:opacity-50 transition-opacity">CV</a>
                             </div>
                         </div>

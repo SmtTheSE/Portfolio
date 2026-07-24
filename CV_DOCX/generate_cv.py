@@ -156,7 +156,7 @@ def build_docx() -> None:
         "Technically proficient across Python, Java/Spring Boot, Go, PostgreSQL, MySQL, React, Next.js, Flask, "
         "FastAPI, Docker, Nginx, AWS S3, and modern AI stacks (Gemini, RAG, LightGBM). Combines rigorous software "
         "engineering with data science fundamentals (Pandas, Scikit-learn, visualization) to build systems that are "
-        "secure, observable, and built to scale. Available for backend, full-stack, and data engineering roles."
+        "secure, observable, and built to scale. Currently Software Engineer at Ad Venture Studio and Founding Engineer at Bravestep."
     )
     r2.font.name = FONT
     r2.font.size = Pt(10.5)
@@ -174,7 +174,7 @@ def build_docx() -> None:
             "Strong data engineering background: large-scale ingestion, cleaning pipelines, forecasting, and analytics dashboards.",
             "Experienced with containerization (Docker), reverse proxies (Nginx), VPS hosting, SSL, and CI/CD workflows.",
             "Comfortable integrating LLM/RAG modules and ML models into user-facing products with measurable business value.",
-            "Collaborative, documentation-minded developer; internship experience in software development at AIOT Inc.",
+            "Collaborative, documentation-minded developer; Software Engineer at Ad Venture Studio and Founding Engineer at Bravestep.",
         ],
     )
 
@@ -211,6 +211,24 @@ def build_docx() -> None:
 
     experiences = [
         {
+            "org": "Ad Venture Studio, Vietnam",
+            "dates": "2026 – Present",
+            "role": "Software Engineer",
+            "bullets": [
+                "Building and shipping mobile applications for App Store and Google Play with ASO-ready standards and store release workflows.",
+                "Collaborating with design and monetization leads on UX, performance, and retention-oriented product engineering.",
+                "Maintaining application infrastructure, monitoring, and bugfixes to keep apps stable in production.",
+            ],
+        },
+        {
+            "org": "Bravestep",
+            "dates": "Present",
+            "role": "Founding Engineer",
+            "bullets": [
+                "Founding engineering role focused on systems direction and product infrastructure.",
+            ],
+        },
+        {
             "org": "Independent Engineering & Portfolio Projects, Ho Chi Minh City, Vietnam",
             "dates": "2024 – Present",
             "role": "Backend / Full Stack Developer",
@@ -239,15 +257,6 @@ def build_docx() -> None:
             "bullets": [
                 "Developed DentalBridge: AI treatment coordinator using Google Gemini 1.5 Pro to translate clinical terminology into patient-friendly guidance (FastAPI, Next.js).",
                 "Built Dental Blinding & Age Estimation platform for pediatric OPG analysis using AlQahtani and Demirjian methods with supervisor/PI blinding workflow (Flask, PostgreSQL).",
-            ],
-        },
-        {
-            "org": "AIOT Inc., Vietnam",
-            "dates": "Internship",
-            "role": "Software Development Intern",
-            "bullets": [
-                "Contributed to software development initiatives focused on robust backend integration and production-quality code practices.",
-                "Collaborated with engineering teams on application structure, performance, and maintainable service design.",
             ],
         },
         {
@@ -433,7 +442,7 @@ def build_pdf() -> None:
         5,
         pdf_text(
             "Proficient in Python, Java/Spring Boot, Go, PostgreSQL, MySQL, React, Next.js, Flask, FastAPI, Docker, Nginx, "
-            "AWS S3, Pandas, Scikit-learn, LightGBM, and LLM/RAG integrations. Available for backend, full-stack, and data engineering roles."
+            "AWS S3, Pandas, Scikit-learn, LightGBM, and LLM/RAG integrations. Currently Software Engineer at Ad Venture Studio and Founding Engineer at Bravestep."
         ),
         align="J",
     )
@@ -445,7 +454,7 @@ def build_pdf() -> None:
         "Shipped production systems for education, healthcare, e-commerce, and real-estate intelligence.",
         "Strong data engineering: large-scale ingestion, cleaning pipelines, forecasting, and analytics dashboards.",
         "DevOps: Docker, Nginx, VPS, SSL, CI/CD; live production showcase at dev-domainservershowcase.vercel.app.",
-        "Integrates LLM/RAG and ML models into products with measurable impact; AIOT Inc. software development intern.",
+        "Integrates LLM/RAG and ML models into products with measurable impact; Software Engineer at Ad Venture Studio.",
     ]:
         pdf.bullet(item)
 
@@ -466,6 +475,24 @@ def build_pdf() -> None:
     pdf.ln(2)
     pdf.section_bar("Professional Experience")
 
+    pdf.experience_block(
+        "Ad Venture Studio, Vietnam",
+        "2026 – Present",
+        "Software Engineer",
+        [
+            "Building and shipping mobile apps for App Store and Google Play with ASO-ready release workflows.",
+            "Partnering with design and monetization leads on UX, performance, and retention-oriented engineering.",
+            "Maintaining infrastructure, monitoring, and production bugfixes for studio apps.",
+        ],
+    )
+    pdf.experience_block(
+        "Bravestep",
+        "Present",
+        "Founding Engineer",
+        [
+            "Founding engineering role focused on systems direction and product infrastructure.",
+        ],
+    )
     pdf.experience_block(
         "Independent Engineering & Portfolio Projects, Ho Chi Minh City, Vietnam",
         "2024 – Present",
@@ -497,14 +524,6 @@ def build_pdf() -> None:
     )
 
     pdf.add_page()
-    pdf.experience_block(
-        "AIOT Inc., Vietnam",
-        "Internship",
-        "Software Development Intern",
-        [
-            "Software development focused on backend integration and maintainable service design.",
-        ],
-    )
     pdf.experience_block(
         "Analytics & Hackathon Projects",
         "2025",

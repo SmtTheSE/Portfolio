@@ -62,7 +62,7 @@ export default function NowSection() {
                 <div className="bg-primary-bg p-5 flex flex-col gap-2">
                   <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono">Work</span>
                   <span className="text-xs font-medium tracking-wide text-text-main">
-                    {data.availableForWork ? 'Open to opportunities' : 'Not seeking roles'}
+                    {data.availableForWork ? 'Open to opportunities' : 'Software Engineer · Ad Venture Studio'}
                   </span>
                 </div>
               </div>
