@@ -21,12 +21,12 @@ export const gardenEntries: GardenEntry[] = [
   {
     kind: 'person',
     handle: 'bryn.codes',
-    note: 'Community Garden pattern — fetching favorite people and sites via the Bluesky API.',
+    note: 'Community Garden pattern: fetching favorite people and sites via the Bluesky API.',
   },
   {
     kind: 'person',
     handle: 'brittanyellich.com',
-    note: 'crate.social — packing knowledge notes into AT Protocol records on a PDS.',
+    note: 'crate.social: packing knowledge notes into AT Protocol records on a PDS.',
   },
   {
     kind: 'person',
@@ -36,7 +36,7 @@ export const gardenEntries: GardenEntry[] = [
   {
     kind: 'person',
     handle: 'pds.dad',
-    note: 'The Atmosphere Report — personal newspaper built from many lexicons.',
+    note: 'The Atmosphere Report: a personal newspaper built from many lexicons.',
   },
   {
     kind: 'person',
@@ -47,7 +47,7 @@ export const gardenEntries: GardenEntry[] = [
     kind: 'site',
     title: 'AT Protocol Docs',
     url: 'https://atproto.com/docs',
-    note: 'Lexicons, PDS, and identity — the foundation for the sections on this site.',
+    note: 'Lexicons, PDS, and identity: the foundation for the sections on this site.',
   },
   {
     kind: 'site',

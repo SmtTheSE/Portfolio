@@ -9,9 +9,9 @@ export default function AtprotoIdentity() {
   const configured = hasAtprotoActor();
 
   return (
-    <section id="identity" className="px-6 md:px-12 w-full border-t border-border-light flex justify-center bg-secondary-bg/40">
-      <div className="w-full max-w-5xl py-10 md:py-12">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+    <section id="identity" className="px-6 md:px-12 w-full flex justify-center pb-12 md:pb-16">
+      <div className="w-full max-w-5xl">
+        <div className="liquid-card bg-secondary-bg/40 px-6 md:px-10 py-8 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex flex-col gap-1">
             <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">at://protocol</span>
             <h2 className="text-sm uppercase tracking-[0.15em] font-medium text-text-main">Decentralized Identity</h2>
@@ -45,10 +45,10 @@ export default function AtprotoIdentity() {
                   <img
                     src={profile.avatar}
                     alt={profile.displayName}
-                    className="w-10 h-10 object-cover border border-border-light grayscale"
+                    className="w-10 h-10 object-cover rounded-full border border-white/70 grayscale shadow-liquid"
                   />
                 ) : (
-                  <div className="w-10 h-10 border border-border-light bg-primary-bg" />
+                  <div className="w-10 h-10 rounded-full border border-border-light bg-surface" />
                 )}
                 <div className="flex flex-col gap-0.5">
                   <a

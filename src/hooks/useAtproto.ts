@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
 import {
-  fetchAtmosphereDigest,
   fetchAuthorFeed,
-  fetchFollows,
   fetchGardenNotes,
   fetchGardenPeople,
   fetchLatestTealPlay,
   fetchProfile,
   resolveNowStatus,
-  type DigestItem,
-  type PortfolioFollow,
   type PortfolioPost,
   type PortfolioProfile,
   type TealPlay,
@@ -78,37 +74,6 @@ export function useAtprotoFeed() {
             data: [],
             loading: false,
             error: err instanceof Error ? err.message : 'Failed to load activity feed',
-          });
-        }
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  return state;
-}
-
-export function useAtprotoFollows() {
-  const [state, setState] = useState<AsyncState<PortfolioFollow[]>>({
-    data: [],
-    loading: hasAtprotoActor(),
-    error: null,
-  });
-
-  useEffect(() => {
-    if (!hasAtprotoActor()) return;
-    let cancelled = false;
-    fetchFollows()
-      .then((data) => {
-        if (!cancelled) setState({ data, loading: false, error: null });
-      })
-      .catch((err: unknown) => {
-        if (!cancelled) {
-          setState({
-            data: [],
-            loading: false,
-            error: err instanceof Error ? err.message : 'Failed to load network',
           });
         }
       });
@@ -235,35 +200,4 @@ export function useCommunityGarden() {
   }, []);
 
   return { people: state, sites };
-}
-
-export function useAtmosphereDigest() {
-  const [state, setState] = useState<AsyncState<DigestItem[]>>({
-    data: [],
-    loading: true,
-    error: null,
-  });
-
-  useEffect(() => {
-    let cancelled = false;
-    const handles = gardenEntries.filter((e) => e.kind === 'person').map((p) => p.handle);
-    fetchAtmosphereDigest(handles)
-      .then((data) => {
-        if (!cancelled) setState({ data, loading: false, error: null });
-      })
-      .catch((err: unknown) => {
-        if (!cancelled) {
-          setState({
-            data: [],
-            loading: false,
-            error: err instanceof Error ? err.message : 'Failed to load digest',
-          });
-        }
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  return state;
 }

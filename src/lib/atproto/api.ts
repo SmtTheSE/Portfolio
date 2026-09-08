@@ -30,14 +30,6 @@ export type PortfolioPost = {
   isRepost: boolean;
 };
 
-export type PortfolioFollow = {
-  did: string;
-  handle: string;
-  displayName: string;
-  avatar?: string;
-  description?: string;
-};
-
 function mapProfile(p: AppBskyActorDefs.ProfileViewDetailed): PortfolioProfile {
   return {
     did: p.did,
@@ -98,27 +90,20 @@ export async function fetchAuthorFeed(actor = atprotoConfig.actor, limit = atpro
   });
 
   const posts: PortfolioPost[] = [];
+  const seen = new Set<string>();
   for (const item of data.feed) {
     // Prefer original posts over pure replies for a cleaner portfolio surface
     const reply = (item.post.record as { reply?: unknown }).reply;
     if (reply && !item.reason) continue;
+    if (seen.has(item.post.uri)) continue;
     const mapped = mapPost(item, actor);
-    if (mapped) posts.push(mapped);
+    if (mapped) {
+      seen.add(item.post.uri);
+      posts.push(mapped);
+    }
     if (posts.length >= limit) break;
   }
   return posts;
-}
-
-export async function fetchFollows(actor = atprotoConfig.actor, limit = atprotoConfig.followsLimit): Promise<PortfolioFollow[]> {
-  if (!actor) return [];
-  const { data } = await publicAgent.getFollows({ actor, limit });
-  return data.follows.map((f) => ({
-    did: f.did,
-    handle: f.handle,
-    displayName: f.displayName || f.handle,
-    avatar: f.avatar,
-    description: f.description,
-  }));
 }
 
 export type TealPlay = {
@@ -127,12 +112,6 @@ export type TealPlay = {
   releaseName?: string;
   playedTime?: string;
   originUrl?: string;
-};
-
-export type DigestItem = PortfolioPost & {
-  authorHandle: string;
-  authorName: string;
-  authorAvatar?: string;
 };
 
 /**
@@ -251,52 +230,4 @@ export async function fetchGardenPeople(handles: string[]) {
     }),
   );
   return results;
-}
-
-/**
- * Atmosphere digest — recent posts from curated garden handles + own feed.
- * Bailey-inspired aggregation without a Firehose backend.
- */
-export async function fetchAtmosphereDigest(
-  handles: string[],
-  options?: { includeSelf?: boolean; perAuthor?: number },
-): Promise<DigestItem[]> {
-  const perAuthor = options?.perAuthor ?? atprotoConfig.digestPerAuthor;
-  const actors = [...handles];
-  if (options?.includeSelf !== false && atprotoConfig.actor) {
-    actors.unshift(atprotoConfig.actor);
-  }
-  const unique = [...new Set(actors)];
-
-  const batches = await Promise.all(
-    unique.map(async (actor) => {
-      try {
-        const { data } = await publicAgent.getAuthorFeed({
-          actor,
-          limit: perAuthor + 2,
-          filter: 'posts_no_replies',
-        });
-        const items: DigestItem[] = [];
-        for (const entry of data.feed) {
-          const mapped = mapPost(entry, actor);
-          if (!mapped) continue;
-          items.push({
-            ...mapped,
-            authorHandle: entry.post.author.handle,
-            authorName: entry.post.author.displayName || entry.post.author.handle,
-            authorAvatar: entry.post.author.avatar,
-          });
-          if (items.length >= perAuthor) break;
-        }
-        return items;
-      } catch {
-        return [] as DigestItem[];
-      }
-    }),
-  );
-
-  return batches
-    .flat()
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    .slice(0, 12);
 }

@@ -27,3 +27,6 @@ dist-ssr
 # CV generator virtualenv
 CV_DOCX/.venv/
 CV_DOCX/.venv-new/
+
+# Personal, machine-local Claude Code settings
+.claude/settings.local.json

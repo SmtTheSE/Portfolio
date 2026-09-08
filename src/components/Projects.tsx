@@ -125,36 +125,36 @@ const Projects = () => {
     const filteredProjects = projects.filter(p => p.category === activeTab);
 
     return (
-        <section id="projects" className="py-24 md:py-32 px-6 md:px-12 w-full border-t border-border-light flex justify-center">
+        <section id="projects" className="py-24 md:py-32 px-6 md:px-12 w-full flex justify-center">
             <div className="w-full max-w-5xl flex flex-col gap-12">
                 {/* Minimalist Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-8">
-                    <div className="flex flex-col gap-1">
-                        <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">// 04</span>
+                    <div className="flex flex-col gap-3">
                         <h2 className="text-xl md:text-2xl font-light tracking-tight uppercase text-text-main">
                             Selected <br className="hidden md:block" /> Works
                         </h2>
+                        <div className="w-8 h-px bg-border-light" />
                     </div>
-                    
-                    {/* Tab Switcher */}
-                    <div className="flex items-center gap-8 border-b border-border-light/30 pb-1">
-                        <button 
+
+                    {/* Tab Switcher - liquid segmented control */}
+                    <div className="liquid-pill relative flex items-center gap-1 p-1.5">
+                        <button
                             onClick={() => setActiveTab('SE')}
-                            className={`text-[10px] uppercase tracking-[0.2em] font-mono pb-2 transition-all duration-300 relative ${activeTab === 'SE' ? 'text-text-main' : 'text-text-muted hover:text-text-main/70'}`}
+                            className={`relative z-10 px-4 py-2 rounded-full text-[10px] uppercase tracking-[0.2em] font-mono transition-colors duration-300 ${activeTab === 'SE' ? 'text-text-main' : 'text-text-muted hover:text-text-main/70'}`}
                         >
+                            {activeTab === 'SE' && <motion.span layoutId="tab-pill" className="absolute inset-0 -z-10 rounded-full bg-secondary-bg" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
                             Software Eng
-                            {activeTab === 'SE' && <motion.div layoutId="tab-underline" className="absolute bottom-0 left-0 w-full h-px bg-text-main" />}
                         </button>
-                        <button 
+                        <button
                             onClick={() => setActiveTab('DATA')}
-                            className={`text-[10px] uppercase tracking-[0.2em] font-mono pb-2 transition-all duration-300 relative ${activeTab === 'DATA' ? 'text-text-main' : 'text-text-muted hover:text-text-main/70'}`}
+                            className={`relative z-10 px-4 py-2 rounded-full text-[10px] uppercase tracking-[0.2em] font-mono transition-colors duration-300 ${activeTab === 'DATA' ? 'text-text-main' : 'text-text-muted hover:text-text-main/70'}`}
                         >
+                            {activeTab === 'DATA' && <motion.span layoutId="tab-pill" className="absolute inset-0 -z-10 rounded-full bg-secondary-bg" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
                             Data Analysis
-                            {activeTab === 'DATA' && <motion.div layoutId="tab-underline" className="absolute bottom-0 left-0 w-full h-px bg-text-main" />}
                         </button>
                     </div>
 
-                    <div className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-mono bg-secondary-bg px-3 py-1 border border-border-light">
+                    <div className="liquid-pill text-[10px] uppercase tracking-[0.2em] text-text-muted font-mono px-3 py-1.5">
                         Count: {activeTab === 'SE' ? filteredProjects.length.toString().padStart(2, '0') : '01'}
                     </div>
                 </div>
@@ -170,10 +170,10 @@ const Projects = () => {
                         >
                             {/* Featured Kaggle Link for Data Analysis Tab */}
                             {activeTab === 'DATA' ? (
-                                <motion.div 
+                                <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="p-8 md:p-12 border border-border-light bg-secondary-bg/30 relative group overflow-hidden"
+                                    className="liquid-card p-8 md:p-12 bg-secondary-bg/30 relative group overflow-hidden"
                                 >
                                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                                         <span className="text-5xl font-mono">KAGGLE</span>
@@ -188,24 +188,24 @@ const Projects = () => {
                                                 Kaggle Analytics <br /> & Findings
                                             </h3>
                                             <p className="text-sm font-light leading-relaxed text-text-muted">
-                                                A comprehensive showcase of data analysis projects and findings from Kaggle. 
+                                                A comprehensive showcase of data analysis projects and findings from Kaggle.
                                                 Features interactive Streamlit dashboards exploring various datasets, from demographic trends to predictive modeling.
                                             </p>
                                         </div>
-                                        <a 
-                                            href="https://kaggleanalysissittminthar.streamlit.app/" 
-                                            target="_blank" 
+                                        <a
+                                            href="https://kaggleanalysissittminthar.streamlit.app/"
+                                            target="_blank"
                                             rel="noopener noreferrer"
-                                            className="px-8 py-4 bg-text-main text-primary-bg text-[10px] uppercase tracking-[0.3em] font-medium hover:bg-text-main/90 transition-colors"
+                                            className="rounded-full px-8 py-4 bg-text-main text-primary-bg text-[10px] uppercase tracking-[0.3em] font-medium hover:bg-text-main/90 transition-colors shadow-liquid"
                                         >
                                             View Showcase ↗
                                         </a>
                                     </div>
                                 </motion.div>
                             ) : (
-                                <>
+                                <div className="liquid-card overflow-hidden">
                                     {/* Header Row - Only for standard projects */}
-                                    <div className="grid grid-cols-12 gap-4 pb-4 border-b border-border-light text-[9px] text-text-muted uppercase tracking-[0.2em] mb-2 px-2 font-mono">
+                                    <div className="grid grid-cols-12 gap-4 py-4 px-6 border-b border-border-light/70 text-[9px] text-text-muted uppercase tracking-[0.2em] font-mono">
                                         <div className="col-span-1 hidden md:block">ID</div>
                                         <div className="col-span-8 md:col-span-7">Project Title</div>
                                         <div className="hidden md:block col-span-2 text-right">Role / Year</div>
@@ -213,19 +213,19 @@ const Projects = () => {
                                     </div>
 
                                     {/* Project List */}
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col divide-y divide-border-light/70">
                                         {filteredProjects.map((project, idx) => (
                                             <motion.div
                                                 key={project.id}
                                                 initial={{ opacity: 0, y: 10 }}
                                                 whileInView={{ opacity: 1, y: 0 }}
                                                 viewport={{ once: true }}
-                                                transition={{ delay: idx * 0.05 }}
-                                                className="border-b border-border-light last:border-b-0 group"
+                                                transition={{ delay: idx * 0.04 }}
+                                                className="group"
                                             >
                                                 <div
                                                     onClick={() => toggleExpand(project.id)}
-                                                    className="grid grid-cols-12 gap-4 py-6 items-center cursor-pointer px-2 transition-colors duration-300 group-hover:bg-secondary-bg/50"
+                                                    className="grid grid-cols-12 gap-4 py-6 items-center cursor-pointer px-6 transition-colors duration-300 group-hover:bg-secondary-bg/60"
                                                 >
                                                     <div className="col-span-1 hidden md:block font-mono text-[10px] text-text-muted">{project.id}</div>
 
@@ -240,8 +240,8 @@ const Projects = () => {
                                                         <span className="text-[10px] font-mono text-text-main">{project.year}</span>
                                                     </div>
 
-                                                    <div className="col-span-4 md:col-span-2 flex justify-end items-center gap-6">
-                                                        <span className="text-[8px] tracking-[0.2em] uppercase hidden md:inline-block border border-border-light px-2 py-0.5 text-text-muted group-hover:border-text-main group-hover:text-text-main transition-colors">
+                                                    <div className="col-span-4 md:col-span-2 flex justify-end items-center gap-3">
+                                                        <span className="rounded-full bg-secondary-bg text-[8px] tracking-[0.2em] uppercase hidden md:inline-block px-2.5 py-1 text-text-muted group-hover:text-text-main transition-colors">
                                                             {project.status}
                                                         </span>
                                                         <div className={`text-[10px] transform transition-transform duration-500 opacity-30 group-hover:opacity-100 ${expandedId === project.id ? 'rotate-180' : ''}`}>
@@ -258,16 +258,16 @@ const Projects = () => {
                                                             animate={{ height: 'auto', opacity: 1 }}
                                                             exit={{ height: 0, opacity: 0 }}
                                                             transition={{ duration: 0.4, ease: "easeOut" }}
-                                                            className="overflow-hidden bg-secondary-bg/20"
+                                                            className="overflow-hidden bg-secondary-bg/30"
                                                         >
-                                                            <div className="pb-10 pl-2 md:pl-[8.33%] pr-4 grid grid-cols-1 md:grid-cols-12 gap-8 py-6 border-t border-border-light/50">
+                                                            <div className="pb-10 pl-6 md:pl-[8.33%] pr-6 grid grid-cols-1 md:grid-cols-12 gap-8 py-6">
                                                                 <div className="md:col-span-7 flex flex-col gap-4">
                                                                     <p className="text-xs md:text-sm font-light leading-relaxed text-text-main/90 max-w-xl">
                                                                         {project.desc}
                                                                     </p>
                                                                     <div className="flex flex-wrap gap-2">
                                                                         {project.tech.map((t, i) => (
-                                                                            <span key={i} className="text-[8px] uppercase tracking-[0.1em] border border-border-light px-2 py-0.5 text-text-muted font-mono">
+                                                                            <span key={i} className="rounded-full bg-surface border border-border-light/70 text-[8px] uppercase tracking-[0.1em] px-2.5 py-1 text-text-muted font-mono">
                                                                                 {t}
                                                                             </span>
                                                                         ))}
@@ -291,7 +291,7 @@ const Projects = () => {
                                             </motion.div>
                                         ))}
                                     </div>
-                                </>
+                                </div>
                             )}
                         </motion.div>
                     </AnimatePresence>
@@ -302,7 +302,7 @@ const Projects = () => {
                         href="https://github.com/SmtTheSE"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[10px] uppercase tracking-[0.3em] font-medium text-text-muted border border-border-light px-10 py-4 hover:border-text-main hover:text-text-main transition-all duration-500 hover:tracking-[0.4em]"
+                        className="liquid-pill text-[10px] uppercase tracking-[0.3em] font-medium text-text-muted px-10 py-4 hover:text-text-main transition-all duration-500 hover:tracking-[0.4em]"
                     >
                         Archive Repository
                     </a>

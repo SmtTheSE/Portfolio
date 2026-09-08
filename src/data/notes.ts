@@ -14,7 +14,7 @@ export const localNotes: GardenNote[] = [
   {
     id: 'atproto-portfolio',
     title: 'Why AT Protocol on a portfolio',
-    body: 'A portfolio should show how you build. Pulling identity, posts, and status from a PDS means the site stays in sync without hand-editing every update — and the data travels with you if the site moves.',
+    body: 'A portfolio should show how you build. Pulling identity, posts, and status from a PDS means the site stays in sync without hand-editing every update, and the data travels with you if the site moves.',
     tags: ['atproto', 'portfolio'],
     updatedAt: '2026-07-23',
   },

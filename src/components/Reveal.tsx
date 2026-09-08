@@ -1,36 +1,54 @@
-import { motion, useInView, useAnimation } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { ReactNode, useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 interface RevealProps {
-    children: React.ReactNode;
-    width?: "fit-content" | "100%";
+    children: ReactNode;
+    className?: string;
+    /** Stagger delay in seconds, useful when several Reveals sit in the same viewport. */
     delay?: number;
+    /** Distance (px) the content travels in from. */
+    distance?: number;
+    /** Slight scale-in for a softer, "liquid" settle. */
+    scale?: boolean;
+    as?: 'div' | 'span';
 }
 
-export const Reveal = ({ children, width = "fit-content", delay = 0.25 }: RevealProps) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true });
-    const mainControls = useAnimation();
+/** Scroll-triggered fade + rise reveal, powered by GSAP. */
+export default function Reveal({ children, className, delay = 0, distance = 24, scale = false, as = 'div' }: RevealProps) {
+    const ref = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (isInView) {
-            mainControls.start("visible");
-        }
-    }, [isInView, mainControls]);
-
-    return (
-        <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
-            <motion.div
-                variants={{
-                    hidden: { opacity: 0, y: 75 },
-                    visible: { opacity: 1, y: 0 },
-                }}
-                initial="hidden"
-                animate={mainControls}
-                transition={{ duration: 0.5, delay: delay }}
-            >
-                {children}
-            </motion.div>
-        </div>
+    useGSAP(
+        () => {
+            if (!ref.current) return;
+            gsap.fromTo(
+                ref.current,
+                { opacity: 0, y: distance, ...(scale ? { scale: 0.97 } : {}) },
+                {
+                    opacity: 1,
+                    y: 0,
+                    ...(scale ? { scale: 1 } : {}),
+                    duration: 0.9,
+                    delay,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: ref.current,
+                        start: 'top 88%',
+                        once: true,
+                    },
+                },
+            );
+        },
+        { scope: ref },
     );
-};
+
+    const Tag = as;
+    return (
+        <Tag ref={ref} className={className}>
+            {children}
+        </Tag>
+    );
+}

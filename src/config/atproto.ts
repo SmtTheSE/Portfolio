@@ -10,8 +10,6 @@ export const atprotoConfig = {
   /** Public AppView — CORS-friendly for browser clients. */
   service: 'https://api.bsky.app',
   feedLimit: 6,
-  followsLimit: 16,
-  digestPerAuthor: 2,
   /** Optional custom "now" record collection on your PDS (falls back to local data). */
   nowCollection: 'com.sittminthar.status.now',
   /** Digital garden notes collection (falls back to local notes). */

@@ -1,17 +1,26 @@
+import Reveal from './Reveal';
+
 const Experience = () => {
     const roles = [
         {
             org: 'AD VENTURE STUDIO',
             title: 'SOFTWARE ENGINEER',
-            year: '2026 — PRESENT',
-            detail: 'Building and shipping mobile apps for App Store and Google Play — product engineering, store releases, and infrastructure.',
+            year: '2026 - PRESENT',
+            detail: 'Building and shipping mobile apps for App Store and Google Play: product engineering, store releases, and infrastructure.',
         },
         {
             org: 'BRAVESTEP',
             href: 'https://bravestep.ai/',
             title: 'FOUNDING ENGINEER',
             year: 'PRESENT',
-            detail: 'Founding engineering role — systems direction and product infrastructure.',
+            detail: 'Founding engineering role: systems direction and product infrastructure.',
+        },
+        {
+            org: 'MALIBU',
+            href: 'https://malibu.tech/',
+            title: 'RELEASE-ACCEPTANCE ENGINEER',
+            year: 'PRESENT',
+            detail: 'Independent release-acceptance engineer for a macOS distributed-compute marketplace, the mandatory physical-hardware validation gate between CI-green and fleet rollout.',
         },
         {
             org: 'AIOT INC',
@@ -44,20 +53,20 @@ const Experience = () => {
     ];
 
     return (
-        <section id="experience" className="py-24 md:py-32 px-6 md:px-12 w-full border-t border-border-light flex justify-center">
+        <section id="experience" className="py-24 md:py-32 px-6 md:px-12 w-full flex justify-center">
             <div className="w-full max-w-5xl flex flex-col gap-24">
 
                 {/* Roles */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-                    <div className="md:col-span-4 flex flex-col gap-1">
-                        <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">// 02</span>
+                    <div className="md:col-span-4 flex flex-col gap-3">
                         <h2 className="text-xl md:text-2xl font-light tracking-tight uppercase text-text-main">Experience</h2>
+                        <div className="w-8 h-px bg-border-light" />
                     </div>
 
-                    <div className="md:col-span-8 flex flex-col gap-10">
+                    <div className="md:col-span-8 flex flex-col gap-5">
                         {roles.map((role, idx) => (
-                            <div key={idx} className="flex flex-col gap-2 group">
-                                <div className="flex justify-between items-baseline border-b border-border-light pb-2 group-hover:border-text-main transition-colors duration-500 gap-4">
+                            <Reveal key={idx} delay={idx * 0.06} className="liquid-card flex flex-col gap-2 p-6 group transition-shadow duration-300 hover:shadow-liquid-lg">
+                                <div className="flex justify-between items-baseline gap-4">
                                     {role.href ? (
                                         <a
                                             href={role.href}
@@ -74,52 +83,52 @@ const Experience = () => {
                                 </div>
                                 <p className="text-xs font-medium tracking-wide text-text-main">{role.title}</p>
                                 <p className="text-xs font-light text-text-muted leading-relaxed">{role.detail}</p>
-                            </div>
+                            </Reveal>
                         ))}
                     </div>
                 </div>
-                
+
                 {/* Arsenal Section */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 pt-24 border-t border-border-light/50 border-dashed">
-                    <div className="md:col-span-4 flex flex-col gap-1">
-                        <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">// 03</span>
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                    <div className="md:col-span-4 flex flex-col gap-3">
                         <h2 className="text-xl md:text-2xl font-light tracking-tight uppercase text-text-main">Technical <br className="hidden md:block" /> Arsenal</h2>
+                        <div className="w-8 h-px bg-border-light" />
                     </div>
-                    
-                    <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
+
+                    <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {skills.map((skill, i) => (
-                            <div key={i} className="flex flex-col gap-3 group">
-                                <h4 className="text-[10px] uppercase tracking-[0.2em] font-medium text-text-muted border-b border-border-light pb-2 group-hover:border-text-main transition-colors duration-500">
+                            <Reveal key={i} delay={i * 0.05} className="liquid-card flex flex-col gap-3 p-5">
+                                <h4 className="text-[10px] uppercase tracking-[0.2em] font-medium text-text-muted">
                                     {skill.cat}
                                 </h4>
-                                <div className="flex flex-wrap gap-x-4 gap-y-2">
+                                <div className="flex flex-wrap gap-2">
                                     {skill.items.map((item, idx) => (
-                                        <span key={idx} className="text-xs font-light tracking-tight text-text-main/80">
+                                        <span key={idx} className="rounded-full bg-secondary-bg px-2.5 py-1 text-[10px] font-light tracking-tight text-text-main/80">
                                             {item}
                                         </span>
                                     ))}
                                 </div>
-                            </div>
+                            </Reveal>
                         ))}
                     </div>
                 </div>
 
                 {/* Education */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 pt-24 border-t border-border-light/50 border-dashed">
-                    <div className="md:col-span-4 flex flex-col gap-1">
-                        <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">// 04</span>
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                    <div className="md:col-span-4 flex flex-col gap-3">
                         <h2 className="text-xl md:text-2xl font-light tracking-tight uppercase text-text-main">Education</h2>
+                        <div className="w-8 h-px bg-border-light" />
                     </div>
 
-                    <div className="md:col-span-8 flex flex-col gap-12">
+                    <div className="md:col-span-8 flex flex-col gap-4">
                         {education.map((edu, idx) => (
-                            <div key={idx} className="flex flex-col gap-2 group">
-                                <div className="flex justify-between items-baseline border-b border-border-light pb-2 group-hover:border-text-main transition-colors duration-500">
+                            <Reveal key={idx} delay={idx * 0.06} className="liquid-card flex flex-col gap-2 p-6">
+                                <div className="flex justify-between items-baseline gap-4">
                                     <h4 className="text-sm font-medium tracking-tight uppercase text-text-main">{edu.school}</h4>
                                     <span className="text-[10px] font-mono text-text-muted">{edu.year}</span>
                                 </div>
                                 <p className="text-xs font-light text-text-muted tracking-wide">{edu.degree}</p>
-                            </div>
+                            </Reveal>
                         ))}
                     </div>
                 </div>
