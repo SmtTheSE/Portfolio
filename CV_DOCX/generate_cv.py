@@ -33,7 +33,6 @@ EXPERIENCE = [
         "dates": "2026 -- Present",
         "bullets": [
             "Building and shipping mobile apps for App Store and Google Play, owning product engineering, store releases, and app infrastructure",
-            "Developed and shipped Android applications now serving 3.9K daily active users, driving week-over-week growth in retention and revenue",
             "Partnering with design and monetization leads on UX, performance, and retention-oriented product engineering",
         ],
     },
