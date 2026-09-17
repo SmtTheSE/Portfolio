@@ -74,11 +74,11 @@ const Hero = () => {
                 <div className="hero-copy grid grid-cols-1 md:grid-cols-2 gap-x-[81px] gap-y-8 text-[17px] leading-[26px] text-text-main font-light">
                     {/* Left column: bio, then where to go next */}
                     <div className="flex flex-col gap-6 order-1">
-                        <p>Sitt Min Thar is a software engineer based in {nowStatus.location}.</p>
+                        <p>I'm a software engineer based in {nowStatus.location}.</p>
                         <p>
-                            Sitt is a Software Engineer at Ad Venture Studio, where he builds and ships mobile
-                            apps for the App Store and Google Play, owning product engineering, store releases,
-                            and app infrastructure. He works alongside design and monetization leads on UX,
+                            I'm a Software Engineer at Ad Venture Studio, where I build and ship mobile apps
+                            for the App Store and Google Play, owning product engineering, store releases, and
+                            app infrastructure. I work alongside design and monetization leads on UX,
                             performance, and retention.
                         </p>
                     </div>
@@ -109,16 +109,16 @@ const Hero = () => {
                     {/* Right column: bio, then contact */}
                     <div className="flex flex-col gap-6 order-2">
                         <p>
-                            He is also a Founding Engineer at{' '}
+                            I'm also a Founding Engineer at{' '}
                             <ExternalLink href="https://bravestep.ai/">Bravestep</ExternalLink>
-                            , and works independently as a release-acceptance engineer for{' '}
+                            , and work independently as a release-acceptance engineer for{' '}
                             <ExternalLink href="https://malibu.tech/">Malibu</ExternalLink>
                             , a macOS distributed-compute marketplace, serving as the physical-hardware
                             validation gate between CI-green and fleet rollout.
                         </p>
                         <p>
-                            His work centers on the intersection of robust backend systems and modern AI
-                            integration. Sitt previously interned at AIOT Inc, and is studying for a BS in
+                            My work centers on the intersection of robust backend systems and modern AI
+                            integration. I previously interned at AIOT Inc, and I'm studying for a BS in
                             Data Science at SBS.
                         </p>
                     </div>

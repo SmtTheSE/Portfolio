@@ -11,25 +11,25 @@ const About = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[81px] gap-y-6 text-[17px] leading-[26px] text-text-main font-light">
                     <Reveal className="flex flex-col gap-6">
                         <p>
-                            Sitt Min Thar is a software engineer based in Ho Chi Minh City, Vietnam, building
-                            with a focus on structure and performance.
+                            I'm a software engineer based in Ho Chi Minh City, Vietnam, building with a
+                            focus on structure and performance.
                         </p>
                         <p>
-                            He is a Software Engineer at Ad Venture Studio, a venture studio shipping mobile apps
-                            to the App Store and Google Play, where he owns product engineering, store releases,
+                            I'm a Software Engineer at Ad Venture Studio, a venture studio shipping mobile apps
+                            to the App Store and Google Play, where I own product engineering, store releases,
                             and app infrastructure.
                         </p>
                     </Reveal>
 
                     <Reveal delay={0.1} className="flex flex-col gap-6">
                         <p>
-                            He is also a Founding Engineer at{' '}
+                            I'm also a Founding Engineer at{' '}
                             <ExternalLink href="https://bravestep.ai/">Bravestep</ExternalLink>
-                            . His process is driven by the intersection of robust backend systems and modern AI
+                            . My process is driven by the intersection of robust backend systems and modern AI
                             integration, so that every solution scales and provides genuine value.
                         </p>
                         <p>
-                            Sitt is studying for a BS in Data Science at SBS, alongside the engineering work.
+                            I'm studying for a BS in Data Science at SBS, alongside the engineering work.
                         </p>
                     </Reveal>
                 </div>
