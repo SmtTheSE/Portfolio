@@ -1,10 +1,26 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import Layout from './components/Layout';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
 import About from './components/About';
 import Experience from './components/Experience';
 import HireMe from './components/HireMe';
+import ProfileGate from './components/ProfileGate';
+
+const MOBILE_GATE_KEY = 'smt-portfolio-entered';
+
+const isMobileViewport = () =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+
+const hasAlreadyEntered = () => {
+    if (typeof window === 'undefined') return true;
+    if (!isMobileViewport()) return true;
+    try {
+        return sessionStorage.getItem(MOBILE_GATE_KEY) === '1';
+    } catch {
+        return false;
+    }
+};
 
 const AtprotoIdentity = lazy(() => import('./components/atproto/AtprotoIdentity'));
 const NowSection = lazy(() => import('./components/atproto/NowSection'));
@@ -23,6 +39,23 @@ function AtprotoFallback() {
 }
 
 function App() {
+  const [entered, setEntered] = useState(hasAlreadyEntered);
+
+  if (!entered) {
+    return (
+      <ProfileGate
+        onEnter={() => {
+          try {
+            sessionStorage.setItem(MOBILE_GATE_KEY, '1');
+          } catch {
+            // storage unavailable — still let the visitor through
+          }
+          setEntered(true);
+        }}
+      />
+    );
+  }
+
   return (
     <Layout>
       <Hero />
