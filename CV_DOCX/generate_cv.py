@@ -46,6 +46,15 @@ EXPERIENCE = [
         ],
     },
     {
+        "title": "Release-Acceptance Engineer",
+        "org": "Malibu",
+        "org_url": "https://malibu.tech/",
+        "dates": "Present",
+        "bullets": [
+            "Independent release-acceptance engineer for a macOS distributed-compute marketplace, serving as the physical-hardware validation gate between CI-green and fleet rollout",
+        ],
+    },
+    {
         "title": "Software Development Intern",
         "org": "AIOT Inc",
         "org_url": "https://www.facebook.com/aiot.global.inc",
