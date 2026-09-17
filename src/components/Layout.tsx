@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import Footer from './Footer';
 
@@ -19,20 +20,11 @@ const NAV_LINKS: { name: string; href: string; download?: boolean }[] = [
 
 const SCROLL_LINKS = NAV_LINKS.filter((l) => !l.download);
 
-function handleGlassMove(e: React.MouseEvent<HTMLElement>) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    e.currentTarget.style.setProperty('--mx', `${x}%`);
-    e.currentTarget.style.setProperty('--my', `${y}%`);
-}
-
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     const navRef = useRef<HTMLUListElement>(null);
     const indicatorRef = useRef<HTMLSpanElement>(null);
     const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [scrolled, setScrolled] = useState(false);
 
     const moveIndicatorTo = (index: number, animate = true) => {
         const el = linkRefs.current[index];
@@ -58,13 +50,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     }, [activeIndex]);
 
     useEffect(() => {
-        // Re-sync the indicator once the pill's compact/expanded padding transition settles.
-        const t = setTimeout(() => moveIndicatorTo(activeIndex), 260);
-        return () => clearTimeout(t);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [scrolled]);
-
-    useEffect(() => {
         const sections = SCROLL_LINKS.map((l) => ({
             href: l.href,
             el: document.querySelector(l.href) as HTMLElement | null,
@@ -81,7 +66,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             }
             const idx = NAV_LINKS.findIndex((l) => l.href === activeHref);
             if (idx !== -1) setActiveIndex(idx);
-            setScrolled(window.scrollY > 24);
         };
 
         onScroll();
@@ -94,66 +78,50 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     }, []);
 
     return (
-        <div id="top" className="min-h-screen bg-primary-bg text-text-main font-sans selection:bg-text-main selection:text-primary-bg selection:text-white">
+        <div id="top" className="min-h-screen bg-white text-text-main font-sans selection:bg-text-main selection:text-primary-bg selection:text-white">
             <div className="min-h-screen flex flex-col relative w-full">
-                {/* Floating liquid-glass header — compacts and deepens its blur on scroll */}
-                <header
-                    className={`fixed left-0 w-full z-[100] flex justify-between items-center gap-3 px-4 md:px-8 pointer-events-none transition-[top] duration-300 ease-spring ${
-                        scrolled ? 'top-2 md:top-3' : 'top-4 md:top-6'
-                    }`}
-                >
-                    <a
-                        href="#top"
-                        onMouseMove={handleGlassMove}
-                        className={`glass pointer-events-auto rounded-full shadow-liquid font-sans font-medium tracking-tight text-sm text-text-main transition-all duration-300 ease-spring hover:scale-[1.03] active:scale-[0.96] ${
-                            scrolled ? 'px-4 py-2' : 'px-5 py-2.5'
-                        }`}
-                    >
-                        Sitt Min Thar
-                    </a>
-
-                    <nav className="hidden md:block pointer-events-auto">
-                        <div
-                            onMouseMove={handleGlassMove}
-                            className={`glass rounded-full shadow-liquid transition-[padding] duration-300 ease-spring ${scrolled ? 'p-1' : 'p-1.5'}`}
-                        >
-                            <ul
-                                ref={navRef}
-                                onMouseLeave={() => moveIndicatorTo(activeIndex)}
-                                className="relative flex items-center gap-1 text-[11px] uppercase tracking-[0.15em] text-text-muted"
+                {/* Local nav bar — the intro page's label bar, carrying the section links */}
+                <header className="sticky top-0 z-[100] w-full bg-white/85 backdrop-blur-xl border-b border-[#C7C7CC]">
+                    <div className="mx-auto w-full max-w-5xl px-6 md:px-12">
+                        <div className="h-[52px] flex items-center justify-between gap-6">
+                            <Link
+                                to="/"
+                                className="text-[17px] md:text-[21px] font-semibold tracking-tight text-text-main hover:opacity-70 transition-opacity"
                             >
-                                <span
-                                    ref={indicatorRef}
-                                    className="absolute inset-y-0 left-0 rounded-full bg-text-main/[0.06] ring-1 ring-text-main/[0.06]"
-                                    style={{ width: 0 }}
-                                />
-                                {NAV_LINKS.map((link, i) => (
-                                    <li key={link.name} className="relative z-10">
-                                        <a
-                                            ref={(el) => { linkRefs.current[i] = el; }}
-                                            href={link.href}
-                                            {...(link.download ? { download: true } : {})}
-                                            onMouseEnter={() => moveIndicatorTo(i)}
-                                            className={`relative block px-4 py-2.5 rounded-full transition-colors duration-300 ${
-                                                activeIndex === i ? 'text-text-main' : 'hover:text-text-main'
-                                            }`}
-                                        >
-                                            {link.name}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </nav>
+                                Sitt Min Thar
+                            </Link>
 
-                    <div
-                        onMouseMove={handleGlassMove}
-                        className={`glass pointer-events-auto flex items-center gap-2 rounded-full shadow-liquid transition-all duration-300 ease-spring ${
-                            scrolled ? 'px-3 py-2' : 'px-4 py-2.5'
-                        }`}
-                    >
-                        <span className="text-[9px] uppercase tracking-widest text-text-muted">GMT+7</span>
-                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                            <nav className="hidden md:block">
+                                <ul
+                                    ref={navRef}
+                                    onMouseLeave={() => moveIndicatorTo(activeIndex)}
+                                    className="relative flex items-center gap-1 text-[12px] tracking-tight text-text-muted"
+                                >
+                                    <span
+                                        ref={indicatorRef}
+                                        className="absolute inset-y-1 left-0 rounded-full bg-text-main/[0.06]"
+                                        style={{ width: 0 }}
+                                    />
+                                    {NAV_LINKS.map((link, i) => (
+                                        <li key={link.name} className="relative z-10">
+                                            <a
+                                                ref={(el) => { linkRefs.current[i] = el; }}
+                                                href={link.href}
+                                                {...(link.download ? { download: true } : {})}
+                                                onMouseEnter={() => moveIndicatorTo(i)}
+                                                className={`relative block px-3 py-1.5 rounded-full transition-colors duration-300 ${
+                                                    activeIndex === i ? 'text-text-main' : 'hover:text-text-main'
+                                                }`}
+                                            >
+                                                {link.name}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+
+                            <span className="md:hidden text-[11px] tracking-tight text-text-muted">GMT+7</span>
+                        </div>
                     </div>
                 </header>
 

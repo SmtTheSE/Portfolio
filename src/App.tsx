@@ -1,26 +1,11 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
 import About from './components/About';
 import Experience from './components/Experience';
 import HireMe from './components/HireMe';
-import ProfileGate from './components/ProfileGate';
-
-const MOBILE_GATE_KEY = 'smt-portfolio-entered';
-
-const isMobileViewport = () =>
-    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
-
-const hasAlreadyEntered = () => {
-    if (typeof window === 'undefined') return true;
-    if (!isMobileViewport()) return true;
-    try {
-        return sessionStorage.getItem(MOBILE_GATE_KEY) === '1';
-    } catch {
-        return false;
-    }
-};
 
 const AtprotoIdentity = lazy(() => import('./components/atproto/AtprotoIdentity'));
 const NowSection = lazy(() => import('./components/atproto/NowSection'));
@@ -38,27 +23,53 @@ function AtprotoFallback() {
   );
 }
 
-function App() {
-  const [entered, setEntered] = useState(hasAlreadyEntered);
+/**
+ * Handles cross-page links like /portfolio#projects. Retries briefly because
+ * the lazy-loaded sections may not be in the DOM yet on first paint.
+ * In-page anchor clicks are left to the browser.
+ */
+function ScrollToHash() {
+  const { pathname, hash } = useLocation();
+  const lastPath = useRef<string | null>(null);
 
-  if (!entered) {
-    return (
-      <ProfileGate
-        onEnter={() => {
-          try {
-            sessionStorage.setItem(MOBILE_GATE_KEY, '1');
-          } catch {
-            // storage unavailable — still let the visitor through
-          }
-          setEntered(true);
-        }}
-      />
-    );
-  }
+  useEffect(() => {
+    const changedPage = lastPath.current !== pathname;
+    lastPath.current = pathname;
+    if (!changedPage) return;
 
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    let tries = 0;
+    let timer: number;
+    const scroll = () => {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      } else if (tries++ < 20) {
+        timer = window.setTimeout(scroll, 100);
+      }
+    };
+    scroll();
+    return () => window.clearTimeout(timer);
+  }, [pathname, hash]);
+
+  return null;
+}
+
+function IntroPage() {
+  return (
+    <div className="min-h-screen bg-white text-text-main font-sans antialiased">
+      <Hero />
+    </div>
+  );
+}
+
+function PortfolioPage() {
   return (
     <Layout>
-      <Hero />
       <div className="grid grid-cols-1 w-full">
         <About />
         <Experience />
@@ -73,6 +84,18 @@ function App() {
       </Suspense>
       <HireMe />
     </Layout>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToHash />
+      <Routes>
+        <Route path="/" element={<IntroPage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

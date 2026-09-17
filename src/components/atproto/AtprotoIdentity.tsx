@@ -11,9 +11,9 @@ export default function AtprotoIdentity() {
   return (
     <section id="identity" className="px-6 md:px-12 w-full flex justify-center pb-12 md:pb-16">
       <div className="w-full max-w-5xl">
-        <div className="liquid-card bg-secondary-bg/40 px-6 md:px-10 py-8 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="bg-secondary-bg/40 border border-border-light px-6 md:px-10 py-8 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex flex-col gap-1">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">at://protocol</span>
+            <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted">at://protocol</span>
             <h2 className="text-sm uppercase tracking-[0.15em] font-medium text-text-main">Decentralized Identity</h2>
           </div>
 
@@ -25,7 +25,7 @@ export default function AtprotoIdentity() {
           )}
 
           {configured && loading && (
-            <p className="text-xs text-text-muted font-mono uppercase tracking-widest">Resolving DID…</p>
+            <p className="text-xs text-text-muted uppercase tracking-widest">Resolving DID…</p>
           )}
 
           {configured && error && (
@@ -45,7 +45,7 @@ export default function AtprotoIdentity() {
                   <img
                     src={profile.avatar}
                     alt={profile.displayName}
-                    className="w-10 h-10 object-cover rounded-full border border-white/70 grayscale shadow-liquid"
+                    className="w-10 h-10 object-cover rounded-full border border-white/70 grayscale "
                   />
                 ) : (
                   <div className="w-10 h-10 rounded-full border border-border-light bg-surface" />
@@ -59,13 +59,13 @@ export default function AtprotoIdentity() {
                   >
                     @{profile.handle}
                   </a>
-                  <span className="text-[10px] font-mono text-text-muted" title={profile.did}>
+                  <span className="text-[10px] text-text-muted" title={profile.did}>
                     {shortenDid(profile.did)}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 text-[10px] uppercase tracking-[0.15em] text-text-muted font-mono">
+              <div className="flex items-center gap-6 text-[10px] uppercase tracking-[0.15em] text-text-muted">
                 <div className="flex flex-col gap-0.5">
                   <span className="text-text-main text-sm font-sans font-medium tracking-normal normal-case">
                     {formatCompactCount(profile.followersCount)}

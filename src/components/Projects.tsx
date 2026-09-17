@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SectionHeader from './SectionHeader';
 
 const projects = [
     {
@@ -125,38 +126,32 @@ const Projects = () => {
     const filteredProjects = projects.filter(p => p.category === activeTab);
 
     return (
-        <section id="projects" className="py-24 md:py-32 px-6 md:px-12 w-full flex justify-center">
-            <div className="w-full max-w-5xl flex flex-col gap-12">
-                {/* Minimalist Header */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-8">
-                    <div className="flex flex-col gap-3">
-                        <h2 className="text-xl md:text-2xl font-light tracking-tight uppercase text-text-main">
-                            Selected <br className="hidden md:block" /> Works
-                        </h2>
-                        <div className="w-8 h-px bg-border-light" />
-                    </div>
+        <section id="projects" className="py-16 md:py-20 px-6 md:px-12 w-full flex justify-center scroll-mt-[52px]">
+            <div className="w-full max-w-5xl flex flex-col">
+                <SectionHeader label="Selected Work" />
 
-                    {/* Tab Switcher - liquid segmented control */}
+                <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
+                    {/* Tab Switcher */}
                     <div className="liquid-pill relative flex items-center gap-1 p-1.5">
                         <button
                             onClick={() => setActiveTab('SE')}
-                            className={`relative z-10 px-4 py-2 rounded-full text-[10px] uppercase tracking-[0.2em] font-mono transition-colors duration-300 ${activeTab === 'SE' ? 'text-text-main' : 'text-text-muted hover:text-text-main/70'}`}
+                            className={`relative z-10 px-4 py-2 rounded-full text-[12px] tracking-tight transition-colors duration-300 ${activeTab === 'SE' ? 'text-text-main' : 'text-text-muted hover:text-text-main/70'}`}
                         >
                             {activeTab === 'SE' && <motion.span layoutId="tab-pill" className="absolute inset-0 -z-10 rounded-full bg-secondary-bg" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
-                            Software Eng
+                            Software Engineering
                         </button>
                         <button
                             onClick={() => setActiveTab('DATA')}
-                            className={`relative z-10 px-4 py-2 rounded-full text-[10px] uppercase tracking-[0.2em] font-mono transition-colors duration-300 ${activeTab === 'DATA' ? 'text-text-main' : 'text-text-muted hover:text-text-main/70'}`}
+                            className={`relative z-10 px-4 py-2 rounded-full text-[12px] tracking-tight transition-colors duration-300 ${activeTab === 'DATA' ? 'text-text-main' : 'text-text-muted hover:text-text-main/70'}`}
                         >
                             {activeTab === 'DATA' && <motion.span layoutId="tab-pill" className="absolute inset-0 -z-10 rounded-full bg-secondary-bg" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
                             Data Analysis
                         </button>
                     </div>
 
-                    <div className="liquid-pill text-[10px] uppercase tracking-[0.2em] text-text-muted font-mono px-3 py-1.5">
-                        Count: {activeTab === 'SE' ? filteredProjects.length.toString().padStart(2, '0') : '01'}
-                    </div>
+                    <span className="text-[13px] tracking-tight text-text-muted">
+                        {activeTab === 'SE' ? filteredProjects.length : 1} projects
+                    </span>
                 </div>
 
                 <div className="w-full">
@@ -173,21 +168,21 @@ const Projects = () => {
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="liquid-card p-8 md:p-12 bg-secondary-bg/30 relative group overflow-hidden"
+                                    className="border-y border-border-light py-10 md:py-14 relative group"
                                 >
                                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                                        <span className="text-5xl font-mono">KAGGLE</span>
+                                        <span className="text-5xl font-light tracking-tight">KAGGLE</span>
                                     </div>
                                     <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                                         <div className="flex flex-col gap-4 max-w-xl">
                                             <div className="flex items-center gap-3">
-                                                <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">Archive Showcase</span>
+                                                <span className="text-[11px] uppercase tracking-[0.15em] text-text-muted">Archive Showcase</span>
                                                 <span className="w-8 h-px bg-border-light"></span>
                                             </div>
-                                            <h3 className="text-2xl md:text-3xl font-light tracking-tight text-text-main uppercase">
-                                                Kaggle Analytics <br /> & Findings
+                                            <h3 className="text-[28px] md:text-[32px] leading-[35px] font-light tracking-tight text-text-main">
+                                                Kaggle Analytics & Findings
                                             </h3>
-                                            <p className="text-sm font-light leading-relaxed text-text-muted">
+                                            <p className="text-[17px] leading-[26px] font-light text-text-muted">
                                                 A comprehensive showcase of data analysis projects and findings from Kaggle.
                                                 Features interactive Streamlit dashboards exploring various datasets, from demographic trends to predictive modeling.
                                             </p>
@@ -196,16 +191,16 @@ const Projects = () => {
                                             href="https://kaggleanalysissittminthar.streamlit.app/"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="rounded-full px-8 py-4 bg-text-main text-primary-bg text-[10px] uppercase tracking-[0.3em] font-medium hover:bg-text-main/90 transition-colors shadow-liquid"
+                                            className="liquid-pill shrink-0 px-6 py-3 text-[12px] tracking-tight text-text-main hover:opacity-70 transition-opacity"
                                         >
                                             View Showcase ↗
                                         </a>
                                     </div>
                                 </motion.div>
                             ) : (
-                                <div className="liquid-card overflow-hidden">
+                                <div className="border-t border-border-light">
                                     {/* Header Row - Only for standard projects */}
-                                    <div className="grid grid-cols-12 gap-4 py-4 px-6 border-b border-border-light/70 text-[9px] text-text-muted uppercase tracking-[0.2em] font-mono">
+                                    <div className="grid grid-cols-12 gap-4 py-3 border-b border-border-light text-[11px] text-text-muted uppercase tracking-[0.15em]">
                                         <div className="col-span-1 hidden md:block">ID</div>
                                         <div className="col-span-8 md:col-span-7">Project Title</div>
                                         <div className="hidden md:block col-span-2 text-right">Role / Year</div>
@@ -225,23 +220,23 @@ const Projects = () => {
                                             >
                                                 <div
                                                     onClick={() => toggleExpand(project.id)}
-                                                    className="grid grid-cols-12 gap-4 py-6 items-center cursor-pointer px-6 transition-colors duration-300 group-hover:bg-secondary-bg/60"
+                                                    className="grid grid-cols-12 gap-4 py-6 items-center cursor-pointer transition-colors duration-300 group-hover:bg-secondary-bg/40"
                                                 >
-                                                    <div className="col-span-1 hidden md:block font-mono text-[10px] text-text-muted">{project.id}</div>
+                                                    <div className="col-span-1 hidden md:block text-[13px] text-text-muted">{project.id}</div>
 
                                                     <div className="col-span-8 md:col-span-7">
-                                                        <h3 className="text-sm md:text-base font-medium tracking-tight uppercase text-text-main group-hover:pl-2 transition-all duration-300">
+                                                        <h3 className="text-[17px] md:text-[21px] leading-[26px] font-medium tracking-tight text-text-main group-hover:pl-2 transition-all duration-300">
                                                             {project.title}
                                                         </h3>
                                                     </div>
 
                                                     <div className="hidden md:block col-span-2 text-right">
-                                                        <span className="block text-[9px] uppercase tracking-widest text-text-muted mb-0.5">{project.role}</span>
-                                                        <span className="text-[10px] font-mono text-text-main">{project.year}</span>
+                                                        <span className="block text-[11px] uppercase tracking-[0.15em] text-text-muted mb-0.5">{project.role}</span>
+                                                        <span className="text-[13px] text-text-main">{project.year}</span>
                                                     </div>
 
                                                     <div className="col-span-4 md:col-span-2 flex justify-end items-center gap-3">
-                                                        <span className="rounded-full bg-secondary-bg text-[8px] tracking-[0.2em] uppercase hidden md:inline-block px-2.5 py-1 text-text-muted group-hover:text-text-main transition-colors">
+                                                        <span className="rounded-full bg-secondary-bg text-[10px] tracking-[0.1em] uppercase hidden md:inline-block px-2.5 py-1 text-text-muted group-hover:text-text-main transition-colors">
                                                             {project.status}
                                                         </span>
                                                         <div className={`text-[10px] transform transition-transform duration-500 opacity-30 group-hover:opacity-100 ${expandedId === project.id ? 'rotate-180' : ''}`}>
@@ -258,16 +253,16 @@ const Projects = () => {
                                                             animate={{ height: 'auto', opacity: 1 }}
                                                             exit={{ height: 0, opacity: 0 }}
                                                             transition={{ duration: 0.4, ease: "easeOut" }}
-                                                            className="overflow-hidden bg-secondary-bg/30"
+                                                            className="overflow-hidden bg-secondary-bg/40"
                                                         >
-                                                            <div className="pb-10 pl-6 md:pl-[8.33%] pr-6 grid grid-cols-1 md:grid-cols-12 gap-8 py-6">
+                                                            <div className="pb-10 md:pl-[8.33%] grid grid-cols-1 md:grid-cols-12 gap-8 py-6">
                                                                 <div className="md:col-span-7 flex flex-col gap-4">
-                                                                    <p className="text-xs md:text-sm font-light leading-relaxed text-text-main/90 max-w-xl">
+                                                                    <p className="text-[17px] leading-[26px] font-light text-text-main max-w-xl">
                                                                         {project.desc}
                                                                     </p>
                                                                     <div className="flex flex-wrap gap-2">
                                                                         {project.tech.map((t, i) => (
-                                                                            <span key={i} className="rounded-full bg-surface border border-border-light/70 text-[8px] uppercase tracking-[0.1em] px-2.5 py-1 text-text-muted font-mono">
+                                                                            <span key={i} className="liquid-pill px-3 py-1.5 text-[12px] font-light tracking-tight text-text-main">
                                                                                 {t}
                                                                             </span>
                                                                         ))}
@@ -279,7 +274,7 @@ const Projects = () => {
                                                                         href={project.link}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
-                                                                        className="text-[9px] uppercase tracking-[0.2em] font-medium text-text-main border-b border-text-main/20 hover:border-text-main transition-colors pb-1"
+                                                                        className="text-[13px] tracking-tight text-text-main border-b border-text-main/20 hover:border-text-main transition-colors pb-1"
                                                                     >
                                                                         Source Code ↗
                                                                     </a>

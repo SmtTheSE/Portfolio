@@ -1,18 +1,17 @@
 import { motion } from 'framer-motion';
 import { bskyProfileUrl } from '../../config/atproto';
 import { useCommunityGarden } from '../../hooks/useAtproto';
+import SectionHeader from '../SectionHeader';
 
 export default function CommunityGarden() {
   const { people, sites } = useCommunityGarden();
 
   return (
-    <section id="garden" className="py-24 md:py-32 px-6 md:px-12 w-full flex justify-center">
-      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
+    <section id="garden" className="py-16 md:py-20 px-6 md:px-12 scroll-mt-[52px] w-full flex justify-center">
+      <div className="w-full max-w-5xl">
+        <SectionHeader label="Community Garden" />
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
         <div className="md:col-span-4 flex flex-col gap-3">
-          <h2 className="text-xl md:text-2xl font-light tracking-tight uppercase text-text-main">
-            Community <br className="hidden md:block" /> Garden
-          </h2>
-          <div className="w-8 h-px bg-border-light" />
           <p className="text-xs text-text-muted font-light leading-relaxed max-w-xs">
             People and sites I follow closely. Profiles load live from the Bluesky API: a curated links garden, not an iframe.
           </p>
@@ -20,8 +19,8 @@ export default function CommunityGarden() {
 
         <div className="md:col-span-8 flex flex-col gap-10">
           <div>
-            <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono mb-4 block">People</span>
-            <div className="liquid-card divide-y divide-border-light/70 overflow-hidden">
+            <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted mb-4 block">People</span>
+            <div className="border border-border-light divide-y divide-border-light overflow-hidden">
               {people.loading &&
                 Array.from({ length: 3 }).map((_, i) => (
                   <div key={i} className="p-5 h-24 animate-pulse bg-secondary-bg/30" />
@@ -53,7 +52,7 @@ export default function CommunityGarden() {
                       <span className="text-sm font-medium tracking-tight text-text-main">
                         {person.profile?.displayName || person.handle}
                       </span>
-                      <span className="text-[11px] font-mono text-text-muted">@{person.handle}</span>
+                      <span className="text-[11px] text-text-muted">@{person.handle}</span>
                       <p className="text-xs text-text-muted font-light leading-relaxed pt-1">{person.note}</p>
                     </div>
                   </motion.a>
@@ -62,7 +61,7 @@ export default function CommunityGarden() {
           </div>
 
           <div>
-            <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted font-mono mb-4 block">Sites</span>
+            <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted mb-4 block">Sites</span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {sites.map((site) => (
                 <a
@@ -70,7 +69,7 @@ export default function CommunityGarden() {
                   href={site.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="liquid-card p-5 flex flex-col gap-2 hover:shadow-liquid-lg transition-shadow"
+                  className="border border-border-light p-5 flex flex-col gap-2 hover:bg-secondary-bg/40 transition-colors"
                 >
                   <span className="text-sm font-medium tracking-tight text-text-main">{site.title}</span>
                   <span className="text-xs text-text-muted font-light leading-relaxed">{site.note}</span>
@@ -79,6 +78,7 @@ export default function CommunityGarden() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
