@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import profile from '/profile.jpeg';
+import profileCutout from '/profile-cutout.webp';
 import { nowStatus } from '../data/now';
 
 const Hero = () => {
@@ -34,7 +34,7 @@ const Hero = () => {
                  style={{ backgroundImage: 'radial-gradient(#000 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }}>
             </div>
 
-            <div className="relative z-10 w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-12 md:gap-24">
+            <div className="relative z-10 w-full max-w-5xl flex flex-col md:flex-row items-center md:items-end justify-between gap-12 md:gap-16">
                 {/* Text Content */}
                 <div className="flex flex-col items-start gap-8 flex-1">
                     <div className="hero-headline flex flex-col gap-2">
@@ -80,14 +80,13 @@ const Hero = () => {
                     </div>
                 </div>
 
-                {/* Profile Image - Liquid glass frame */}
-                <div className="hero-portrait w-48 h-60 md:w-64 md:h-80 overflow-hidden relative group rounded-3xl border border-white/60 shadow-liquid-lg">
+                {/* Profile Image - background-trimmed cutout, floating directly on the page */}
+                <div className="hero-portrait w-64 sm:w-80 md:w-[26rem] shrink-0">
                     <img
-                        src={profile}
+                        src={profileCutout}
                         alt="Sitt Min Thar"
-                        className="w-full h-full object-cover grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-105"
+                        className="w-full h-auto object-contain"
                     />
-                    <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/40 pointer-events-none" />
                 </div>
             </div>
 
