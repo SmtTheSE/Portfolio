@@ -27,27 +27,41 @@ const Hero = () => {
     );
 
     return (
-        <section ref={rootRef} className="relative min-h-[80vh] w-full flex flex-col justify-center items-center overflow-hidden px-6 md:px-12 pt-36 pb-20">
-            <div className="absolute inset-x-0 top-0 h-full w-full pointer-events-none z-0 opacity-[0.03]"
-                 style={{ backgroundImage: 'radial-gradient(#000 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }}>
+        <section ref={rootRef} className="relative w-full overflow-hidden pt-28 md:pt-32">
+            {/* Portrait band - the cutout stands on the band's bottom edge */}
+            <div
+                className="relative w-full"
+                style={{ backgroundImage: 'linear-gradient(to bottom, #EAEAEA, #FAFAFA)' }}
+            >
+                <div className="mx-auto w-full max-w-5xl px-6 md:px-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 items-end gap-8 md:gap-12 md:min-h-[24rem]">
+                        <div className="hero-headline flex flex-col gap-2 self-center pt-12 pb-4 md:py-16">
+                            <span className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-light">
+                                {nowStatus.location}
+                            </span>
+                            <h1 className="text-4xl md:text-5xl font-medium tracking-tight leading-none text-text-main">
+                                Sitt Min Thar
+                            </h1>
+                            <p className="text-base md:text-lg font-light tracking-tight text-text-muted">
+                                Software Engineer, Ad Venture Studio
+                            </p>
+                        </div>
+
+                        <div className="hero-portrait self-end flex justify-center md:justify-end">
+                            <img
+                                src={profileCutout}
+                                alt="Sitt Min Thar"
+                                className="block w-48 sm:w-56 md:w-80 h-auto"
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div className="relative z-10 w-full max-w-5xl grid grid-cols-1 md:grid-cols-[1.15fr_0.85fr] items-center gap-12 md:gap-16">
-                {/* Name, title, bio */}
-                <div className="order-2 md:order-1 flex flex-col items-start gap-7">
-                    <div className="hero-headline flex flex-col gap-3">
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-light">
-                            {nowStatus.location}
-                        </span>
-                        <h1 className="text-4xl md:text-5xl font-light tracking-tight leading-none text-text-main">
-                            Sitt Min Thar
-                        </h1>
-                        <p className="text-xl md:text-2xl font-light tracking-tight leading-snug text-text-muted">
-                            Software Engineer, Ad Venture Studio
-                        </p>
-                    </div>
-
-                    <p className="hero-copy text-sm md:text-base text-text-main/90 font-light leading-relaxed max-w-lg">
+            {/* Bio below the band, in a narrow editorial column */}
+            <div className="mx-auto w-full max-w-5xl px-6 md:px-12 pt-12 md:pt-16 pb-24 md:pb-28">
+                <div className="flex flex-col items-start gap-7 max-w-md">
+                    <p className="hero-copy text-sm md:text-base text-text-main/90 font-light leading-relaxed">
                         I build with a focus on structure and performance, currently shipping mobile apps to
                         the App Store and Google Play at Ad Venture Studio, and as Founding Engineer at{' '}
                         <a
@@ -72,19 +86,10 @@ const Hero = () => {
                         </a>
                     </div>
                 </div>
-
-                {/* Profile Image - background-trimmed cutout, floating directly on the page */}
-                <div className="hero-portrait order-1 md:order-2 w-56 sm:w-72 md:w-full md:max-w-xs md:justify-self-end">
-                    <img
-                        src={profileCutout}
-                        alt="Sitt Min Thar"
-                        className="w-full h-auto object-contain"
-                    />
-                </div>
             </div>
 
             {/* Subtle Scroll Indicator */}
-            <div className="hero-scroll absolute bottom-12 flex flex-col items-center gap-2 opacity-0">
+            <div className="hero-scroll absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0">
                 <span className="text-[9px] uppercase tracking-[0.3em] text-text-muted font-mono">Scroll</span>
                 <div className="w-px h-8 bg-border-light overflow-hidden relative rounded-full">
                     <div className="hero-scroll-track w-full h-full bg-text-main absolute top-[-100%]" />
