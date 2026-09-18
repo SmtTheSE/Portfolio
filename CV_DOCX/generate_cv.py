@@ -37,6 +37,15 @@ EXPERIENCE = [
         ],
     },
     {
+        "title": "Business Analyst (Onsite)",
+        "org": "VNG",
+        "org_url": "https://www.vng.com.vn/",
+        "dates": "2026 -- Present",
+        "bullets": [
+            "Business Analyst, part of the outsourcing partner delivering an AI-enabled Legal Operations platform onsite at VNG for their Legal and Compliance function",
+        ],
+    },
+    {
         "title": "Founding Engineer",
         "org": "Bravestep",
         "org_url": "https://bravestep.ai/",
