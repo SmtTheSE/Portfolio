@@ -81,9 +81,10 @@ const Hero = () => {
                             alongside design and monetization leads on UX, performance, and retention.
                         </p>
                         <p>
-                            I'm also onsite as a Business Analyst at{' '}
+                            I'm also onsite at{' '}
                             <ExternalLink href="https://www.vng.com.vn/">VNG</ExternalLink>
-                            , working on requirements for an internal Legal Operations platform.
+                            {' '}as a Business Analyst, part of the outsourcing partner delivering their
+                            internal Legal Operations platform.
                         </p>
                     </div>
 

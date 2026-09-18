@@ -19,10 +19,10 @@ const About = () => {
                             Google Play, I own product engineering, store releases, and app infrastructure.
                         </p>
                         <p>
-                            I'm also working onsite as a Business Analyst at{' '}
+                            I'm also working onsite at{' '}
                             <ExternalLink href="https://www.vng.com.vn/">VNG</ExternalLink>
-                            , on an internal Legal Operations platform for their Legal &amp; Compliance
-                            function.
+                            {' '}as a Business Analyst, part of the outsourcing partner delivering their
+                            internal Legal Operations platform for the Legal &amp; Compliance function.
                         </p>
                     </Reveal>
 
