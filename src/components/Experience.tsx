@@ -14,7 +14,7 @@ const Experience = () => {
             href: 'https://www.vng.com.vn/',
             title: 'BUSINESS ANALYST (ONSITE)',
             year: '2026 - PRESENT',
-            detail: 'Onsite Business Analyst on an AI-enabled Legal Operations platform at VNG, one of Vietnam’s largest technology corporations, working on requirements and delivery coordination for the Legal & Compliance function. Platform and process details are internal to VNG.',
+            detail: 'Onsite Business Analyst on an AI-enabled Legal Operations platform at VNG, working on requirements and delivery coordination for the Legal & Compliance function. Platform and process details are internal to VNG.',
         },
         {
             org: 'BRAVESTEP',

@@ -80,6 +80,10 @@ const Hero = () => {
                             Play, owning product engineering, store releases, and app infrastructure. I work
                             alongside design and monetization leads on UX, performance, and retention.
                         </p>
+                        <p>
+                            I'm also onsite as a Business Analyst at{' '}
+                            <ExternalLink href="https://www.vng.com.vn/">VNG</ExternalLink>.
+                        </p>
                     </div>
 
                     <div className="hero-meta flex flex-col gap-4 pt-6 border-t border-border-light order-3">

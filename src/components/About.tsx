@@ -21,8 +21,8 @@ const About = () => {
                         <p>
                             I'm also working onsite as a Business Analyst at{' '}
                             <ExternalLink href="https://www.vng.com.vn/">VNG</ExternalLink>
-                            , one of Vietnam's largest technology corporations, on an internal Legal
-                            Operations platform for their Legal &amp; Compliance function.
+                            , on an internal Legal Operations platform for their Legal &amp; Compliance
+                            function.
                         </p>
                     </Reveal>
 
