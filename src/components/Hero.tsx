@@ -70,7 +70,7 @@ const Hero = () => {
             </div>
 
             {/* Bio below the band, in two columns */}
-            <div className="mx-auto w-full max-w-5xl px-6 md:px-12 pt-10 md:pt-8 pb-12">
+            <div className="mx-auto w-full max-w-5xl px-6 md:px-12 pt-10 md:pt-6 pb-10">
                 <div className="hero-copy grid grid-cols-1 md:grid-cols-2 gap-x-[81px] gap-y-8 text-[17px] leading-[26px] text-text-main font-light">
                     {/* Left column: bio, then where to go next */}
                     <div className="flex flex-col gap-6 order-1">
@@ -82,7 +82,8 @@ const Hero = () => {
                         </p>
                         <p>
                             I'm also onsite as a Business Analyst at{' '}
-                            <ExternalLink href="https://www.vng.com.vn/">VNG</ExternalLink>.
+                            <ExternalLink href="https://www.vng.com.vn/">VNG</ExternalLink>
+                            , working on requirements for an internal Legal Operations platform.
                         </p>
                     </div>
 
