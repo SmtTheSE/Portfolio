@@ -10,6 +10,13 @@ const Experience = () => {
             detail: 'Building and shipping mobile apps for App Store and Google Play: product engineering, store releases, and infrastructure.',
         },
         {
+            org: 'VNG',
+            href: 'https://www.vng.com.vn/',
+            title: 'BUSINESS ANALYST (ONSITE)',
+            year: '2026 - PRESENT',
+            detail: 'Onsite Business Analyst on an AI-enabled Legal Operations platform at VNG, one of Vietnam’s largest technology corporations, working on requirements and delivery coordination for the Legal & Compliance function. Platform and process details are internal to VNG.',
+        },
+        {
             org: 'BRAVESTEP',
             href: 'https://bravestep.ai/',
             title: 'FOUNDING ENGINEER',
