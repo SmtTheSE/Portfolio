@@ -76,10 +76,9 @@ const Hero = () => {
                     <div className="flex flex-col gap-6 order-1">
                         <p>I'm a software engineer based in {nowStatus.location}.</p>
                         <p>
-                            I'm a Software Engineer at Ad Venture Studio, where I build and ship mobile apps
-                            for the App Store and Google Play, owning product engineering, store releases, and
-                            app infrastructure. I work alongside design and monetization leads on UX,
-                            performance, and retention.
+                            At Ad Venture Studio I build and ship mobile apps for the App Store and Google
+                            Play, owning product engineering, store releases, and app infrastructure. I work
+                            alongside design and monetization leads on UX, performance, and retention.
                         </p>
                     </div>
 

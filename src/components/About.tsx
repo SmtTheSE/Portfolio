@@ -15,9 +15,8 @@ const About = () => {
                             focus on structure and performance.
                         </p>
                         <p>
-                            I'm a Software Engineer at Ad Venture Studio, a venture studio shipping mobile apps
-                            to the App Store and Google Play, where I own product engineering, store releases,
-                            and app infrastructure.
+                            At Ad Venture Studio, a venture studio shipping mobile apps to the App Store and
+                            Google Play, I own product engineering, store releases, and app infrastructure.
                         </p>
                     </Reveal>
 
