@@ -91,6 +91,9 @@ const Hero = () => {
                                 <Link to="/portfolio#experience" className="liquid-pill inline-flex px-4 py-2 hover:text-text-main transition-colors duration-300">
                                     Experience
                                 </Link>
+                                <Link to="/portfolio#opensource" className="liquid-pill inline-flex px-4 py-2 hover:text-text-main transition-colors duration-300">
+                                    Open Source
+                                </Link>
                                 <Link to="/portfolio#notes" className="liquid-pill inline-flex px-4 py-2 hover:text-text-main transition-colors duration-300">
                                     Notes
                                 </Link>

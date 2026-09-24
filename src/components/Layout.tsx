@@ -10,6 +10,7 @@ interface LayoutProps {
 const NAV_LINKS: { name: string; href: string; download?: boolean }[] = [
     { name: 'About', href: '#about' },
     { name: 'Work', href: '#projects' },
+    { name: 'Open Source', href: '#opensource' },
     { name: 'Now', href: '#now' },
     { name: 'Garden', href: '#garden' },
     { name: 'Notes', href: '#notes' },

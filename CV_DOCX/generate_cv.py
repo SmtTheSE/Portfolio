@@ -130,6 +130,16 @@ PROJECTS = [
     },
 ]
 
+OPEN_SOURCE = [
+    {
+        "name": "BuddyUsage",
+        "url": "https://github.com/SmtTheSE/BuddyUsage",
+        "bullets": [
+            "Menu-bar usage tracker for Claude, Codex, Gemini, Cursor and Copilot with pace prediction and local agent control; exposes usage as a local MCP server. 25 releases, macOS/Windows/Linux (Electron, TypeScript)",
+        ],
+    },
+]
+
 SKILLS = [
     ("Programming", "Python (Flask, FastAPI, Pandas, NumPy, Scikit-learn, LightGBM), Java (Spring Boot), Go, PHP, JavaScript/TypeScript, SQL"),
     ("Software", "Docker, Nginx, AWS (S3, EC2), PostgreSQL, MySQL, Git, GitHub, VPS/SSL, CI/CD"),
@@ -351,6 +361,14 @@ def build_docx() -> None:
         add_hyperlink(p, proj["name"], proj["url"])
         add_bullets(doc, proj["bullets"])
 
+    # --- Open Source ---
+    section_heading(doc, "Open Source")
+    for proj in OPEN_SOURCE:
+        p = doc.add_paragraph()
+        p.paragraph_format.space_after = Pt(0)
+        add_hyperlink(p, proj["name"], proj["url"])
+        add_bullets(doc, proj["bullets"])
+
     # --- Skills ---
     section_heading(doc, "Skills")
     for label, value in SKILLS:
@@ -385,8 +403,8 @@ def pdf_text(text: str) -> str:
 class CVPdf(FPDF):
     def __init__(self):
         super().__init__()
-        self.set_auto_page_break(auto=True, margin=8)
-        self.set_margins(15, 9, 15)
+        self.set_auto_page_break(auto=True, margin=5)
+        self.set_margins(15, 7, 15)
         self.link_blue = (5, 99, 193)
 
     def section_heading(self, title: str) -> None:
@@ -474,6 +492,14 @@ def build_pdf() -> None:
     # Projects
     pdf.section_heading("Projects")
     for proj in PROJECTS:
+        pdf.link_line(proj["name"], proj["url"])
+        for b in proj["bullets"]:
+            pdf.bullet(b)
+        pdf.ln(0.5)
+
+    # Open Source
+    pdf.section_heading("Open Source")
+    for proj in OPEN_SOURCE:
         pdf.link_line(proj["name"], proj["url"])
         for b in proj["bullets"]:
             pdf.bullet(b)
