@@ -93,13 +93,13 @@ const projects = [
     },
     {
         id: '09',
-        title: 'DATACLEANR',
+        title: 'HEADROOM',
         role: 'FULL STACK',
-        year: '2025',
-        status: 'COMPLETED',
-        link: 'https://github.com/SmtTheSE/Data-Cleanr',
-        desc: 'A full-stack web application for automated dataset cleaning and harmonization. It features an advanced AI-powered industry detection system capable of classifying datasets into 12 major industries to provide specific cleaning suggestions. Users can upload raw CSV/Excel files and instantly apply operations like duplicate removal, column harmonization, and missing value handling.',
-        tech: ['Python', 'C++', 'Cython', 'C', 'JavaScript', 'Fortran'],
+        year: '2026',
+        status: 'HACKATHON',
+        link: 'https://github.com/SmtTheSE/HeadRoom',
+        desc: 'Built in 3 days at RMIT\'s ADC Hackathon 2026, under the Neurodivergence track of the Accessibility Design Competition. HeadRoom is a workplace-capacity negotiation tool: each employee gets a personalized weekly workload estimate that learns from their own completion history, and any overflow becomes an editable, negotiable request to their manager instead of a silent overrun. Its centerpiece is Focus Mode, an ADHD-first distraction-free view that breaks a task into single, 25-minute timed steps with no sidebar and no red overrun warnings. Ships with Gemini-powered AI task breakdown and passed a 10-route axe-core audit at WCAG 2.2 AA with zero violations. The team didn\'t place, but built something we\'re genuinely proud of under a 3-day deadline.',
+        tech: ['React', 'TypeScript', 'Supabase', 'Gemini AI', 'WCAG 2.2 AA'],
         category: 'SE'
     },
     {
