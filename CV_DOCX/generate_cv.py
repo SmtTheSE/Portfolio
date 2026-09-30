@@ -101,17 +101,17 @@ PROJECTS = [
         ],
     },
     {
+        "name": "HeadRoom",
+        "url": "https://github.com/SmtTheSE/HeadRoom",
+        "bullets": [
+            "Workplace-capacity negotiation tool built in 3 days for RMIT's ADC Hackathon 2026 (Neurodivergence track); ADHD-first Focus Mode and a zero-violation WCAG 2.2 AA audit (React, TypeScript, Supabase, Gemini AI)",
+        ],
+    },
+    {
         "name": "DataCleanr",
         "url": "https://github.com/SmtTheSE/Data-Cleanr",
         "bullets": [
             "AI-powered dataset cleaning app with industry detection across 12 sectors and automated CSV/Excel harmonization (Python, Cython, JavaScript)",
-        ],
-    },
-    {
-        "name": "DentalBridge",
-        "url": "https://github.com/SmtTheSE/DentalBridge",
-        "bullets": [
-            "AI treatment coordinator using Google Gemini 1.5 Pro to translate clinical terminology into patient-friendly guidance (FastAPI, Next.js)",
         ],
     },
     {

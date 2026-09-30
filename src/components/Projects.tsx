@@ -49,17 +49,6 @@ const projects = [
     },
     {
         id: '05',
-        title: 'DENTAL BRIDGE',
-        role: 'FULL STACK',
-        year: '2024',
-        status: 'ACTIVE',
-        link: 'https://github.com/SmtTheSE/DentalBridge',
-        desc: 'AI-powered treatment coordinator using Google Gemini 1.5 Pro to translate dental jargon into patient-friendly language.',
-        tech: ['FastAPI', 'Gemini AI', 'Next.js'],
-        category: 'SE'
-    },
-    {
-        id: '06',
         title: 'DENTAL BLINDING & AGE ESTIMATION',
         role: 'FULL STACK',
         year: '2026',
@@ -70,7 +59,7 @@ const projects = [
         category: 'SE'
     },
     {
-        id: '07',
+        id: '06',
         title: 'SBS STUDENT SERVING SYSTEM',
         role: 'FULL STACK',
         year: 'ACTIVE',
@@ -81,18 +70,7 @@ const projects = [
         category: 'SE'
     },
     {
-        id: '08',
-        title: 'SCHOLARSHIP ANNOUNCEMENT WEB',
-        role: 'FULL STACK',
-        year: '2024',
-        status: 'COMPLETED',
-        link: 'https://github.com/SmtTheSE/Scholarship_Announcement_Web',
-        desc: 'A targeted web-based platform dedicated to publishing and managing scholarship opportunities for specific student demographics. Designed to streamline the discovery and application process for educational funding.',
-        tech: ['Python', 'Django', 'HTML', 'CSS'],
-        category: 'SE'
-    },
-    {
-        id: '09',
+        id: '07',
         title: 'HEADROOM',
         role: 'FULL STACK',
         year: '2026',
@@ -103,7 +81,7 @@ const projects = [
         category: 'SE'
     },
     {
-        id: '10',
+        id: '08',
         title: 'ULTIMATE BYTEME: PAN-ASIAN REAL ESTATE INTELLIGENCE',
         role: 'AI / FULL STACK',
         year: '2026',
