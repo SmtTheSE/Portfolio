@@ -108,13 +108,6 @@ PROJECTS = [
         ],
     },
     {
-        "name": "DataCleanr",
-        "url": "https://github.com/SmtTheSE/Data-Cleanr",
-        "bullets": [
-            "AI-powered dataset cleaning app with industry detection across 12 sectors and automated CSV/Excel harmonization (Python, Cython, JavaScript)",
-        ],
-    },
-    {
         "name": "Kamisori",
         "url": "https://github.com/SmtTheSE/Kamisori",
         "bullets": [
