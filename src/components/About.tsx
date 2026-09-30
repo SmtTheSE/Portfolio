@@ -24,8 +24,12 @@ const About = () => {
                         <p>
                             I'm also a Founding Engineer at{' '}
                             <ExternalLink href="https://bravestep.ai/">Bravestep</ExternalLink>
-                            . My process is driven by the intersection of robust backend systems and modern AI
-                            integration, so that every solution scales and provides genuine value.
+                            , and work independently as a release-acceptance engineer for{' '}
+                            <ExternalLink href="https://malibu.tech/">Malibu</ExternalLink>
+                            , a macOS distributed-compute marketplace, serving as the physical-hardware
+                            validation gate between CI-green and fleet rollout. My process is driven by the
+                            intersection of robust backend systems and modern AI integration, so that every
+                            solution scales and provides genuine value.
                         </p>
                         <p>
                             I'm studying for a BS in Data Science at SBS, alongside the engineering work.
