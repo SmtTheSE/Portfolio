@@ -33,7 +33,7 @@ export default function ActivityFeed() {
         <div className="md:col-span-4 flex flex-col gap-6">
           <div className="flex flex-col gap-3">
           </div>
-          <p className="text-xs text-text-muted font-light leading-relaxed max-w-xs">
+          <p className="text-[12px] text-text-muted font-light leading-relaxed max-w-xs">
             Posts streamed from my Personal Data Server via the AT Protocol public AppView: no iframes, no locked APIs.
           </p>
           {profile && (
@@ -41,7 +41,7 @@ export default function ActivityFeed() {
               href={bskyProfileUrl(profile.handle)}
               target="_blank"
               rel="noopener noreferrer"
-              className="liquid-pill inline-flex w-fit items-center px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-text-main hover:opacity-70 transition-opacity"
+              className="liquid-pill inline-flex w-fit items-center px-3 py-1.5 text-[11px] uppercase tracking-[0.2em] text-text-main hover:opacity-70 transition-opacity"
             >
               Open on Bluesky ↗
             </a>
@@ -51,8 +51,8 @@ export default function ActivityFeed() {
         <div className="md:col-span-8">
           {!configured && (
             <div className="border border-border-light p-8 md:p-10 flex flex-col gap-4">
-              <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted">awaiting_handle</span>
-              <p className="text-sm font-light text-text-main leading-relaxed">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-text-muted">awaiting_handle</span>
+              <p className="text-[14px] font-light text-text-main leading-relaxed">
                 Connect a Bluesky / AT Protocol handle to render a live author feed here. Create an account at{' '}
                 <a
                   href="https://bsky.app"
@@ -70,13 +70,13 @@ export default function ActivityFeed() {
           {configured && loading && <SkeletonRows />}
 
           {configured && error && (
-            <div className="border border-border-light p-8 text-sm text-text-muted font-light">
+            <div className="border border-border-light p-8 text-[14px] text-text-muted font-light">
               Feed unavailable right now ({error}). Profile handle: <span className="font-mono">{atprotoConfig.actor}</span>
             </div>
           )}
 
           {configured && !loading && !error && posts.length === 0 && (
-            <div className="border border-border-light p-8 text-sm text-text-muted font-light">
+            <div className="border border-border-light p-8 text-[14px] text-text-muted font-light">
               No public posts yet. The feed will populate as soon as I publish on the network.
             </div>
           )}
@@ -93,7 +93,7 @@ export default function ActivityFeed() {
                   className="p-6 md:p-8 flex flex-col gap-4 hover:bg-secondary-bg/50 transition-colors"
                 >
                   <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-2 text-[9px] uppercase tracking-[0.2em] text-text-muted">
+                    <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-text-muted">
                       {post.isRepost && <span>reposted</span>}
                       {post.isRepost && <span className="text-border-light">/</span>}
                       <time dateTime={post.createdAt}>{formatRelativeTime(post.createdAt)}</time>
@@ -102,7 +102,7 @@ export default function ActivityFeed() {
                       href={post.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[9px] uppercase tracking-[0.2em] text-text-muted hover:text-text-main transition-colors"
+                      className="text-[11px] uppercase tracking-[0.2em] text-text-muted hover:text-text-main transition-colors"
                     >
                       view ↗
                     </a>
@@ -116,7 +116,7 @@ export default function ActivityFeed() {
                     </a>
                   )}
 
-                  <div className="flex items-center gap-5 text-[10px] uppercase tracking-[0.15em] text-text-muted pt-1">
+                  <div className="flex items-center gap-5 text-[11px] uppercase tracking-[0.15em] text-text-muted pt-1">
                     <span>{formatCompactCount(post.likeCount)} likes</span>
                     <span>{formatCompactCount(post.repostCount)} reposts</span>
                     <span>{formatCompactCount(post.replyCount)} replies</span>

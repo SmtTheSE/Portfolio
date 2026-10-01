@@ -12,14 +12,14 @@ export default function CommunityGarden() {
         <SectionHeader label="Community Garden" />
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
         <div className="md:col-span-4 flex flex-col gap-3">
-          <p className="text-xs text-text-muted font-light leading-relaxed max-w-xs">
+          <p className="text-[12px] text-text-muted font-light leading-relaxed max-w-xs">
             People and sites I follow closely. Profiles load live from the Bluesky API: a curated links garden, not an iframe.
           </p>
         </div>
 
         <div className="md:col-span-8 flex flex-col gap-10">
           <div>
-            <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted mb-4 block">People</span>
+            <span className="text-[11px] uppercase tracking-[0.2em] text-text-muted mb-4 block">People</span>
             <div className="border border-border-light divide-y divide-border-light overflow-hidden">
               {people.loading &&
                 Array.from({ length: 3 }).map((_, i) => (
@@ -49,11 +49,11 @@ export default function CommunityGarden() {
                       <div className="w-10 h-10 rounded-full border border-border-light shrink-0" />
                     )}
                     <div className="flex flex-col gap-1 min-w-0">
-                      <span className="text-sm font-medium tracking-tight text-text-main">
+                      <span className="text-[14px] font-medium tracking-tight text-text-main">
                         {person.profile?.displayName || person.handle}
                       </span>
                       <span className="text-[11px] text-text-muted">@{person.handle}</span>
-                      <p className="text-xs text-text-muted font-light leading-relaxed pt-1">{person.note}</p>
+                      <p className="text-[12px] text-text-muted font-light leading-relaxed pt-1">{person.note}</p>
                     </div>
                   </motion.a>
                 ))}
@@ -61,7 +61,7 @@ export default function CommunityGarden() {
           </div>
 
           <div>
-            <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted mb-4 block">Sites</span>
+            <span className="text-[11px] uppercase tracking-[0.2em] text-text-muted mb-4 block">Sites</span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {sites.map((site) => (
                 <a
@@ -71,8 +71,8 @@ export default function CommunityGarden() {
                   rel="noopener noreferrer"
                   className="border border-border-light p-5 flex flex-col gap-2 hover:bg-secondary-bg/40 transition-colors"
                 >
-                  <span className="text-sm font-medium tracking-tight text-text-main">{site.title}</span>
-                  <span className="text-xs text-text-muted font-light leading-relaxed">{site.note}</span>
+                  <span className="text-[14px] font-medium tracking-tight text-text-main">{site.title}</span>
+                  <span className="text-[12px] text-text-muted font-light leading-relaxed">{site.note}</span>
                 </a>
               ))}
             </div>

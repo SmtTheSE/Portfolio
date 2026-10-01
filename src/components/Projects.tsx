@@ -214,10 +214,10 @@ const Projects = () => {
                                                     </div>
 
                                                     <div className="col-span-4 md:col-span-2 flex justify-end items-center gap-3">
-                                                        <span className="rounded-full bg-secondary-bg text-[10px] tracking-[0.1em] uppercase hidden md:inline-block px-2.5 py-1 text-text-muted group-hover:text-text-main transition-colors">
+                                                        <span className="rounded-full bg-secondary-bg text-[11px] tracking-[0.1em] uppercase hidden md:inline-block px-2.5 py-1 text-text-muted group-hover:text-text-main transition-colors">
                                                             {project.status}
                                                         </span>
-                                                        <div className={`text-[10px] transform transition-transform duration-500 opacity-30 group-hover:opacity-100 ${expandedId === project.id ? 'rotate-180' : ''}`}>
+                                                        <div className={`text-[11px] transform transition-transform duration-500 opacity-30 group-hover:opacity-100 ${expandedId === project.id ? 'rotate-180' : ''}`}>
                                                             ↓
                                                         </div>
                                                     </div>
@@ -275,7 +275,7 @@ const Projects = () => {
                         href="https://github.com/SmtTheSE"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="liquid-pill text-[10px] uppercase tracking-[0.3em] font-medium text-text-muted px-10 py-4 hover:text-text-main transition-all duration-500 hover:tracking-[0.4em]"
+                        className="liquid-pill text-[11px] uppercase tracking-[0.3em] font-medium text-text-muted px-10 py-4 hover:text-text-main transition-all duration-500 hover:tracking-[0.4em]"
                     >
                         Archive Repository
                     </a>

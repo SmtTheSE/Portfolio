@@ -13,23 +13,23 @@ export default function AtprotoIdentity() {
       <div className="w-full max-w-5xl">
         <div className="bg-secondary-bg/40 border border-border-light px-6 md:px-10 py-8 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex flex-col gap-1">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted">at://protocol</span>
-            <h2 className="text-sm uppercase tracking-[0.15em] font-medium text-text-main">Decentralized Identity</h2>
+            <span className="text-[11px] uppercase tracking-[0.3em] text-text-muted">at://protocol</span>
+            <h2 className="text-[14px] uppercase tracking-[0.15em] font-medium text-text-main">Decentralized Identity</h2>
           </div>
 
           {!configured && (
-            <p className="text-xs text-text-muted font-light max-w-md leading-relaxed">
+            <p className="text-[12px] text-text-muted font-light max-w-md leading-relaxed">
               Set <code className="font-mono text-[11px]">VITE_ATPROTO_HANDLE</code> to your Bluesky handle to unlock
               live profile, feed, and network data from your PDS.
             </p>
           )}
 
           {configured && loading && (
-            <p className="text-xs text-text-muted uppercase tracking-widest">Resolving DID…</p>
+            <p className="text-[12px] text-text-muted uppercase tracking-widest">Resolving DID…</p>
           )}
 
           {configured && error && (
-            <p className="text-xs text-text-muted font-light">
+            <p className="text-[12px] text-text-muted font-light">
               Could not resolve <span className="font-mono">{atprotoConfig.actor}</span>. Check the handle and try again.
             </p>
           )}
@@ -55,31 +55,31 @@ export default function AtprotoIdentity() {
                     href={bskyProfileUrl(profile.handle)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium tracking-tight hover:opacity-60 transition-opacity"
+                    className="text-[14px] font-medium tracking-tight hover:opacity-60 transition-opacity"
                   >
                     @{profile.handle}
                   </a>
-                  <span className="text-[10px] text-text-muted" title={profile.did}>
+                  <span className="text-[11px] text-text-muted" title={profile.did}>
                     {shortenDid(profile.did)}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 text-[10px] uppercase tracking-[0.15em] text-text-muted">
+              <div className="flex items-center gap-6 text-[11px] uppercase tracking-[0.15em] text-text-muted">
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-text-main text-sm font-sans font-medium tracking-normal normal-case">
+                  <span className="text-text-main text-[14px] font-sans font-medium tracking-normal normal-case">
                     {formatCompactCount(profile.followersCount)}
                   </span>
                   <span>followers</span>
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-text-main text-sm font-sans font-medium tracking-normal normal-case">
+                  <span className="text-text-main text-[14px] font-sans font-medium tracking-normal normal-case">
                     {formatCompactCount(profile.followsCount)}
                   </span>
                   <span>following</span>
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-text-main text-sm font-sans font-medium tracking-normal normal-case">
+                  <span className="text-text-main text-[14px] font-sans font-medium tracking-normal normal-case">
                     {formatCompactCount(profile.postsCount)}
                   </span>
                   <span>posts</span>

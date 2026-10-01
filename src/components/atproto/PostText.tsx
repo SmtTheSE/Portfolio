@@ -53,7 +53,7 @@ export default function PostText({ text, facets }: { text: string; facets?: AppB
   const segments = segmentPost(text, facets);
 
   return (
-    <p className="text-sm md:text-[15px] font-light leading-relaxed text-text-main whitespace-pre-wrap break-words">
+    <p className="text-[14px] md:text-[15px] font-light leading-relaxed text-text-main whitespace-pre-wrap break-words">
       {segments.map((seg, i) => {
         if (seg.type === 'text') return <span key={i}>{seg.value}</span>;
         return (
