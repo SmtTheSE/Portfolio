@@ -69,7 +69,7 @@ const Experience = () => {
                                             href={role.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-[21px] leading-[26px] font-medium tracking-tight text-[#0066CC] underline decoration-[#0066CC]/40 underline-offset-[3px] hover:decoration-[#0066CC] transition-colors w-fit"
+                                            className="inline-block py-[7px] -mt-[7px] text-[21px] leading-[26px] font-medium tracking-tight text-[#0066CC] underline decoration-[#0066CC]/40 underline-offset-[3px] hover:decoration-[#0066CC] transition-colors w-fit"
                                         >
                                             {role.org}
                                         </a>

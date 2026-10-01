@@ -252,7 +252,7 @@ const Projects = () => {
                                                                         href={project.link}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
-                                                                        className="text-[13px] tracking-tight text-text-main border-b border-text-main/20 hover:border-text-main transition-colors pb-1"
+                                                                        className="inline-block py-2.5 -my-2.5 text-[13px] tracking-tight text-text-main border-b border-text-main/20 hover:border-text-main transition-colors"
                                                                     >
                                                                         Source Code ↗
                                                                     </a>

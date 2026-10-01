@@ -25,7 +25,23 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     const navRef = useRef<HTMLUListElement>(null);
     const indicatorRef = useRef<HTMLSpanElement>(null);
     const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+    const firstMobileLinkRef = useRef<HTMLAnchorElement | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (!mobileMenuOpen) return;
+        firstMobileLinkRef.current?.focus();
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setMobileMenuOpen(false);
+        };
+        document.addEventListener('keydown', onKeyDown);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.removeEventListener('keydown', onKeyDown);
+            document.body.style.overflow = '';
+        };
+    }, [mobileMenuOpen]);
 
     const moveIndicatorTo = (index: number, animate = true) => {
         const el = linkRefs.current[index];
@@ -121,9 +137,51 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                                 </ul>
                             </nav>
 
-                            <span className="md:hidden text-[11px] tracking-tight text-text-muted">GMT+7</span>
+                            <div className="md:hidden flex items-center gap-3">
+                                <span className="text-[11px] tracking-tight text-text-muted">GMT+7</span>
+                                <button
+                                    type="button"
+                                    aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+                                    aria-expanded={mobileMenuOpen}
+                                    aria-controls="mobile-nav-panel"
+                                    onClick={() => setMobileMenuOpen((v) => !v)}
+                                    className="liquid-pill flex items-center justify-center w-10 h-10 text-text-main"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        {mobileMenuOpen ? (
+                                            <><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></>
+                                        ) : (
+                                            <><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></>
+                                        )}
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
+
+                    {mobileMenuOpen && (
+                        <div
+                            id="mobile-nav-panel"
+                            className="md:hidden border-t border-[#C7C7CC] bg-white/95 backdrop-blur-xl"
+                        >
+                            <nav className="mx-auto w-full max-w-5xl px-6 py-3 flex flex-col">
+                                {NAV_LINKS.map((link, i) => (
+                                    <a
+                                        key={link.name}
+                                        ref={i === 0 ? firstMobileLinkRef : undefined}
+                                        href={link.href}
+                                        {...(link.download ? { download: true } : {})}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className={`flex items-center min-h-[44px] text-[15px] tracking-tight border-b border-border-light/70 last:border-b-0 transition-colors ${
+                                            activeIndex === i ? 'text-text-main font-medium' : 'text-text-muted hover:text-text-main'
+                                        }`}
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))}
+                            </nav>
+                        </div>
+                    )}
                 </header>
 
                 <main className="flex-1 w-full relative">

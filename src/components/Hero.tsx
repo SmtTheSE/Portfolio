@@ -82,7 +82,7 @@ const Hero = () => {
                         </p>
                     </div>
 
-                    <div className="hero-meta flex flex-col gap-4 pt-6 border-t border-border-light order-3">
+                    <div className="hero-meta flex flex-col gap-4 pt-6 border-t border-border-light order-4 md:order-3">
                         <span className="text-[11px] uppercase tracking-[0.15em] text-text-muted">Explore</span>
                         <div className="flex flex-wrap gap-2 text-[12px] tracking-tight text-text-muted">
                                 <Link to="/portfolio#projects" className="liquid-pill inline-flex px-4 py-2 hover:text-text-main transition-colors duration-300">
@@ -109,7 +109,7 @@ const Hero = () => {
                     </div>
 
                     {/* Right column: bio, then contact */}
-                    <div className="flex flex-col gap-6 order-2">
+                    <div className="flex flex-col gap-6 order-3 md:order-2">
                         <p>
                             I'm also a Founding Engineer at{' '}
                             <ExternalLink href="https://bravestep.ai/">Bravestep</ExternalLink>
@@ -125,11 +125,11 @@ const Hero = () => {
                         </p>
                     </div>
 
-                    <div className="hero-meta flex flex-col gap-2 pt-6 border-t border-border-light order-4">
+                    <div className="hero-meta flex flex-col gap-2 pt-6 border-t border-border-light order-2 md:order-4">
                         <span className="text-[11px] uppercase tracking-[0.15em] text-text-muted">Contact</span>
                             <a
                                 href="mailto:sittminthar005@gmail.com"
-                                className="text-[17px] leading-[26px] font-light text-text-main border-b border-text-main/10 hover:border-text-main transition-colors w-fit break-all"
+                                className="inline-block py-1.5 text-[17px] leading-[26px] font-light text-text-main border-b border-text-main/10 hover:border-text-main transition-colors w-fit break-all"
                             >
                                 sittminthar005@gmail.com
                             </a>
@@ -138,7 +138,7 @@ const Hero = () => {
                                     href="https://github.com/SmtTheSE"
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="text-[17px] leading-[26px] font-light text-text-muted hover:text-text-main transition-colors"
+                                    className="inline-block py-2 text-[17px] leading-[26px] font-light text-text-muted hover:text-text-main transition-colors"
                                 >
                                     GitHub ↗
                                 </a>
@@ -146,7 +146,7 @@ const Hero = () => {
                                     href="https://bsky.app/profile/sitt03.bsky.social"
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="text-[17px] leading-[26px] font-light text-text-muted hover:text-text-main transition-colors"
+                                    className="inline-block py-2 text-[17px] leading-[26px] font-light text-text-muted hover:text-text-main transition-colors"
                                 >
                                     Bluesky ↗
                                 </a>
