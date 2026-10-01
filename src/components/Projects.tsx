@@ -198,7 +198,7 @@ const Projects = () => {
                                             >
                                                 <div
                                                     onClick={() => toggleExpand(project.id)}
-                                                    className="grid grid-cols-12 gap-4 py-6 items-center cursor-pointer transition-colors duration-300 group-hover:bg-secondary-bg/40"
+                                                    className="grid grid-cols-12 gap-4 py-7 items-center cursor-pointer transition-colors duration-300 group-hover:bg-secondary-bg/40"
                                                 >
                                                     <div className="col-span-1 hidden md:block text-[13px] text-text-muted">{project.id}</div>
 

@@ -17,7 +17,7 @@ const HireMe = () => {
                         </h3>
 
                         <span className="inline-flex w-fit items-center gap-2 text-[13px] tracking-tight text-text-muted">
-                            <span className={`w-1.5 h-1.5 rounded-full ${nowStatus.availableForWork ? 'bg-green-500 animate-pulse' : 'bg-green-500'}`} />
+                            <span className={`w-1.5 h-1.5 rounded-full ${nowStatus.availableForWork ? 'bg-green-500 animate-pulse' : 'bg-text-muted'}`} />
                             {nowStatus.availableForWork ? 'Available for new opportunities' : 'Open to select remote and contract work'}
                         </span>
                     </div>
