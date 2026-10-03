@@ -6,7 +6,6 @@ import Projects from './components/Projects';
 import About from './components/About';
 import Experience from './components/Experience';
 import OpenSource from './components/OpenSource';
-import HeadroomShowcase from './components/HeadroomShowcase';
 import HireMe from './components/HireMe';
 
 const AtprotoIdentity = lazy(() => import('./components/atproto/AtprotoIdentity'));
@@ -77,7 +76,6 @@ function PortfolioPage() {
         <Experience />
       </div>
       <Projects />
-      <HeadroomShowcase />
       <OpenSource />
       <Suspense fallback={<AtprotoFallback />}>
         <AtprotoIdentity />
