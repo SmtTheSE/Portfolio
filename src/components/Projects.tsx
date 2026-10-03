@@ -34,7 +34,7 @@ const projects = [
         role: 'ARCHITECT',
         year: '2024',
         status: 'ACTIVE',
-        link: 'https://github.com/SmtTheSE/Kamisori',
+        site: 'https://www.kamisorism.com/',
         desc: '"Embrace the Future" - Local Brand in Myanmar. Architected a secure, scalable e-commerce backend ensuring data integrity.',
         tech: ['PostgreSQL', 'Supabase', 'Edge Functions'],
         category: 'SE'
@@ -67,7 +67,6 @@ const projects = [
         role: 'FULL STACK',
         year: 'ACTIVE',
         status: 'ACTIVE',
-        link: 'https://github.com/SmtTheSE/docker_SBS',
         desc: 'A comprehensive full-stack management platform developed for Saigon Business School to streamline academic activities, personal information, and institutional communication. Engineered with a client-server architecture featuring a Spring Boot 3 REST API and a React 18 frontend. It implements secure JWT-based authentication and Role-Based Access Control (RBAC) to provide tailored functionality for students, lecturers, and administrators, alongside robust Docker containerization and AWS S3 integration.',
         tech: ['Java 21', 'Spring Boot 3', 'React 18', 'Docker', 'AWS S3'],
         category: 'SE'
@@ -272,14 +271,26 @@ const Projects = () => {
                                                                             Watch the product we built
                                                                         </button>
                                                                     )}
-                                                                    <a
-                                                                        href={project.link}
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                        className="inline-block py-2.5 -my-2.5 text-[13px] tracking-tight text-text-main border-b border-text-main/20 hover:border-text-main transition-colors"
-                                                                    >
-                                                                        Source Code ↗
-                                                                    </a>
+                                                                    {project.site && (
+                                                                        <a
+                                                                            href={project.site}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="inline-block py-2.5 -my-2.5 text-[13px] tracking-tight text-text-main border-b border-text-main/20 hover:border-text-main transition-colors"
+                                                                        >
+                                                                            Visit Website ↗
+                                                                        </a>
+                                                                    )}
+                                                                    {project.link && (
+                                                                        <a
+                                                                            href={project.link}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="inline-block py-2.5 -my-2.5 text-[13px] tracking-tight text-text-main border-b border-text-main/20 hover:border-text-main transition-colors"
+                                                                        >
+                                                                            Source Code ↗
+                                                                        </a>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </motion.div>
