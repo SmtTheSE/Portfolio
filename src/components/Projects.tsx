@@ -72,6 +72,7 @@ const projects = [
     {
         id: '07',
         title: 'HEADROOM',
+        showcase: true,
         role: 'FULL STACK',
         year: '2026',
         status: 'HACKATHON',
@@ -247,7 +248,15 @@ const Projects = () => {
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="md:col-span-5 flex flex-col justify-end items-end gap-4">
+                                                                <div className="md:col-span-5 flex flex-col justify-end items-end gap-6">
+                                                                    {project.showcase && (
+                                                                        <a
+                                                                            href="#showcase"
+                                                                            className="inline-block py-2.5 -my-2.5 text-[13px] tracking-tight text-[#0066CC] border-b border-[#0066CC]/40 hover:border-[#0066CC] transition-colors"
+                                                                        >
+                                                                            Watch the presentation ▶
+                                                                        </a>
+                                                                    )}
                                                                     <a
                                                                         href={project.link}
                                                                         target="_blank"
