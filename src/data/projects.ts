@@ -66,7 +66,6 @@ export const projects: Project[] = [
         year: '2026',
         kind: 'Data, Full stack',
         tech: ['Python', 'Flask', 'Scikit-learn', 'Next.js'],
-        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Rental-Property-AI-Platform' }],
         visual: { bg: '#3563E9', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
@@ -106,7 +105,6 @@ export const projects: Project[] = [
         year: '2025',
         kind: 'Data, Hackathon',
         tech: ['Python', 'Pandas', 'Plotly'],
-        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/MoMo-Service-Analytics' }],
         visual: { bg: '#A82D63', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
@@ -117,7 +115,6 @@ export const projects: Project[] = [
         year: '2024',
         kind: 'Plugin',
         tech: ['PHP', 'MySQL', 'JavaScript', 'NFC'],
-        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Name-Card-Plugin' }],
         visual: { bg: '#E9D8BF', fg: '#26140C', accent: '#26140C', pattern: 'grid' },
     },
     {
