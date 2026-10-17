@@ -126,11 +126,25 @@ const SelectedWork = () => {
                 return;
             }
 
+            // Kill everything still pending first. overwrite:'auto' ignores a fade-in that is still waiting out its
+            // delay, so a fast scroll would otherwise leave an earlier project's text un-hidden on top of the current one.
+            gsap.killTweensOf(blocks.flatMap((b) => (b ? [b, ...Array.from(b.querySelectorAll('[data-in]'))] : [])));
+
             blocks.forEach((block, i) => {
                 if (!block) return;
                 if (i === active) {
                     gsap.set(block, { autoAlpha: 0 });
-                    gsap.to(block, { autoAlpha: 1, duration: 0.3, delay: 0.16, overwrite: 'auto' });
+                    gsap.to(block, {
+                        autoAlpha: 1,
+                        duration: 0.3,
+                        delay: 0.16,
+                        overwrite: 'auto',
+                        onComplete: () => {
+                            blocks.forEach((other, k) => {
+                                if (other && k !== active) gsap.set(other, { autoAlpha: 0 });
+                            });
+                        },
+                    });
                     gsap.fromTo(
                         block.querySelectorAll('[data-in]'),
                         { y: 22, opacity: 0 },
@@ -195,6 +209,11 @@ const SelectedWork = () => {
                     <div key={p.id} data-panel data-index={i} className={i === 0 ? '' : 'md:opacity-40'}>
                         <ProjectPanel project={p} index={i} total={projects.length} onPlay={openVideo} />
                         <div className="md:hidden pt-5 flex flex-col gap-4">
+                            {p.image && (
+                                <span className="mono-label">
+                                    {String(i + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}, {p.year}, {p.kind}
+                                </span>
+                            )}
                             <h3 className="text-[26px] leading-[1.1] font-light tracking-[-0.03em] text-muted">{p.title}</h3>
                             <ProjectInfo project={p} onPlay={openVideo} />
                         </div>

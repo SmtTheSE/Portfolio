@@ -78,8 +78,6 @@ const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
     // The text link in the pinned column is the accessible one; the panel is a mouse and touch shortcut.
     const shortcut = { tabIndex: -1, 'aria-hidden': true as const };
 
-    const chip = hasImage ? 'bg-black/55 text-white px-2 py-1' : '';
-
     const inner = (
         <>
             {project.image ? (
@@ -121,12 +119,15 @@ const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
                 </>
             )}
 
-            <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4 md:p-5 font-mono text-[11px] uppercase tracking-[0.08em]">
-                <span className={chip}>{counter}</span>
-                <span className={chip}>
-                    {project.year}, {project.kind}
-                </span>
-            </div>
+            {/* Screenshot panels stay completely clear so the whole product is visible. */}
+            {!hasImage && (
+                <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4 md:p-5 font-mono text-[11px] uppercase tracking-[0.08em]">
+                    <span>{counter}</span>
+                    <span>
+                        {project.year}, {project.kind}
+                    </span>
+                </div>
+            )}
 
             {project.video && (
                 <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
