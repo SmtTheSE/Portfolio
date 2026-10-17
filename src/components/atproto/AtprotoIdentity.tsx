@@ -9,8 +9,8 @@ export default function AtprotoIdentity() {
   const configured = hasAtprotoActor();
 
   return (
-    <section id="identity" className="px-6 md:px-12 w-full flex justify-center pb-12 md:pb-16">
-      <div className="w-full max-w-5xl">
+    <section id="identity" className="px-5 md:px-7 pb-12 md:pb-16">
+      <div>
         <div className="bg-secondary-bg/40 border border-border-light px-6 md:px-10 py-8 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex flex-col gap-1">
             <span className="text-[11px] uppercase tracking-[0.3em] text-text-muted">at://protocol</span>
@@ -55,7 +55,7 @@ export default function AtprotoIdentity() {
                     href={bskyProfileUrl(profile.handle)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[14px] font-medium tracking-tight hover:opacity-60 transition-opacity"
+                    className="inline-block py-2 -my-2 text-[14px] font-medium tracking-tight hover:opacity-60 transition-opacity"
                   >
                     @{profile.handle}
                   </a>

@@ -7,10 +7,10 @@ export default function GardenNotes() {
   const { data, loading } = useGardenNotes();
 
   return (
-    <section id="notes" className="py-16 md:py-20 px-6 md:px-12 scroll-mt-[52px] w-full flex justify-center">
-      <div className="w-full max-w-5xl">
+    <section id="notes" className="py-12 md:py-16 px-5 md:px-7 scroll-mt-16">
+      <div>
         <SectionHeader label="Notes" />
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-6">
         <div className="md:col-span-4 flex flex-col gap-3">
           <p className="text-[12px] text-text-muted font-light leading-relaxed max-w-xs">
             Short thinking notes. They start local and can move onto my PDS as portable records, so the writing travels with the identity.

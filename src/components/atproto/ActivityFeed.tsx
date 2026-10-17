@@ -26,10 +26,10 @@ export default function ActivityFeed() {
   const { data: profile } = useAtprotoProfile();
 
   return (
-    <section id="activity" className="py-16 md:py-20 px-6 md:px-12 scroll-mt-[52px] w-full flex justify-center">
-      <div className="w-full max-w-5xl">
+    <section id="activity" className="py-12 md:py-16 px-5 md:px-7 scroll-mt-16">
+      <div>
         <SectionHeader label="Live Activity" />
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-6">
         <div className="md:col-span-4 flex flex-col gap-6">
           <div className="flex flex-col gap-3">
           </div>
@@ -41,7 +41,7 @@ export default function ActivityFeed() {
               href={bskyProfileUrl(profile.handle)}
               target="_blank"
               rel="noopener noreferrer"
-              className="liquid-pill inline-flex w-fit items-center px-3 py-1.5 text-[11px] uppercase tracking-[0.2em] text-text-main hover:opacity-70 transition-opacity"
+              className="liquid-pill inline-flex w-fit items-center px-4 py-3 text-[11px] uppercase tracking-[0.2em]"
             >
               Open on Bluesky ↗
             </a>
@@ -102,7 +102,7 @@ export default function ActivityFeed() {
                       href={post.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[11px] uppercase tracking-[0.2em] text-text-muted hover:text-text-main transition-colors"
+                      className="inline-block py-3 -my-3 text-[11px] uppercase tracking-[0.2em] text-text-muted hover:text-text-main transition-colors"
                     >
                       view ↗
                     </a>

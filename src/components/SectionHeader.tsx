@@ -1,7 +1,7 @@
-/** Label bar matching the intro page: bold label over a hairline, spanning the content column. */
+/** Sub-heading used inside the Lab: a light title over a hairline. */
 const SectionHeader = ({ label }: { label: string }) => (
-    <div className="w-full self-stretch h-[52px] flex items-center border-b border-[#C7C7CC] mb-10 md:mb-14">
-        <h2 className="text-[17px] md:text-[21px] font-semibold tracking-tight text-text-main">{label}</h2>
+    <div className="flex items-baseline justify-between border-b border-line pb-3 mb-8 md:mb-10">
+        <h2 className="text-[22px] md:text-[26px] font-light tracking-[-0.03em] text-fg">{label}</h2>
     </div>
 );
 
