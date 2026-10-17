@@ -1,5 +1,7 @@
 export type Pattern = 'grid' | 'dots' | 'rings' | 'stripes' | 'blocks';
 
+export type ProjectLink = { label: string; href: string };
+
 export type Project = {
     id: string;
     title: string;
@@ -8,9 +10,14 @@ export type Project = {
     year: string;
     kind: string;
     tech: string[];
-    link?: { label: string; href: string };
+    /** Shown in the pinned text; the first one is what clicking the panel opens. */
+    links?: ProjectLink[];
     video?: boolean;
+    /** A real screenshot. imageRatio is its width / height, so the panel fits it with no cropping. */
     image?: string;
+    imageRatio?: number;
+    /** Covered by an NDA: no visuals or links, just the name and a note. */
+    nda?: boolean;
     visual: { bg: string; fg: string; accent: string; pattern: Pattern };
 };
 
@@ -24,9 +31,10 @@ export const projects: Project[] = [
         year: '2026',
         kind: 'Hackathon',
         tech: ['React', 'TypeScript', 'Supabase', 'Gemini', 'WCAG 2.2 AA'],
-        link: { label: 'Source code', href: 'https://github.com/SmtTheSE/HeadRoom' },
+        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/HeadRoom' }],
         video: true,
         image: '/media/headroom-poster.jpg',
+        imageRatio: 16 / 9,
         visual: { bg: '#2F6F55', fg: '#FFF6EA', accent: '#C8E6A0', pattern: 'blocks' },
     },
     {
@@ -37,7 +45,7 @@ export const projects: Project[] = [
         year: '2026',
         kind: 'AI, Full stack',
         tech: ['Next.js', 'Python', 'Flask', 'LightGBM', 'Ollama'],
-        link: { label: 'Source code', href: 'https://github.com/SmtTheSE/Conference' },
+        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Conference' }],
         visual: { bg: '#F6C945', fg: '#26140C', accent: '#26140C', pattern: 'rings' },
     },
     {
@@ -58,7 +66,7 @@ export const projects: Project[] = [
         year: '2026',
         kind: 'Data, Full stack',
         tech: ['Python', 'Flask', 'Scikit-learn', 'Next.js'],
-        link: { label: 'Source code', href: 'https://github.com/SmtTheSE/Rental-Property-AI-Platform' },
+        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Rental-Property-AI-Platform' }],
         visual: { bg: '#3563E9', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
@@ -69,8 +77,9 @@ export const projects: Project[] = [
         year: '2024',
         kind: 'E-commerce',
         tech: ['PostgreSQL', 'Supabase', 'Edge Functions'],
-        link: { label: 'Visit website', href: 'https://www.kamisorism.com/' },
+        links: [{ label: 'Visit website', href: 'https://www.kamisorism.com/' }],
         image: '/media/kamisori.jpg',
+        imageRatio: 1440 / 900,
         visual: { bg: '#1B1B1F', fg: '#FFF6EA', accent: '#F6C945', pattern: 'stripes' },
     },
     {
@@ -81,7 +90,12 @@ export const projects: Project[] = [
         year: '2026',
         kind: 'Research tool',
         tech: ['Python', 'Flask', 'PostgreSQL'],
-        link: { label: 'Source code', href: 'https://github.com/SmtTheSE/Dental-Blinding-Process-Project' },
+        links: [
+            { label: 'Live preview', href: 'https://dental-blinding-process-project.vercel.app/' },
+            { label: 'Source code', href: 'https://github.com/SmtTheSE/Dental-Blinding-Process-Project' },
+        ],
+        image: '/media/dental.jpg',
+        imageRatio: 1440 / 900,
         visual: { bg: '#C8E6A0', fg: '#26140C', accent: '#26140C', pattern: 'stripes' },
     },
     {
@@ -92,7 +106,7 @@ export const projects: Project[] = [
         year: '2025',
         kind: 'Data, Hackathon',
         tech: ['Python', 'Pandas', 'Plotly'],
-        link: { label: 'Source code', href: 'https://github.com/SmtTheSE/MoMo-Service-Analytics' },
+        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/MoMo-Service-Analytics' }],
         visual: { bg: '#A82D63', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
@@ -103,7 +117,29 @@ export const projects: Project[] = [
         year: '2024',
         kind: 'Plugin',
         tech: ['PHP', 'MySQL', 'JavaScript', 'NFC'],
-        link: { label: 'Source code', href: 'https://github.com/SmtTheSE/Name-Card-Plugin' },
+        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Name-Card-Plugin' }],
         visual: { bg: '#E9D8BF', fg: '#26140C', accent: '#26140C', pattern: 'grid' },
+    },
+    {
+        id: 'ad-venture',
+        title: 'Ad Venture Studio',
+        blurb: 'Mobile apps for the App Store and Google Play',
+        desc: "I build and ship mobile apps for a venture studio: product engineering, store releases, and app infrastructure. The work is covered by an NDA, so there's nothing I can show here. I'm happy to talk through how I approach it.",
+        year: '2026',
+        kind: 'Mobile, NDA',
+        tech: ['Mobile', 'App Store', 'Google Play', 'Store releases'],
+        nda: true,
+        visual: { bg: '#E07A4A', fg: '#26140C', accent: '#26140C', pattern: 'rings' },
+    },
+    {
+        id: 'bravestep',
+        title: 'Bravestep',
+        blurb: 'Founding engineering',
+        desc: "Founding Engineer: systems direction and product infrastructure. The product work is covered by an NDA, so there's nothing public to show. I'm happy to talk through it in conversation.",
+        year: 'Now',
+        kind: 'Founding engineer, NDA',
+        tech: ['Systems direction', 'Product infrastructure'],
+        nda: true,
+        visual: { bg: '#18707A', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'grid' },
     },
 ];

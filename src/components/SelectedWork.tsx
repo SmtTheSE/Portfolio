@@ -35,15 +35,25 @@ const ProjectInfo = ({ project, onPlay }: { project: Project; onPlay: () => void
                     Watch the product we built
                 </button>
             )}
-            {project.link && (
+            {project.links?.map((link) => (
                 <a
-                    href={project.link.href}
+                    key={link.href}
+                    href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center min-h-[44px] -my-2 text-fg underline decoration-fg/35 underline-offset-[5px] hover:decoration-fg transition-colors"
                 >
-                    {project.link.label} &#8599;
+                    {link.label} &#8599;
                 </a>
+            ))}
+            {project.nda && (
+                <span className="inline-flex items-center gap-2 min-h-[44px] -my-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <rect x="4" y="11" width="16" height="10" rx="1" />
+                        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                    </svg>
+                    Under NDA
+                </span>
             )}
         </div>
     </div>

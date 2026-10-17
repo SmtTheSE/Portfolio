@@ -37,6 +37,10 @@
     outline-offset: 3px;
   }
 
+  .pill-cursor, .pill-cursor * {
+    cursor: none !important;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
