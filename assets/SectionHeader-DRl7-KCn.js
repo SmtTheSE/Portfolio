@@ -1,0 +1,1 @@
+import{j as e}from"./index-Bpw6NH5N.js";const i=({label:t})=>e.jsx("div",{className:"flex items-baseline justify-between border-b border-line pb-3 mb-8 md:mb-10",children:e.jsx("h2",{className:"text-[22px] md:text-[26px] font-light tracking-[-0.03em] text-fg",children:t})});export{i as S};
