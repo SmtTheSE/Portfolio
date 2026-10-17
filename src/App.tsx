@@ -1,6 +1,8 @@
 import { lazy, Suspense, useEffect, useRef } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
+import Cursor from './components/Cursor';
+import { ScrollTrigger } from './lib/gsap';
 import HeroWindows from './components/HeroWindows';
 import Intro from './components/Intro';
 import SelectedWork from './components/SelectedWork';
@@ -75,8 +77,28 @@ function ScrollToHash() {
 }
 
 function HomePage() {
+  // Scroll positions depend on layout; re-measure when fonts load or the Lab content changes the page height.
+  useEffect(() => {
+    const refresh = () => ScrollTrigger.refresh();
+    document.fonts?.ready.then(refresh);
+    window.addEventListener('load', refresh);
+    let timer: number;
+    const main = document.querySelector('main');
+    const observer = new ResizeObserver(() => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(refresh, 200);
+    });
+    if (main) observer.observe(main);
+    return () => {
+      window.removeEventListener('load', refresh);
+      window.clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-bg text-fg font-sans antialiased">
+      <Cursor />
       <Nav />
       <main>
         <HeroWindows />

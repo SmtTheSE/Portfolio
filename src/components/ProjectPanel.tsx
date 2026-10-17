@@ -58,16 +58,18 @@ const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
                     src={project.image}
                     alt={`${project.title}: ${project.blurb}`}
                     loading="lazy"
+                    data-media
                     className="absolute inset-0 w-full h-full object-cover"
                 />
             ) : (
                 <>
                     <div
                         aria-hidden="true"
+                        data-media
                         className="absolute inset-0 opacity-[0.16]"
                         style={patternStyle(visual.pattern, visual.accent)}
                     />
-                    <div className="absolute inset-x-0 bottom-0 p-5 md:p-8 flex flex-col gap-3">
+                    <div data-float className="absolute inset-x-0 bottom-0 p-5 md:p-8 flex flex-col gap-3">
                         <h3 className="font-serif text-[34px] sm:text-[44px] md:text-[56px] leading-[0.98] tracking-[-0.02em] max-w-[14ch]">
                             {project.title}
                         </h3>
@@ -86,6 +88,7 @@ const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
             {project.video && (
                 <button
                     type="button"
+                    data-cursor="Play"
                     onClick={onPlay}
                     aria-label="Play the HeadRoom presentation, about five minutes"
                     className="group absolute inset-0 flex items-center justify-center"

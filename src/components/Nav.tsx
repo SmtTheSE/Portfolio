@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { goToHash } from '../lib/gsap';
 
 type NavLink = { name: string; href: string; download?: boolean };
 
@@ -54,7 +55,13 @@ const Nav = () => {
         <header className="fixed inset-x-0 top-0 z-[100]">
             <div className="absolute inset-0 -z-10 bg-gradient-to-b from-bg via-bg/85 to-transparent pointer-events-none" />
             <div className="flex items-center justify-between h-[68px] px-5 md:px-7">
-                <a href="#top" className="flex items-baseline gap-3 py-3 -my-3 text-[13px] uppercase tracking-[-0.01em]">
+                <a
+                    href="#top"
+                    onClick={(e) => {
+                        if (goToHash('#top')) e.preventDefault();
+                    }}
+                    className="flex items-baseline gap-3 py-3 -my-3 text-[13px] uppercase tracking-[-0.01em]"
+                >
                     <span className="font-semibold text-fg">Sitt Min Thar</span>
                     <span className="hidden sm:inline text-muted">Software Engineer, '24 &ndash; Now</span>
                 </a>
@@ -68,6 +75,9 @@ const Nav = () => {
                                     <a
                                         href={link.href}
                                         {...(link.download ? { download: true } : {})}
+                                        onClick={(e) => {
+                                            if (goToHash(link.href)) e.preventDefault();
+                                        }}
                                         aria-current={isActive ? 'true' : undefined}
                                         className={`transition-colors ${isActive ? 'text-fg' : 'text-muted hover:text-fg'}`}
                                     >
@@ -112,7 +122,13 @@ const Nav = () => {
                                     ref={i === 0 ? firstLinkRef : undefined}
                                     href={link.href}
                                     {...(link.download ? { download: true } : {})}
-                                    onClick={() => setOpen(false)}
+                                    onClick={(e) => {
+                                        // Release the scroll lock before the tween starts, or GSAP's auto-kill cancels it.
+                                        document.body.style.overflow = '';
+                                        setOpen(false);
+                                        window.setTimeout(() => goToHash(link.href), 60);
+                                        if (link.href.startsWith('#')) e.preventDefault();
+                                    }}
                                     className="flex items-center justify-between min-h-[64px] font-serif text-[34px] leading-none tracking-tight text-fg"
                                 >
                                     {link.name}
