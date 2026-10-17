@@ -56,6 +56,7 @@ export const projects: Project[] = [
         year: 'Active',
         kind: 'Full stack',
         tech: ['Java 21', 'Spring Boot 3', 'React 18', 'Docker', 'AWS S3'],
+        nda: true,
         visual: { bg: '#2F6F55', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'grid' },
     },
     {
@@ -66,7 +67,7 @@ export const projects: Project[] = [
         year: '2026',
         kind: 'Data, Full stack',
         tech: ['Python', 'Flask', 'Scikit-learn', 'Next.js'],
-        nda: true,
+        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Datathon_Project-Properties-Dataset-' }],
         visual: { bg: '#3563E9', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
@@ -106,7 +107,7 @@ export const projects: Project[] = [
         year: '2025',
         kind: 'Data, Hackathon',
         tech: ['Python', 'Pandas', 'Plotly'],
-        nda: true,
+        links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Data-Analytics' }],
         visual: { bg: '#A82D63', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
@@ -119,27 +120,5 @@ export const projects: Project[] = [
         tech: ['PHP', 'MySQL', 'JavaScript', 'NFC'],
         nda: true,
         visual: { bg: '#E9D8BF', fg: '#26140C', accent: '#26140C', pattern: 'grid' },
-    },
-    {
-        id: 'ad-venture',
-        title: 'Ad Venture Studio',
-        blurb: 'Mobile apps for the App Store and Google Play',
-        desc: "I build and ship mobile apps for a venture studio: product engineering, store releases, and app infrastructure. The work is covered by an NDA, so there's nothing I can show here. I'm happy to talk through how I approach it.",
-        year: '2026',
-        kind: 'Mobile, NDA',
-        tech: ['Mobile', 'App Store', 'Google Play', 'Store releases'],
-        nda: true,
-        visual: { bg: '#E07A4A', fg: '#26140C', accent: '#26140C', pattern: 'rings' },
-    },
-    {
-        id: 'bravestep',
-        title: 'Bravestep',
-        blurb: 'Founding engineering',
-        desc: "Founding Engineer: systems direction and product infrastructure. The product work is covered by an NDA, so there's nothing public to show. I'm happy to talk through it in conversation.",
-        year: 'Now',
-        kind: 'Founding engineer, NDA',
-        tech: ['Systems direction', 'Product infrastructure'],
-        nda: true,
-        visual: { bg: '#18707A', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'grid' },
     },
 ];
