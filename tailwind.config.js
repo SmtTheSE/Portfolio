@@ -12,10 +12,10 @@ export default {
         line: rgb('line'),
         panel: rgb('panel'),
         ink: rgb('ink'),
-        'win-butter': rgb('win-butter'),
-        'win-coral': rgb('win-coral'),
-        'win-sky': rgb('win-sky'),
-        'win-lilac': rgb('win-lilac'),
+        'win-green': rgb('win-green'),
+        'win-forest': rgb('win-forest'),
+        'win-blue': rgb('win-blue'),
+        'win-sun': rgb('win-sun'),
 
         // Legacy token names still used by the AT Protocol components.
         'primary-bg': rgb('bg'),

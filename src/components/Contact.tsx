@@ -42,7 +42,7 @@ const Contact = () => (
             <span className="inline-flex items-center gap-2">
                 <span
                     aria-hidden="true"
-                    className={`w-1.5 h-1.5 rounded-full ${nowStatus.availableForWork ? 'bg-win-butter animate-pulse' : 'bg-muted'}`}
+                    className={`w-1.5 h-1.5 rounded-full ${nowStatus.availableForWork ? 'bg-win-sun animate-pulse' : 'bg-muted'}`}
                 />
                 {nowStatus.availableForWork ? 'Available for new opportunities' : 'Open to select remote and contract work'}
             </span>

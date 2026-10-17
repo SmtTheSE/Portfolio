@@ -71,7 +71,7 @@ const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
                         <h3 className="font-serif text-[34px] sm:text-[44px] md:text-[56px] leading-[0.98] tracking-[-0.02em] max-w-[14ch]">
                             {project.title}
                         </h3>
-                        <p className="text-[13px] md:text-[14px] leading-snug opacity-75 max-w-[44ch]">{project.blurb}</p>
+                        <p className="text-[13px] md:text-[14px] leading-snug opacity-90 max-w-[44ch]">{project.blurb}</p>
                     </div>
                 </>
             )}

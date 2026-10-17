@@ -27,7 +27,7 @@ export const projects: Project[] = [
         link: { label: 'Source code', href: 'https://github.com/SmtTheSE/HeadRoom' },
         video: true,
         image: '/media/headroom-poster.jpg',
-        visual: { bg: '#02205A', fg: '#F5F2EA', accent: '#8EC5FF', pattern: 'blocks' },
+        visual: { bg: '#2F6F55', fg: '#FFF6EA', accent: '#C8E6A0', pattern: 'blocks' },
     },
     {
         id: 'byteme',
@@ -38,7 +38,7 @@ export const projects: Project[] = [
         kind: 'AI, Full stack',
         tech: ['Next.js', 'Python', 'Flask', 'LightGBM', 'Ollama'],
         link: { label: 'Source code', href: 'https://github.com/SmtTheSE/Conference' },
-        visual: { bg: '#FF8C69', fg: '#14141A', accent: '#14141A', pattern: 'rings' },
+        visual: { bg: '#F6C945', fg: '#26140C', accent: '#26140C', pattern: 'rings' },
     },
     {
         id: 'sbs',
@@ -48,7 +48,7 @@ export const projects: Project[] = [
         year: 'Active',
         kind: 'Full stack',
         tech: ['Java 21', 'Spring Boot 3', 'React 18', 'Docker', 'AWS S3'],
-        visual: { bg: '#F4D35E', fg: '#14141A', accent: '#14141A', pattern: 'grid' },
+        visual: { bg: '#2F6F55', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'grid' },
     },
     {
         id: 'rental',
@@ -59,7 +59,7 @@ export const projects: Project[] = [
         kind: 'Data, Full stack',
         tech: ['Python', 'Flask', 'Scikit-learn', 'Next.js'],
         link: { label: 'Source code', href: 'https://github.com/SmtTheSE/Rental-Property-AI-Platform' },
-        visual: { bg: '#BFA6FF', fg: '#14141A', accent: '#14141A', pattern: 'dots' },
+        visual: { bg: '#3563E9', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
         id: 'kamisori',
@@ -71,7 +71,7 @@ export const projects: Project[] = [
         tech: ['PostgreSQL', 'Supabase', 'Edge Functions'],
         link: { label: 'Visit website', href: 'https://www.kamisorism.com/' },
         image: '/media/kamisori.jpg',
-        visual: { bg: '#1B1B1F', fg: '#F5F2EA', accent: '#FF8C69', pattern: 'stripes' },
+        visual: { bg: '#1B1B1F', fg: '#FFF6EA', accent: '#F6C945', pattern: 'stripes' },
     },
     {
         id: 'dental',
@@ -82,7 +82,7 @@ export const projects: Project[] = [
         kind: 'Research tool',
         tech: ['Python', 'Flask', 'PostgreSQL'],
         link: { label: 'Source code', href: 'https://github.com/SmtTheSE/Dental-Blinding-Process-Project' },
-        visual: { bg: '#8EC5FF', fg: '#14141A', accent: '#14141A', pattern: 'stripes' },
+        visual: { bg: '#C8E6A0', fg: '#26140C', accent: '#26140C', pattern: 'stripes' },
     },
     {
         id: 'momo',
@@ -93,7 +93,7 @@ export const projects: Project[] = [
         kind: 'Data, Hackathon',
         tech: ['Python', 'Pandas', 'Plotly'],
         link: { label: 'Source code', href: 'https://github.com/SmtTheSE/MoMo-Service-Analytics' },
-        visual: { bg: '#1E7F6B', fg: '#F5F2EA', accent: '#F4D35E', pattern: 'dots' },
+        visual: { bg: '#A82D63', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
         id: 'namecard',
@@ -104,6 +104,6 @@ export const projects: Project[] = [
         kind: 'Plugin',
         tech: ['PHP', 'MySQL', 'JavaScript', 'NFC'],
         link: { label: 'Source code', href: 'https://github.com/SmtTheSE/Name-Card-Plugin' },
-        visual: { bg: '#C9C3B5', fg: '#14141A', accent: '#14141A', pattern: 'grid' },
+        visual: { bg: '#E9D8BF', fg: '#26140C', accent: '#26140C', pattern: 'grid' },
     },
 ];

@@ -32,7 +32,7 @@ const Win = ({ id, title, tone, className, z, delay, draggable, constraints, onF
         exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.18 } }}
         transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
         style={{ zIndex: z }}
-        className={`${tone} text-ink ${draggable ? 'cursor-grab active:cursor-grabbing touch-none' : ''} ${className}`}
+        className={`${tone} ${draggable ? 'cursor-grab active:cursor-grabbing touch-none' : ''} ${className}`}
     >
         <div className="flex items-center justify-between pl-2.5 pr-1 py-1 text-[13px] leading-none select-none">
             <span>{title}</span>
@@ -74,14 +74,14 @@ const HeroWindows = () => {
                             key="about"
                             id="about"
                             title="About"
-                            tone="bg-win-butter"
+                            tone="bg-win-green text-ink"
                             z={z('about')}
                             delay={0.05}
                             className="w-[78%] max-w-[360px] md:absolute md:left-[6%] md:top-[28px] md:w-[40%] md:max-w-[440px]"
                             {...shared}
                         >
                             <div className="px-2 pb-1">
-                                <div className="relative aspect-[4/5] overflow-hidden bg-win-butter">
+                                <div className="relative aspect-[4/5] overflow-hidden bg-win-green">
                                     <img
                                         src={profilePortrait}
                                         alt="Portrait of Sitt Min Thar"
@@ -101,7 +101,7 @@ const HeroWindows = () => {
                             key="work"
                             id="work"
                             title="Work"
-                            tone="bg-win-coral"
+                            tone="bg-win-forest text-fg"
                             z={z('work')}
                             delay={0.15}
                             className="w-[86%] max-w-[380px] self-end md:absolute md:left-[36%] md:top-[56px] md:w-[34%] md:max-w-[370px]"
@@ -119,7 +119,7 @@ const HeroWindows = () => {
                             key="focus"
                             id="focus"
                             title="Focus"
-                            tone="bg-win-sky"
+                            tone="bg-win-blue text-fg"
                             z={z('focus')}
                             delay={0.25}
                             className="w-[90%] max-w-[420px] md:absolute md:left-[43%] md:top-[215px] md:w-[40%] md:max-w-[430px]"
@@ -137,7 +137,7 @@ const HeroWindows = () => {
                             key="title"
                             id="title"
                             title="Title"
-                            tone="bg-win-lilac"
+                            tone="bg-win-sun text-ink"
                             z={z('title')}
                             delay={0.35}
                             className="w-[72%] max-w-[360px] self-center md:absolute md:left-[30%] md:top-[362px] md:w-[40%] md:max-w-[440px]"

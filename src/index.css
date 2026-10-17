@@ -4,16 +4,16 @@
 
 /* Palette: change these channels to re-theme the whole site. */
 :root {
-  --bg: 15 18 34;
-  --fg: 245 242 234;
-  --muted: 148 156 196;
-  --line: 56 62 94;
-  --panel: 24 28 50;
-  --ink: 20 20 26;
-  --win-butter: 244 211 94;
-  --win-coral: 255 140 105;
-  --win-sky: 142 197 255;
-  --win-lilac: 191 166 255;
+  --bg: 123 67 42;
+  --fg: 255 246 234;
+  --muted: 240 207 174;
+  --line: 176 112 80;
+  --panel: 104 54 34;
+  --ink: 38 20 12;
+  --win-green: 200 230 160;
+  --win-forest: 47 111 85;
+  --win-blue: 53 99 233;
+  --win-sun: 246 201 69;
 }
 
 @layer base {
@@ -29,12 +29,12 @@
   }
 
   ::selection {
-    background: rgb(var(--win-butter));
+    background: rgb(var(--win-sun));
     color: rgb(var(--ink));
   }
 
   a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid rgb(var(--win-butter));
+    outline: 2px solid rgb(var(--win-sun));
     outline-offset: 3px;
   }
 
