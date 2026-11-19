@@ -90,9 +90,10 @@ const Intro = () => {
                     ref={textRef}
                     className="max-w-[760px] text-[28px] md:text-[38px] leading-[1.18] font-light tracking-[-0.03em] text-fg"
                 >
-                    Currently shipping mobile apps at Ad Venture Studio and building as Founding Engineer at
-                    Bravestep, with a love for backend systems, data, and AI that ships. This is a curation of
-                    what I&rsquo;ve built &#10023; and where.
+                    Currently shipping mobile apps at Ad Venture Studio, building as Founding Engineer at
+                    Bravestep, and validating macOS hardware releases at Malibu &mdash; with a love for backend
+                    systems, data, and AI that ships. This is a curation of what I&rsquo;ve built &#10023; and
+                    where.
                 </p>
             </div>
 
