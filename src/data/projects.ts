@@ -2,6 +2,8 @@ export type Pattern = 'grid' | 'dots' | 'rings' | 'stripes' | 'blocks';
 
 export type ProjectLink = { label: string; href: string };
 
+export type Shot = { src: string; alt: string };
+
 export type Project = {
     id: string;
     title: string;
@@ -10,15 +12,27 @@ export type Project = {
     year: string;
     kind: string;
     tech: string[];
-    /** Shown in the pinned text; the first one is what clicking the panel opens. */
+    /** Public links only. Source stays off this list when the repo is private. */
     links?: ProjectLink[];
+    /** Existing film. HeadRoom only: the original player, not the preview dialog. */
     video?: boolean;
-    /** A real screenshot. imageRatio is its width / height, so the panel fits it with no cropping. */
+    /** Cover shown on the panel. The first frame of the preview gallery. */
     image?: string;
+    imageAlt?: string;
     imageRatio?: number;
-    /** Covered by an NDA: no visuals or links, just the name and a note. */
-    nda?: boolean;
+    /** More real screenshots, after the cover, inside the preview. */
+    gallery?: Shot[];
+    /** Private or internal work: a label, never a source link. */
+    internal?: boolean;
     visual: { bg: string; fg: string; accent: string; pattern: Pattern };
+};
+
+/** Every image the preview can page through, cover first. */
+export const shotsFor = (project: Project): Shot[] => {
+    const shots: Shot[] = [];
+    if (project.image) shots.push({ src: project.image, alt: project.imageAlt ?? `${project.title}: ${project.blurb}` });
+    for (const shot of project.gallery ?? []) shots.push(shot);
+    return shots;
 };
 
 /** Order matters: it is the order of the Selected Work stack. */
@@ -46,6 +60,15 @@ export const projects: Project[] = [
         kind: 'AI, Full stack',
         tech: ['Next.js', 'Python', 'Flask', 'LightGBM', 'Ollama'],
         links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Conference' }],
+        image: '/media/byteme.jpg',
+        imageAlt: 'ByteMe homepage: AI-powered real estate intelligence for ASEAN secondary markets, with counts for markets, engines, and model accuracy.',
+        imageRatio: 1440 / 900,
+        gallery: [
+            {
+                src: '/media/byteme-dashboard.jpg',
+                alt: 'ByteMe intelligence hub: a valuation form for state, district, bedrooms, bathrooms, area and property type, beside an empty results panel.',
+            },
+        ],
         visual: { bg: '#F6C945', fg: '#26140C', accent: '#26140C', pattern: 'rings' },
     },
     {
@@ -56,7 +79,10 @@ export const projects: Project[] = [
         year: 'Active',
         kind: 'Full stack',
         tech: ['Java 21', 'Spring Boot 3', 'React 18', 'Docker', 'AWS S3'],
-        nda: true,
+        internal: true,
+        image: '/media/sbs-login.jpg',
+        imageAlt: 'SBS Student Serving System sign-in screen: the school campus beside an email and password form, with guest access.',
+        imageRatio: 1440 / 900,
         visual: { bg: '#2F6F55', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'grid' },
     },
     {
@@ -68,6 +94,15 @@ export const projects: Project[] = [
         kind: 'Data, Full stack',
         tech: ['Python', 'Flask', 'Scikit-learn', 'Next.js'],
         links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Datathon_Project-Properties-Dataset-' }],
+        image: '/media/rental-rent-by-city.jpg',
+        imageAlt: 'Bar chart of average rent in Indian rupees across the top 15 cities in the 10-million-listing rental dataset.',
+        imageRatio: 1600 / 909,
+        gallery: [
+            {
+                src: '/media/rental-heatmap.jpg',
+                alt: 'Heatmap of average rent in Indian rupees for ten cities against 1 to 4 BHK property types. Four-bedroom homes are the darkest, highest-rent cells.',
+            },
+        ],
         visual: { bg: '#3563E9', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
@@ -80,6 +115,7 @@ export const projects: Project[] = [
         tech: ['PostgreSQL', 'Supabase', 'Edge Functions'],
         links: [{ label: 'Visit website', href: 'https://www.kamisorism.com/' }],
         image: '/media/kamisori.jpg',
+        imageAlt: 'Kamisori homepage: a black and white campaign frame with the line All about Kamisori.',
         imageRatio: 1440 / 900,
         visual: { bg: '#1B1B1F', fg: '#FFF6EA', accent: '#F6C945', pattern: 'stripes' },
     },
@@ -96,6 +132,7 @@ export const projects: Project[] = [
             { label: 'Source code', href: 'https://github.com/SmtTheSE/Dental-Blinding-Process-Project' },
         ],
         image: '/media/dental.jpg',
+        imageAlt: 'UDMM Research Workspace landing page: Blinded assessment, built for rigorous research.',
         imageRatio: 1440 / 900,
         visual: { bg: '#C8E6A0', fg: '#26140C', accent: '#26140C', pattern: 'stripes' },
     },
@@ -108,6 +145,15 @@ export const projects: Project[] = [
         kind: 'Data, Hackathon',
         tech: ['Python', 'Pandas', 'Plotly'],
         links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Data-Analytics' }],
+        image: '/media/momo-amount.jpg',
+        imageAlt: 'Histogram of MoMo transaction amounts in VND. Nearly all transactions cluster near zero, with a thin tail past 500,000.',
+        imageRatio: 2,
+        gallery: [
+            {
+                src: '/media/momo-weekday.jpg',
+                alt: 'Bar chart of MoMo transaction counts by weekday. Each day sits between roughly 1,700 and 2,000 transactions.',
+            },
+        ],
         visual: { bg: '#A82D63', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
@@ -118,7 +164,7 @@ export const projects: Project[] = [
         year: '2024',
         kind: 'Plugin',
         tech: ['PHP', 'MySQL', 'JavaScript', 'NFC'],
-        nda: true,
+        internal: true,
         visual: { bg: '#E9D8BF', fg: '#26140C', accent: '#26140C', pattern: 'grid' },
     },
 ];

@@ -44,15 +44,10 @@ const LockGlyph = () => (
     </svg>
 );
 
-type Action = { label: string; icon: 'play' | 'arrow' | 'lock'; href?: string; play?: boolean };
-
-/** What hovering or clicking a panel does. Drives both the click target and the cursor pill. */
-const actionFor = (project: Project): Action | null => {
-    if (project.nda) return { label: 'Under NDA', icon: 'lock' };
-    if (project.video) return { label: 'Watch the film', icon: 'play', play: true };
-    const first = project.links?.[0];
-    if (!first) return null;
-    return { label: first.label === 'Source code' ? 'View source' : first.label, icon: 'arrow', href: first.href };
+/** What hovering a panel says. Clicking always opens the in-site preview. */
+const actionFor = (project: Project): { label: string; icon: 'play' | 'arrow' } => {
+    if (project.video) return { label: 'Watch the film', icon: 'play' };
+    return { label: 'Preview', icon: 'arrow' };
 };
 
 type Props = {
@@ -60,13 +55,15 @@ type Props = {
     index: number;
     total: number;
     onPlay: () => void;
+    onPreview: () => void;
 };
 
-const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
+const ProjectPanel = ({ project, index, total, onPlay, onPreview }: Props) => {
     const { visual } = project;
     const counter = `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
     const action = actionFor(project);
     const hasImage = Boolean(project.image);
+    const coverAlt = project.imageAlt ?? `${project.title}: ${project.blurb}`;
 
     const frame = `relative block w-full overflow-hidden text-left ${hasImage ? '' : 'aspect-[4/3] sm:aspect-[16/10]'}`;
     const frameStyle = {
@@ -83,7 +80,7 @@ const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
             {project.image ? (
                 <img
                     src={project.image}
-                    alt={`${project.title}: ${project.blurb}`}
+                    alt={coverAlt}
                     loading="lazy"
                     draggable={false}
                     className="absolute inset-0 w-full h-full object-contain"
@@ -96,7 +93,7 @@ const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
                         className="absolute inset-0 opacity-[0.16]"
                         style={patternStyle(visual.pattern, visual.accent)}
                     />
-                    {project.nda ? (
+                    {project.internal ? (
                         <>
                             <div className="absolute inset-0 flex items-center justify-center px-6">
                                 <h3 className="font-serif text-[40px] sm:text-[52px] md:text-[64px] leading-[1] tracking-[-0.02em] text-center">
@@ -105,7 +102,7 @@ const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
                             </div>
                             <span className="absolute bottom-4 left-4 md:bottom-5 md:left-5 inline-flex items-center gap-2 border border-current px-2 py-1 font-mono text-[11px] uppercase tracking-[0.08em]">
                                 <LockGlyph />
-                                Under NDA
+                                Private / internal
                             </span>
                         </>
                     ) : (
@@ -141,24 +138,10 @@ const ProjectPanel = ({ project, index, total, onPlay }: Props) => {
         </>
     );
 
-    if (action?.href) {
-        return (
-            <a href={action.href} target="_blank" rel="noopener noreferrer" className={frame} style={frameStyle} {...pill} {...shortcut}>
-                {inner}
-            </a>
-        );
-    }
-    if (action?.play) {
-        return (
-            <button type="button" onClick={onPlay} className={frame} style={frameStyle} {...pill} {...shortcut}>
-                {inner}
-            </button>
-        );
-    }
     return (
-        <div className={frame} style={frameStyle} {...pill}>
+        <button type="button" onClick={project.video ? onPlay : onPreview} className={frame} style={frameStyle} {...pill} {...shortcut}>
             {inner}
-        </div>
+        </button>
     );
 };
 
