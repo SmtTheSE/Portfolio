@@ -236,8 +236,8 @@ const HeroWindows = () => {
                     onClose={close}
                 >
                     <p className="px-3 pt-2 pb-3.5 text-[14px] leading-[1.45]">
-                        Currently shipping mobile apps at Ad Venture Studio, and building as Founding Engineer at
-                        Bravestep.
+                        Currently shipping mobile apps at Ad Venture Studio, and working as a Release-Acceptance
+                        Engineer at Malibu.
                     </p>
                 </Win>
 
