@@ -1,8 +1,9 @@
 import { useRef } from 'react';
-import { EASE, goToHash, gsap, prefersReducedMotion, ScrollTrigger, useGSAP } from '../lib/gsap';
+import { EASE, goToHash, gsap, hasFinePointer, prefersReducedMotion, ScrollTrigger, useGSAP } from '../lib/gsap';
 
 const Footer = () => {
     const rootRef = useRef<HTMLElement>(null);
+    const topLinkRef = useRef<HTMLAnchorElement>(null);
     const arrowRef = useRef<HTMLSpanElement>(null);
 
     useGSAP(
@@ -26,6 +27,29 @@ const Footer = () => {
                     }
                 },
             });
+
+            const link = topLinkRef.current;
+            if (!link || !hasFinePointer()) return;
+            const xTo = gsap.quickTo(link, 'x', { duration: 0.35, ease: 'power3.out' });
+            const yTo = gsap.quickTo(link, 'y', { duration: 0.35, ease: 'power3.out' });
+
+            const onMove = (e: PointerEvent) => {
+                const rect = link.getBoundingClientRect();
+                const relX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+                const relY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+                xTo(relX * 7);
+                yTo(relY * 5);
+            };
+            const onLeave = () => {
+                gsap.to(link, { x: 0, y: 0, duration: 0.6, ease: EASE.settle, overwrite: 'auto' });
+            };
+
+            link.addEventListener('pointermove', onMove, { passive: true });
+            link.addEventListener('pointerleave', onLeave);
+            return () => {
+                link.removeEventListener('pointermove', onMove);
+                link.removeEventListener('pointerleave', onLeave);
+            };
         },
         { scope: rootRef },
     );
@@ -47,6 +71,7 @@ const Footer = () => {
                 <span data-footer-item>&copy; {new Date().getFullYear()} Sitt Min Thar</span>
                 <span data-footer-item>Ho Chi Minh City, Vietnam</span>
                 <a
+                    ref={topLinkRef}
                     data-footer-item
                     href="#top"
                     onPointerEnter={() => nudgeArrow(true)}

@@ -1,5 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { EASE, goToHash, gsap, prefersReducedMotion, ScrollTrigger, useGSAP } from '../lib/gsap';
+import { EASE, goToHash, gsap, hasFinePointer, prefersReducedMotion, ScrollTrigger, useGSAP } from '../lib/gsap';
+
+const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+const scrambleLabel = (el: HTMLElement | null, text: string) => {
+    if (!el || !hasFinePointer() || prefersReducedMotion()) return;
+    gsap.to(el, {
+        duration: 0.36,
+        scrambleText: {
+            text,
+            chars: SCRAMBLE_CHARS,
+            speed: 0.5,
+            tweenLength: false,
+        },
+        overwrite: 'auto',
+    });
+};
 
 type NavLink = { name: string; href: string; download?: boolean };
 
@@ -157,12 +173,13 @@ const Nav = () => {
             <div className="flex items-center justify-between h-[68px] px-5 md:px-7">
                 <a
                     href="#top"
+                    onPointerEnter={(e) => scrambleLabel(e.currentTarget.querySelector<HTMLElement>('[data-brand]'), 'Sitt Min Thar')}
                     onClick={(e) => {
                         if (goToHash('#top')) e.preventDefault();
                     }}
                     className="flex items-baseline gap-3 py-3 -my-3 text-[13px] uppercase tracking-[-0.01em]"
                 >
-                    <span className="font-semibold text-fg">Sitt Min Thar</span>
+                    <span data-brand className="font-semibold text-fg">Sitt Min Thar</span>
                     <span className="hidden sm:inline text-muted">Software Engineer, '24 &ndash; Now</span>
                 </a>
 
@@ -182,7 +199,10 @@ const Nav = () => {
                                         }}
                                         href={link.href}
                                         {...(link.download ? { download: true } : {})}
-                                        onPointerEnter={() => setHovered(link.href)}
+                                        onPointerEnter={(e) => {
+                                            setHovered(link.href);
+                                            scrambleLabel(e.currentTarget, link.name);
+                                        }}
                                         onFocus={() => setHovered(link.href)}
                                         onBlur={() => setHovered(null)}
                                         onClick={(e) => {

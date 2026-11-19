@@ -76,6 +76,9 @@ const ProjectPanel = ({ project, index, total, onPlay, onPreview }: Props) => {
 
             const playX = playBtn ? gsap.quickTo(playBtn, 'x', { duration: 0.35, ease: 'power3.out' }) : null;
             const playY = playBtn ? gsap.quickTo(playBtn, 'y', { duration: 0.35, ease: 'power3.out' }) : null;
+            const tiltX = gsap.quickTo(root, 'rotateX', { duration: 0.45, ease: 'power3.out' });
+            const tiltY = gsap.quickTo(root, 'rotateY', { duration: 0.45, ease: 'power3.out' });
+            gsap.set(root, { transformPerspective: 1100, transformStyle: 'preserve-3d' });
 
             const onEnter = () => {
                 if (hasImage) {
@@ -95,20 +98,25 @@ const ProjectPanel = ({ project, index, total, onPlay, onPreview }: Props) => {
             };
 
             const onMove = (e: PointerEvent) => {
-                if (!playBtn || !playX || !playY) return;
                 const rect = root.getBoundingClientRect();
                 const relX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
                 const relY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-                playX(relX * 16);
-                playY(relY * 16);
+                tiltY(relX * 2.4);
+                tiltX(-relY * 2.4);
+                if (playBtn && playX && playY) {
+                    playX(relX * 16);
+                    playY(relY * 16);
+                }
             };
 
             const onLeave = () => {
+                tiltX(0);
+                tiltY(0);
                 if (hasImage) {
                     gsap.to(root, {
                         y: 0,
                         boxShadow: '0 0px 0px 0px rgba(38, 20, 12, 0)',
-                        duration: 0.55,
+                        duration: 0.65,
                         ease: EASE.editorial,
                         overwrite: 'auto',
                     });

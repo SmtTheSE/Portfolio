@@ -3,9 +3,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Draggable } from 'gsap/Draggable';
 import { InertiaPlugin } from 'gsap/InertiaPlugin';
 import { SplitText } from 'gsap/SplitText';
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { useGSAP } from '@gsap/react';
 
-gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin, SplitText, useGSAP);
+gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin, SplitText, ScrambleTextPlugin, useGSAP);
 
 export { gsap, ScrollTrigger, Draggable, SplitText, useGSAP };
 

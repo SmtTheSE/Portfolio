@@ -76,6 +76,7 @@ const SelectedWork = () => {
     const rootRef = useRef<HTMLElement>(null);
     const textRefs = useRef<Array<HTMLDivElement | null>>([]);
     const counterDigitRef = useRef<HTMLSpanElement>(null);
+    const railRef = useRef<HTMLSpanElement>(null);
     const prevActiveRef = useRef(0);
     const dialogRef = useRef<HTMLDialogElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -147,6 +148,17 @@ const SelectedWork = () => {
                     );
                 });
             });
+
+            if (!reduced && railRef.current) {
+                gsap.set(railRef.current, { scaleX: 0 });
+                ScrollTrigger.create({
+                    trigger: root,
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 0.25,
+                    animation: gsap.to(railRef.current, { scaleX: 1, ease: 'none' }),
+                });
+            }
 
             if (!reduced) {
                 const mm = gsap.matchMedia();
@@ -264,6 +276,9 @@ const SelectedWork = () => {
                             <span className="mx-1">/</span>
                             <span className="tabular-nums">{String(projects.length).padStart(2, '0')}</span>
                         </span>
+                    </div>
+                    <div aria-hidden="true" className="relative mt-4 h-px w-full bg-line/40 overflow-hidden">
+                        <span ref={railRef} className="absolute inset-0 bg-fg origin-left will-change-transform" />
                     </div>
 
                     <div className="relative mt-5 flex-1">
