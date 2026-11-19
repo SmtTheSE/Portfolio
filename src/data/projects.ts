@@ -4,6 +4,13 @@ export type ProjectLink = { label: string; href: string };
 
 export type Shot = { src: string; alt: string };
 
+export type BoardKpi = { value: string; label: string };
+
+export type BoardCard = { src: string; alt: string; title: string; takeaway: string };
+
+/** Several real findings shown together inside the preview, instead of one chart. */
+export type InsightBoard = { kpis: BoardKpi[]; cards: BoardCard[] };
+
 export type Project = {
     id: string;
     title: string;
@@ -22,6 +29,8 @@ export type Project = {
     imageRatio?: number;
     /** More real screenshots, after the cover, inside the preview. */
     gallery?: Shot[];
+    /** Dashboard of several findings. Used instead of the single-image gallery. */
+    board?: InsightBoard;
     /** Private or internal work: a label, never a source link. */
     internal?: boolean;
     visual: { bg: string; fg: string; accent: string; pattern: Pattern };
@@ -94,15 +103,43 @@ export const projects: Project[] = [
         kind: 'Data, Full stack',
         tech: ['Python', 'Flask', 'Scikit-learn', 'Next.js'],
         links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Datathon_Project-Properties-Dataset-' }],
-        image: '/media/rental-rent-by-city.jpg',
-        imageAlt: 'Bar chart of average rent in Indian rupees across the top 15 cities in the 10-million-listing rental dataset.',
-        imageRatio: 1600 / 909,
-        gallery: [
-            {
-                src: '/media/rental-heatmap.jpg',
-                alt: 'Heatmap of average rent in Indian rupees for ten cities against 1 to 4 BHK property types. Four-bedroom homes are the darkest, highest-rent cells.',
-            },
-        ],
+        image: '/media/rental-city.jpg',
+        imageAlt: 'Bar chart of average rent by city from the Indian rental analysis. Aurangabad is the highest bar.',
+        imageRatio: 1100 / 625,
+        board: {
+            kpis: [
+                { value: '48,396', label: 'Listings sampled from 10M+' },
+                { value: '40', label: 'Indian cities' },
+                { value: 'Rs 17,814', label: 'Average rent' },
+                { value: 'Rs 773–67,747', label: 'Rent range' },
+            ],
+            cards: [
+                {
+                    src: '/media/rental-city.jpg',
+                    alt: 'Bar chart of average rent for the top 15 Indian cities. Aurangabad leads at Rs 19,098.',
+                    title: 'Rent by city',
+                    takeaway: 'Aurangabad averages Rs 19,098, then Kalyan-Dombivli at Rs 18,967. Location moves the price.',
+                },
+                {
+                    src: '/media/rental-bhk.jpg',
+                    alt: 'Rent by bedroom count. 4-BHK averages Rs 22,576 and 1-BHK averages Rs 17,001.',
+                    title: 'Rent by bedrooms',
+                    takeaway: '4-BHK averages Rs 22,576 and 1-BHK averages Rs 17,001. The step up is not a straight line.',
+                },
+                {
+                    src: '/media/rental-size.jpg',
+                    alt: 'Scatter of property size against rent, with a positive correlation of 0.837.',
+                    title: 'Size and rent',
+                    takeaway: 'Size and rent move together (r = 0.837), with a wide scatter at every size.',
+                },
+                {
+                    src: '/media/rental-heat.jpg',
+                    alt: 'Heatmap of average rent by city and BHK. Darker red cells are the higher rents, concentrated in 4-BHK.',
+                    title: 'City and BHK together',
+                    takeaway: 'Darker cells are the higher rents. The 4-BHK column is the premium band across these cities.',
+                },
+            ],
+        },
         visual: { bg: '#3563E9', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {
@@ -145,15 +182,43 @@ export const projects: Project[] = [
         kind: 'Data, Hackathon',
         tech: ['Python', 'Pandas', 'Plotly'],
         links: [{ label: 'Source code', href: 'https://github.com/SmtTheSE/Data-Analytics' }],
-        image: '/media/momo-amount.jpg',
-        imageAlt: 'Histogram of MoMo transaction amounts in VND. Nearly all transactions cluster near zero, with a thin tail past 500,000.',
-        imageRatio: 2,
-        gallery: [
-            {
-                src: '/media/momo-weekday.jpg',
-                alt: 'Bar chart of MoMo transaction counts by weekday. Each day sits between roughly 1,700 and 2,000 transactions.',
-            },
-        ],
+        image: '/media/momo-monthly.jpg',
+        imageAlt: 'Monthly MoMo revenue in 2020. January is 1.41 million VND and December, the peak, is 1.76 million VND.',
+        imageRatio: 787 / 484,
+        board: {
+            kpis: [
+                { value: '1,410,427', label: 'January 2020 revenue, VND' },
+                { value: '1,764,400', label: 'December, the peak month, VND' },
+                { value: '1,495', label: 'Wednesday average revenue, VND' },
+                { value: '72', label: 'New users in December 2020' },
+            ],
+            cards: [
+                {
+                    src: '/media/momo-monthly.jpg',
+                    alt: 'Bar chart of MoMo revenue by month in 2020. December is the tallest bar at 1.76 million VND.',
+                    title: 'Revenue through the year',
+                    takeaway: 'Revenue finishes the year highest: December is 1,764,400 VND, above January’s 1,410,427 VND.',
+                },
+                {
+                    src: '/media/momo-merchant.jpg',
+                    alt: 'Horizontal bars of revenue by telco merchant. Viettel leads at 7,101,400 VND.',
+                    title: 'Which merchants pay',
+                    takeaway: 'Viettel brings in 7,101,400 VND, ahead of Mobifone at 5,720,527 VND.',
+                },
+                {
+                    src: '/media/momo-age.jpg',
+                    alt: 'Revenue by age group. Ages 23 to 27 are the tallest bar at 4.42 million VND.',
+                    title: 'Who the revenue comes from',
+                    takeaway: 'Ages 23–27 contribute 4,416,000 VND, more than any other age group.',
+                },
+                {
+                    src: '/media/momo-weekday.jpg',
+                    alt: 'Average revenue by weekday. Wednesday is highest at 1,495 VND and Sunday is lowest at 1,285 VND.',
+                    title: 'Which day earns more',
+                    takeaway: 'Wednesday averages 1,495 VND. Sunday is the quiet day, at 1,285 VND.',
+                },
+            ],
+        },
         visual: { bg: '#A82D63', fg: '#FFF6EA', accent: '#FFF6EA', pattern: 'dots' },
     },
     {

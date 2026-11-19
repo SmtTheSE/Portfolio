@@ -99,7 +99,29 @@ const PreviewDialog = ({ project, onClose }: Props) => {
                         </button>
                     </div>
 
-                    {shot ? (
+                    {project.board ? (
+                        <div className="flex flex-col gap-3 bg-bg px-4 py-4 md:px-6">
+                            <ul className="grid grid-cols-2 gap-2 md:grid-cols-4" aria-label="Key figures">
+                                {project.board.kpis.map((kpi) => (
+                                    <li key={kpi.label} className="border border-line px-3 py-3">
+                                        <p className="font-serif text-[22px] leading-none tracking-[-0.03em] md:text-[26px]">{kpi.value}</p>
+                                        <p className="mt-2 font-mono text-[10px] uppercase leading-snug tracking-[0.06em] text-muted">{kpi.label}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                {project.board.cards.map((card) => (
+                                    <li key={card.title} className="flex flex-col border border-line bg-ink/25">
+                                        <img src={card.src} alt={card.alt} className="block w-full bg-white object-contain" />
+                                        <div className="flex flex-col gap-1 px-3 py-3">
+                                            <h3 className="text-[15px] leading-tight tracking-[-0.02em]">{card.title}</h3>
+                                            <p className="text-[13px] leading-snug text-muted">{card.takeaway}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : shot ? (
                         <div className="relative bg-ink">
                             <img ref={shotImgRef} src={shot.src} alt={shot.alt} className="mx-auto block max-h-[min(52vh,520px)] w-full object-contain will-change-transform" />
                             {shots.length > 1 && (
