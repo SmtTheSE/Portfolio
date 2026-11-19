@@ -1,6 +1,6 @@
 import { ReactNode, useRef, useState } from 'react';
 import profilePortrait from '../assets/profile-portrait.webp';
-import { Draggable, gsap, prefersReducedMotion, useGSAP } from '../lib/gsap';
+import { Draggable, EASE, gsap, prefersReducedMotion, SplitText, useGSAP } from '../lib/gsap';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 
 type WinProps = {
@@ -39,6 +39,9 @@ const Win = ({ id, draggable, title, tone, className, zIndex, onClose, children 
 
 const HeroWindows = () => {
     const stageRef = useRef<HTMLDivElement>(null);
+    const portraitRef = useRef<HTMLImageElement>(null);
+    const titleTextRef = useRef<HTMLParagraphElement>(null);
+    const restoreRef = useRef<HTMLButtonElement>(null);
     const [closed, setClosed] = useState<string[]>([]);
     const draggable = useMediaQuery('(min-width: 768px)');
 
@@ -50,17 +53,58 @@ const HeroWindows = () => {
             // Enter in visual order, top to bottom, whichever layout is active.
             const visual = [...wins].sort((x, y) => x.getBoundingClientRect().top - y.getBoundingClientRect().top);
             const reduced = prefersReducedMotion();
+            let titleSplit: SplitText | null = null;
 
-            // Entrance: windows fade in one after another, staying perfectly straight.
+            // Choreographed curtain entrance + portrait camera-settle + masked title chars.
             if (!reduced) {
-                gsap.from(visual, {
-                    autoAlpha: 0,
-                    scale: 0.97,
-                    duration: 0.6,
-                    ease: 'power3.out',
-                    stagger: 0.1,
-                    delay: 0.05,
-                });
+                const tl = gsap.timeline({ delay: 0.06 });
+
+                tl.fromTo(
+                    visual,
+                    {
+                        autoAlpha: 0,
+                        y: 26,
+                        scale: 0.96,
+                        clipPath: 'inset(0% 0% 100% 0%)',
+                    },
+                    {
+                        autoAlpha: 1,
+                        y: 0,
+                        scale: 1,
+                        clipPath: 'inset(0% 0% 0% 0%)',
+                        duration: 0.95,
+                        ease: EASE.curtain,
+                        stagger: 0.11,
+                        clearProps: 'clipPath',
+                    },
+                );
+
+                if (portraitRef.current) {
+                    tl.fromTo(
+                        portraitRef.current,
+                        { scale: 1.08 },
+                        { scale: 1, duration: 1.2, ease: EASE.curtain, clearProps: 'transform' },
+                        0.08,
+                    );
+                }
+
+                if (titleTextRef.current) {
+                    titleSplit = SplitText.create(titleTextRef.current, {
+                        type: 'chars,words',
+                        mask: 'lines',
+                        aria: 'auto',
+                    });
+                    tl.from(
+                        titleSplit.chars,
+                        {
+                            yPercent: 115,
+                            duration: 0.85,
+                            stagger: 0.022,
+                            ease: EASE.editorial,
+                        },
+                        0.32,
+                    );
+                }
             }
 
             // Dragging is a desktop interaction; on phones the windows stay in a stack.
@@ -73,16 +117,56 @@ const HeroWindows = () => {
                     edgeResistance: 0.9,
                     zIndexBoost: true,
                     onPress() {
-                        gsap.to(this.target, { scale: 1.015, duration: 0.18, ease: 'power2.out' });
+                        gsap.to(this.target, {
+                            scale: 1.022,
+                            boxShadow: '0 24px 50px -12px rgba(38, 20, 12, 0.48)',
+                            duration: 0.22,
+                            ease: 'power2.out',
+                            overwrite: 'auto',
+                        });
+                    },
+                    onDrag() {
+                        if (reduced) return;
+                        const tilt = gsap.utils.clamp(-2.8, 2.8, this.deltaX * 0.22);
+                        gsap.to(this.target, {
+                            rotation: tilt,
+                            duration: 0.25,
+                            ease: 'power2.out',
+                            overwrite: 'auto',
+                        });
                     },
                     onRelease() {
-                        gsap.to(this.target, { scale: 1, duration: 0.35, ease: 'back.out(2)' });
+                        gsap.to(this.target, {
+                            scale: 1,
+                            rotation: 0,
+                            boxShadow: '0 0px 0px 0px rgba(38, 20, 12, 0)',
+                            duration: 0.65,
+                            ease: reduced ? 'power2.out' : EASE.settle,
+                            overwrite: 'auto',
+                        });
                     },
                 });
                 return () => draggables.forEach((d) => d.kill());
             });
+
+            return () => {
+                titleSplit?.revert();
+            };
         },
         { scope: stageRef },
+    );
+
+    const hasClosed = closed.length > 0;
+    useGSAP(
+        () => {
+            if (!hasClosed || !restoreRef.current || prefersReducedMotion()) return;
+            gsap.fromTo(
+                restoreRef.current,
+                { autoAlpha: 0, y: 10 },
+                { autoAlpha: 1, y: 0, duration: 0.4, ease: EASE.editorial },
+            );
+        },
+        { dependencies: [hasClosed], scope: stageRef },
     );
 
     const close = (id: string) => {
@@ -104,9 +188,10 @@ const HeroWindows = () => {
         gsap.to(els, {
             autoAlpha: 1,
             scale: 1,
-            duration: 0.55,
+            rotation: 0,
+            duration: 0.6,
             ease: 'back.out(1.6)',
-            stagger: 0.1,
+            stagger: 0.09,
         });
         setClosed([]);
     };
@@ -128,10 +213,11 @@ const HeroWindows = () => {
                     <div className="px-2 pb-1">
                         <div className="relative aspect-[4/5] overflow-hidden bg-win-green">
                             <img
+                                ref={portraitRef}
                                 src={profilePortrait}
                                 alt="Portrait of Sitt Min Thar"
                                 draggable={false}
-                                className="absolute inset-0 w-full h-full object-cover object-[50%_30%] select-none"
+                                className="absolute inset-0 w-full h-full object-cover object-[50%_30%] select-none will-change-transform"
                             />
                         </div>
                         <p className="font-serif text-[19px] md:text-[20px] leading-[1.25] px-0.5 pt-2.5 pb-2">
@@ -179,11 +265,14 @@ const HeroWindows = () => {
                     className="w-full order-1 md:order-none md:absolute md:left-[30%] md:top-[362px] md:w-[40%] md:max-w-[440px]"
                     onClose={close}
                 >
-                    <p className="font-serif text-[28px] md:text-[32px] leading-none px-3 pt-2 pb-3.5">Software engineer</p>
+                    <p ref={titleTextRef} className="font-serif text-[28px] md:text-[32px] leading-none px-3 pt-2 pb-3.5">
+                        Software engineer
+                    </p>
                 </Win>
 
-                {closed.length > 0 && (
+                {hasClosed && (
                     <button
+                        ref={restoreRef}
                         type="button"
                         data-cursor="Restore"
                         onClick={restore}

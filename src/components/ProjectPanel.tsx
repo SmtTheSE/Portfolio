@@ -1,5 +1,6 @@
-import type { CSSProperties } from 'react';
+import { useRef, type CSSProperties } from 'react';
 import type { Pattern, Project } from '../data/projects';
+import { EASE, gsap, hasFinePointer, prefersReducedMotion, useGSAP } from '../lib/gsap';
 
 const patternStyle = (pattern: Pattern, color: string): CSSProperties => {
     switch (pattern) {
@@ -59,11 +60,77 @@ type Props = {
 };
 
 const ProjectPanel = ({ project, index, total, onPlay, onPreview }: Props) => {
+    const rootRef = useRef<HTMLDivElement>(null);
     const { visual } = project;
     const counter = `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
     const action = actionFor(project);
     const hasImage = Boolean(project.image);
     const coverAlt = project.imageAlt ?? `${project.title}: ${project.blurb}`;
+
+    useGSAP(
+        () => {
+            const root = rootRef.current;
+            if (!root || !hasFinePointer() || prefersReducedMotion()) return;
+            const visualEl = root.querySelector<HTMLElement>('[data-panel-visual]');
+            const playBtn = root.querySelector<HTMLElement>('[data-play-btn]');
+
+            const playX = playBtn ? gsap.quickTo(playBtn, 'x', { duration: 0.35, ease: 'power3.out' }) : null;
+            const playY = playBtn ? gsap.quickTo(playBtn, 'y', { duration: 0.35, ease: 'power3.out' }) : null;
+
+            const onEnter = () => {
+                if (hasImage) {
+                    gsap.to(root, {
+                        y: -4,
+                        boxShadow: '0 22px 44px -16px rgba(38, 20, 12, 0.45)',
+                        duration: 0.55,
+                        ease: EASE.editorial,
+                        overwrite: 'auto',
+                    });
+                } else if (visualEl) {
+                    gsap.to(visualEl, { scale: 1.03, duration: 0.75, ease: EASE.editorial, overwrite: 'auto' });
+                }
+                if (playBtn) {
+                    gsap.to(playBtn, { scale: 1.1, duration: 0.38, ease: EASE.editorial, overwrite: 'auto' });
+                }
+            };
+
+            const onMove = (e: PointerEvent) => {
+                if (!playBtn || !playX || !playY) return;
+                const rect = root.getBoundingClientRect();
+                const relX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+                const relY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+                playX(relX * 16);
+                playY(relY * 16);
+            };
+
+            const onLeave = () => {
+                if (hasImage) {
+                    gsap.to(root, {
+                        y: 0,
+                        boxShadow: '0 0px 0px 0px rgba(38, 20, 12, 0)',
+                        duration: 0.55,
+                        ease: EASE.editorial,
+                        overwrite: 'auto',
+                    });
+                } else if (visualEl) {
+                    gsap.to(visualEl, { scale: 1, duration: 0.75, ease: EASE.editorial, overwrite: 'auto' });
+                }
+                if (playBtn) {
+                    gsap.to(playBtn, { x: 0, y: 0, scale: 1, duration: 0.65, ease: EASE.settle, overwrite: 'auto' });
+                }
+            };
+
+            root.addEventListener('pointerenter', onEnter);
+            root.addEventListener('pointermove', onMove, { passive: true });
+            root.addEventListener('pointerleave', onLeave);
+            return () => {
+                root.removeEventListener('pointerenter', onEnter);
+                root.removeEventListener('pointermove', onMove);
+                root.removeEventListener('pointerleave', onLeave);
+            };
+        },
+        { scope: rootRef },
+    );
 
     const frame = `relative block w-full overflow-hidden text-left ${hasImage ? '' : 'aspect-[4/3] sm:aspect-[16/10]'}`;
     const frameStyle = {
@@ -95,7 +162,7 @@ const ProjectPanel = ({ project, index, total, onPlay, onPreview }: Props) => {
                     />
                     {project.internal ? (
                         <>
-                            <div className="absolute inset-0 flex items-center justify-center px-6">
+                            <div data-panel-visual className="absolute inset-0 flex items-center justify-center px-6 will-change-transform">
                                 <h3 className="font-serif text-[40px] sm:text-[52px] md:text-[64px] leading-[1] tracking-[-0.02em] text-center">
                                     {project.title}
                                 </h3>
@@ -128,7 +195,10 @@ const ProjectPanel = ({ project, index, total, onPlay, onPreview }: Props) => {
 
             {project.video && (
                 <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-                    <span className="flex items-center justify-center w-[68px] h-[68px] rounded-full bg-white/90 text-ink shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+                    <span
+                        data-play-btn
+                        className="flex items-center justify-center w-[68px] h-[68px] rounded-full bg-white/90 text-ink shadow-[0_8px_30px_rgba(0,0,0,0.35)] will-change-transform"
+                    >
                         <span className="ml-0.5">
                             <PlayGlyph />
                         </span>
@@ -139,9 +209,11 @@ const ProjectPanel = ({ project, index, total, onPlay, onPreview }: Props) => {
     );
 
     return (
-        <button type="button" onClick={project.video ? onPlay : onPreview} className={frame} style={frameStyle} {...pill} {...shortcut}>
-            {inner}
-        </button>
+        <div ref={rootRef} data-curtain className="will-change-[clip-path]">
+            <button type="button" onClick={project.video ? onPlay : onPreview} className={frame} style={frameStyle} {...pill} {...shortcut}>
+                {inner}
+            </button>
+        </div>
     );
 };
 

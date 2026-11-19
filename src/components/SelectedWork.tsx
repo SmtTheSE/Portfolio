@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { projects, type Project } from '../data/projects';
 import ProjectPanel from './ProjectPanel';
 import PreviewDialog from './PreviewDialog';
-import { gsap, prefersReducedMotion, ScrollTrigger, useGSAP } from '../lib/gsap';
+import { EASE, gsap, prefersReducedMotion, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 
 const VIDEO_SRC = '/media/headroom-presentation.mp4';
@@ -14,9 +14,13 @@ const ProjectInfo = ({ project, onPlay, onPreview }: { project: Project; onPlay:
             {project.desc}
         </p>
 
-        <ul data-in className="flex flex-wrap gap-1.5" aria-label="Built with">
+        <ul className="flex flex-wrap gap-1.5" aria-label="Built with">
             {project.tech.map((t) => (
-                <li key={t} className="font-mono text-[11px] uppercase tracking-[0.06em] text-muted border border-line px-2 py-1">
+                <li
+                    key={t}
+                    data-chip
+                    className="font-mono text-[11px] uppercase tracking-[0.06em] text-muted border border-line px-2 py-1"
+                >
                     {t}
                 </li>
             ))}
@@ -71,13 +75,15 @@ const ProjectInfo = ({ project, onPlay, onPreview }: { project: Project; onPlay:
 const SelectedWork = () => {
     const rootRef = useRef<HTMLElement>(null);
     const textRefs = useRef<Array<HTMLDivElement | null>>([]);
+    const counterDigitRef = useRef<HTMLSpanElement>(null);
+    const prevActiveRef = useRef(0);
     const dialogRef = useRef<HTMLDialogElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [active, setActive] = useState(0);
     const [previewId, setPreviewId] = useState<string | null>(null);
     const isDesktop = useMediaQuery('(min-width: 768px)');
 
-    // Which project is in the middle of the screen, plus parallax on each panel's visuals.
+    // Which project is in the middle of the screen, plus curtain unfurl & parallax on each panel.
     useGSAP(
         () => {
             const root = rootRef.current;
@@ -96,6 +102,28 @@ const SelectedWork = () => {
                 });
 
                 if (reduced) return;
+
+                // One-shot editorial reveal that always completes to full unclipped frame.
+                const curtain = panel.querySelector<HTMLElement>('[data-curtain]');
+                if (curtain) {
+                    gsap.fromTo(
+                        curtain,
+                        { y: 24, clipPath: 'inset(0% 0% 100% 0%)' },
+                        {
+                            y: 0,
+                            clipPath: 'inset(0% 0% 0% 0%)',
+                            duration: 0.9,
+                            ease: EASE.curtain,
+                            clearProps: 'clipPath,transform',
+                            scrollTrigger: {
+                                trigger: panel,
+                                start: 'top 92%',
+                                once: true,
+                            },
+                        },
+                    );
+                }
+
                 panel.querySelectorAll('[data-media]').forEach((media) => {
                     gsap.fromTo(
                         media,
@@ -119,6 +147,25 @@ const SelectedWork = () => {
                     );
                 });
             });
+
+            if (!reduced) {
+                const mm = gsap.matchMedia();
+                mm.add('(max-width: 767px)', () => {
+                    panels.forEach((panel) => {
+                        gsap.fromTo(
+                            panel,
+                            { opacity: 0, y: 26 },
+                            {
+                                opacity: 1,
+                                y: 0,
+                                duration: 0.8,
+                                ease: EASE.editorial,
+                                scrollTrigger: { trigger: panel, start: 'top 88%', once: true },
+                            },
+                        );
+                    });
+                });
+            }
         },
         { scope: rootRef },
     );
@@ -130,15 +177,30 @@ const SelectedWork = () => {
             if (!root) return;
             const panels = gsap.utils.toArray<HTMLElement>('[data-panel]', root);
             const blocks = textRefs.current;
+            const reduced = prefersReducedMotion();
 
             if (!isDesktop) {
                 gsap.set(panels, { clearProps: 'opacity' });
                 return;
             }
 
+            if (!reduced && counterDigitRef.current && prevActiveRef.current !== active) {
+                const dir = active > prevActiveRef.current ? 1 : -1;
+                gsap.fromTo(
+                    counterDigitRef.current,
+                    { yPercent: dir * 105, autoAlpha: 0 },
+                    { yPercent: 0, autoAlpha: 1, duration: 0.48, ease: EASE.editorial, overwrite: 'auto' },
+                );
+            }
+            prevActiveRef.current = active;
+
             // Kill everything still pending first. overwrite:'auto' ignores a fade-in that is still waiting out its
             // delay, so a fast scroll would otherwise leave an earlier project's text un-hidden on top of the current one.
-            gsap.killTweensOf(blocks.flatMap((b) => (b ? [b, ...Array.from(b.querySelectorAll('[data-in]'))] : [])));
+            gsap.killTweensOf(
+                blocks.flatMap((b) =>
+                    b ? [b, ...Array.from(b.querySelectorAll('[data-in], [data-chip]'))] : [],
+                ),
+            );
 
             blocks.forEach((block, i) => {
                 if (!block) return;
@@ -146,8 +208,8 @@ const SelectedWork = () => {
                     gsap.set(block, { autoAlpha: 0 });
                     gsap.to(block, {
                         autoAlpha: 1,
-                        duration: 0.3,
-                        delay: 0.16,
+                        duration: 0.28,
+                        delay: 0.14,
                         overwrite: 'auto',
                         onComplete: () => {
                             blocks.forEach((other, k) => {
@@ -155,18 +217,27 @@ const SelectedWork = () => {
                             });
                         },
                     });
-                    gsap.fromTo(
-                        block.querySelectorAll('[data-in]'),
-                        { y: 22, opacity: 0 },
-                        { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, delay: 0.16, ease: 'power3.out', overwrite: 'auto' },
-                    );
+                    if (!reduced) {
+                        gsap.fromTo(
+                            block.querySelectorAll('[data-in]'),
+                            { y: 24, opacity: 0 },
+                            { y: 0, opacity: 1, duration: 0.78, stagger: 0.075, delay: 0.14, ease: EASE.editorial, overwrite: 'auto' },
+                        );
+                        gsap.fromTo(
+                            block.querySelectorAll('[data-chip]'),
+                            { y: 12, opacity: 0, scale: 0.94 },
+                            { y: 0, opacity: 1, scale: 1, duration: 0.55, stagger: 0.032, delay: 0.24, ease: EASE.editorial, overwrite: 'auto' },
+                        );
+                    } else {
+                        gsap.set(block.querySelectorAll('[data-in], [data-chip]'), { y: 0, opacity: 1, scale: 1 });
+                    }
                 } else {
                     gsap.to(block, { autoAlpha: 0, duration: 0.16, overwrite: 'auto' });
                 }
             });
 
             panels.forEach((panel, i) => {
-                gsap.to(panel, { opacity: i === active ? 1 : 0.4, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
+                gsap.to(panel, { opacity: i === active ? 1 : 0.38, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
             });
         },
         { dependencies: [active, isDesktop], scope: rootRef },
@@ -186,8 +257,12 @@ const SelectedWork = () => {
                 <div className="sticky top-0 h-screen px-7 pt-[110px] pb-10 flex flex-col">
                     <div className="flex items-baseline justify-between">
                         <h2 className="text-[30px] leading-none font-light tracking-[-0.03em] text-fg">Selected work</h2>
-                        <span className="mono-label" aria-hidden="true">
-                            {String(active + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                        <span className="mono-label inline-flex items-baseline overflow-hidden" aria-hidden="true">
+                            <span ref={counterDigitRef} className="inline-block tabular-nums">
+                                {String(active + 1).padStart(2, '0')}
+                            </span>
+                            <span className="mx-1">/</span>
+                            <span className="tabular-nums">{String(projects.length).padStart(2, '0')}</span>
                         </span>
                     </div>
 

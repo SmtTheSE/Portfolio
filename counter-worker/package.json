@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-views",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 8787 --var ALLOWED_ORIGINS:http://127.0.0.1:5173",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/counter.test.mjs",
+    "check": "wrangler deploy --dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

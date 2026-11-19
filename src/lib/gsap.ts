@@ -9,6 +9,14 @@ gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin, SplitText, useGSAP)
 
 export { gsap, ScrollTrigger, Draggable, SplitText, useGSAP };
 
+/** Shared motion curves so every reveal and interaction shares one editorial feel. */
+export const EASE = {
+    editorial: 'power4.out',
+    curtain: 'expo.out',
+    snap: 'power3.inOut',
+    settle: 'elastic.out(1, 0.65)',
+} as const;
+
 export const prefersReducedMotion = () =>
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

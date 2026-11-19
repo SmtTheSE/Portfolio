@@ -1,9 +1,5 @@
 import { ReactNode, useRef } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+import { EASE, gsap, prefersReducedMotion, useGSAP } from '../lib/gsap';
 
 interface RevealProps {
     children: ReactNode;
@@ -23,7 +19,7 @@ export default function Reveal({ children, className, delay = 0, distance = 24, 
 
     useGSAP(
         () => {
-            if (!ref.current) return;
+            if (!ref.current || prefersReducedMotion()) return;
             gsap.fromTo(
                 ref.current,
                 { opacity: 0, y: distance, ...(scale ? { scale: 0.97 } : {}) },
@@ -33,7 +29,7 @@ export default function Reveal({ children, className, delay = 0, distance = 24, 
                     ...(scale ? { scale: 1 } : {}),
                     duration: 0.9,
                     delay,
-                    ease: 'power3.out',
+                    ease: EASE.editorial,
                     scrollTrigger: {
                         trigger: ref.current,
                         start: 'top 88%',

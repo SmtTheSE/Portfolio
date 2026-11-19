@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio-views",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-20",
+  "workers_dev": true,
+  "observability": { "enabled": false },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://sittminthar.from-mm.dev"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "VIEWS", "class_name": "ViewCounter" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ViewCounter"] }]
+}

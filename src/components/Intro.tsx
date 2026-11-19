@@ -15,44 +15,70 @@ const Intro = () => {
     useGSAP(
         () => {
             if (prefersReducedMotion()) return;
+            let split: SplitText | null = null;
+            let resetSkewTimer = 0;
 
-            // Statement: words brighten one by one as you scroll through the paragraph.
+            // Statement: words brighten and gently settle into place as you scroll through the paragraph.
             if (textRef.current) {
-                const split = SplitText.create(textRef.current, { type: 'words' });
+                split = SplitText.create(textRef.current, { type: 'words', aria: 'auto' });
                 gsap.fromTo(
                     split.words,
-                    { opacity: 0.22 },
+                    { opacity: 0.2, y: 6 },
                     {
                         opacity: 1,
+                        y: 0,
                         ease: 'none',
                         stagger: 0.12,
                         scrollTrigger: {
                             trigger: textRef.current,
-                            start: 'top 82%',
+                            start: 'top 84%',
                             end: 'bottom 48%',
-                            scrub: 0.4,
+                            scrub: 0.45,
                         },
                     },
                 );
             }
 
-            // Marquee: a constant drift that speeds up with scroll velocity and flips with direction.
+            // Marquee: constant drift that boosts, flips, and leans with scroll velocity.
             const track = trackRef.current;
+            let loop: gsap.core.Tween | null = null;
+            const pause = () => {
+                if (loop) gsap.to(loop, { timeScale: 0, duration: 0.45, ease: 'power2.out' });
+            };
+            const resume = () => {
+                if (loop) gsap.to(loop, { timeScale: 1, duration: 0.65, ease: 'power2.out' });
+            };
+
             if (track) {
-                const loop = gsap.to(track, { xPercent: -50, duration: 46, ease: 'none', repeat: -1 });
+                loop = gsap.to(track, { xPercent: -50, duration: 46, ease: 'none', repeat: -1 });
+                const skewTo = gsap.quickTo(track, 'skewX', { duration: 0.28, ease: 'power2.out' });
+
                 ScrollTrigger.create({
                     onUpdate: (self) => {
-                        const boost = 1 + Math.min(Math.abs(self.getVelocity()) / 260, 7);
+                        const velocity = self.getVelocity();
+                        const boost = 1 + Math.min(Math.abs(velocity) / 260, 7);
                         gsap.timeline({ overwrite: true })
                             .to(loop, { timeScale: self.direction * boost, duration: 0.2 })
                             .to(loop, { timeScale: self.direction, duration: 1.2, ease: 'power2.out' });
+
+                        const skew = gsap.utils.clamp(-7.5, 7.5, velocity / -220);
+                        skewTo(skew);
+                        window.clearTimeout(resetSkewTimer);
+                        resetSkewTimer = window.setTimeout(() => skewTo(0), 140);
                     },
                 });
-                const pause = () => gsap.to(loop, { timeScale: 0, duration: 0.4 });
-                const resume = () => gsap.to(loop, { timeScale: 1, duration: 0.6 });
                 track.addEventListener('pointerenter', pause);
                 track.addEventListener('pointerleave', resume);
             }
+
+            return () => {
+                window.clearTimeout(resetSkewTimer);
+                split?.revert();
+                if (track) {
+                    track.removeEventListener('pointerenter', pause);
+                    track.removeEventListener('pointerleave', resume);
+                }
+            };
         },
         { scope: rootRef },
     );

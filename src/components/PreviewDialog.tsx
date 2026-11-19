@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { shotsFor, type Project } from '../data/projects';
+import { EASE, gsap, prefersReducedMotion, useGSAP } from '../lib/gsap';
 
 type Props = {
     project: Project | null;
@@ -8,6 +9,7 @@ type Props = {
 
 const PreviewDialog = ({ project, onClose }: Props) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
+    const shotImgRef = useRef<HTMLImageElement>(null);
     const titleId = useId();
     const [index, setIndex] = useState(0);
     const shots = project ? shotsFor(project) : [];
@@ -23,6 +25,30 @@ const PreviewDialog = ({ project, onClose }: Props) => {
         if (project && !dialog.open) dialog.showModal();
         if (!project && dialog.open) dialog.close();
     }, [project]);
+
+    useGSAP(
+        () => {
+            if (!project || !dialogRef.current || prefersReducedMotion()) return;
+            gsap.fromTo(
+                dialogRef.current,
+                { autoAlpha: 0, y: 24, scale: 0.97 },
+                { autoAlpha: 1, y: 0, scale: 1, duration: 0.55, ease: EASE.editorial },
+            );
+        },
+        { dependencies: [project?.id] },
+    );
+
+    useGSAP(
+        () => {
+            if (!shot || !shotImgRef.current || prefersReducedMotion()) return;
+            gsap.fromTo(
+                shotImgRef.current,
+                { autoAlpha: 0.2, scale: 1.02 },
+                { autoAlpha: 1, scale: 1, duration: 0.45, ease: EASE.editorial },
+            );
+        },
+        { dependencies: [shot?.src] },
+    );
 
     const step = (delta: number) => {
         if (shots.length < 2) return;
@@ -75,7 +101,7 @@ const PreviewDialog = ({ project, onClose }: Props) => {
 
                     {shot ? (
                         <div className="relative bg-ink">
-                            <img src={shot.src} alt={shot.alt} className="mx-auto block max-h-[min(52vh,520px)] w-full object-contain" />
+                            <img ref={shotImgRef} src={shot.src} alt={shot.alt} className="mx-auto block max-h-[min(52vh,520px)] w-full object-contain will-change-transform" />
                             {shots.length > 1 && (
                                 <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-black/70 to-transparent p-3">
                                     <button
