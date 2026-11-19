@@ -1,13 +1,14 @@
 import { useRef, useState } from 'react';
 import { projects, type Project } from '../data/projects';
 import ProjectPanel from './ProjectPanel';
+import PreviewDialog from './PreviewDialog';
 import { gsap, prefersReducedMotion, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 
 const VIDEO_SRC = '/media/headroom-presentation.mp4';
 const VIDEO_POSTER = '/media/headroom-poster.jpg';
 
-const ProjectInfo = ({ project, onPlay }: { project: Project; onPlay: () => void }) => (
+const ProjectInfo = ({ project, onPlay, onPreview }: { project: Project; onPlay: () => void; onPreview: () => void }) => (
     <div className="flex flex-col gap-5">
         <p data-in className="text-[14px] leading-[1.55] text-fg/90 max-w-[44ch]">
             {project.desc}
@@ -22,7 +23,7 @@ const ProjectInfo = ({ project, onPlay }: { project: Project; onPlay: () => void
         </ul>
 
         <div data-in className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]">
-            {project.video && (
+            {project.video ? (
                 <button
                     type="button"
                     data-cursor="Play"
@@ -33,6 +34,14 @@ const ProjectInfo = ({ project, onPlay }: { project: Project; onPlay: () => void
                         <path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" />
                     </svg>
                     Watch the product we built
+                </button>
+            ) : (
+                <button
+                    type="button"
+                    onClick={onPreview}
+                    className="inline-flex items-center min-h-[44px] -my-2 text-fg underline decoration-fg/35 underline-offset-[5px] hover:decoration-fg transition-colors"
+                >
+                    Preview
                 </button>
             )}
             {project.links?.map((link) => (
@@ -46,13 +55,13 @@ const ProjectInfo = ({ project, onPlay }: { project: Project; onPlay: () => void
                     {link.label} &#8599;
                 </a>
             ))}
-            {project.nda && (
+            {project.internal && (
                 <span className="inline-flex items-center gap-2 min-h-[44px] -my-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <rect x="4" y="11" width="16" height="10" rx="1" />
                         <path d="M8 11V7a4 4 0 0 1 8 0v4" />
                     </svg>
-                    Under NDA
+                    Private / internal project
                 </span>
             )}
         </div>
@@ -65,6 +74,7 @@ const SelectedWork = () => {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [active, setActive] = useState(0);
+    const [previewId, setPreviewId] = useState<string | null>(null);
     const isDesktop = useMediaQuery('(min-width: 768px)');
 
     // Which project is in the middle of the screen, plus parallax on each panel's visuals.
@@ -162,6 +172,7 @@ const SelectedWork = () => {
         { dependencies: [active, isDesktop], scope: rootRef },
     );
 
+    const preview = projects.find((project) => project.id === previewId && !project.video) ?? null;
     const openVideo = () => {
         dialogRef.current?.showModal();
         videoRef.current?.play().catch(() => {});
@@ -193,7 +204,7 @@ const SelectedWork = () => {
                                 <h3 data-in className="text-[30px] leading-[1.08] font-light tracking-[-0.03em] text-muted max-w-[16ch]">
                                     {p.title}
                                 </h3>
-                                <ProjectInfo project={p} onPlay={openVideo} />
+                                <ProjectInfo project={p} onPlay={openVideo} onPreview={() => setPreviewId(p.id)} />
                             </div>
                         ))}
                     </div>
@@ -207,7 +218,7 @@ const SelectedWork = () => {
                 </h2>
                 {projects.map((p, i) => (
                     <div key={p.id} data-panel data-index={i} className={i === 0 ? '' : 'md:opacity-40'}>
-                        <ProjectPanel project={p} index={i} total={projects.length} onPlay={openVideo} />
+                        <ProjectPanel project={p} index={i} total={projects.length} onPlay={openVideo} onPreview={() => setPreviewId(p.id)} />
                         <div className="md:hidden pt-5 flex flex-col gap-4">
                             {p.image && (
                                 <span className="mono-label">
@@ -215,11 +226,13 @@ const SelectedWork = () => {
                                 </span>
                             )}
                             <h3 className="text-[26px] leading-[1.1] font-light tracking-[-0.03em] text-muted">{p.title}</h3>
-                            <ProjectInfo project={p} onPlay={openVideo} />
+                            <ProjectInfo project={p} onPlay={openVideo} onPreview={() => setPreviewId(p.id)} />
                         </div>
                     </div>
                 ))}
             </div>
+
+            <PreviewDialog project={preview} onClose={() => setPreviewId(null)} />
 
             <dialog
                 ref={dialogRef}
