@@ -40,6 +40,23 @@ const Nav = () => {
     const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
     const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
     const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+    const scrollLockRef = useRef<number | null>(null);
+
+    const unlockScroll = useCallback(() => {
+        if (scrollLockRef.current === null) return;
+        const y = scrollLockRef.current;
+        scrollLockRef.current = null;
+        const html = document.documentElement;
+        const body = document.body;
+        html.style.overflow = '';
+        body.style.overflow = '';
+        body.style.position = '';
+        body.style.top = '';
+        body.style.left = '';
+        body.style.right = '';
+        body.style.width = '';
+        window.scrollTo(0, y);
+    }, []);
 
     const syncIndicator = useCallback((targetKey: string, immediate = false) => {
         const list = navListRef.current;
@@ -80,6 +97,9 @@ const Nav = () => {
                 autoAlpha: 0,
                 duration: 0.75,
                 ease: EASE.editorial,
+                // A leftover transform would make this header the containing block
+                // for position:fixed descendants and collapse the mobile menu.
+                clearProps: 'transform',
             });
 
             if (progressRef.current) {
@@ -136,12 +156,24 @@ const Nav = () => {
             if (e.key === 'Escape') setOpen(false);
         };
         document.addEventListener('keydown', onKey);
-        document.body.style.overflow = 'hidden';
+
+        const html = document.documentElement;
+        const body = document.body;
+        scrollLockRef.current = window.scrollY;
+        html.style.overflow = 'hidden';
+        body.style.overflow = 'hidden';
+        // iOS Safari often ignores overflow:hidden on body alone.
+        body.style.position = 'fixed';
+        body.style.top = `-${scrollLockRef.current}px`;
+        body.style.left = '0';
+        body.style.right = '0';
+        body.style.width = '100%';
+
         return () => {
             document.removeEventListener('keydown', onKey);
-            document.body.style.overflow = '';
+            unlockScroll();
         };
-    }, [open]);
+    }, [open, unlockScroll]);
 
     useGSAP(
         () => {
@@ -163,7 +195,8 @@ const Nav = () => {
     );
 
     return (
-        <header ref={headerRef} className="fixed inset-x-0 top-0 z-[100]">
+        <>
+        <header ref={headerRef} className="fixed inset-x-0 top-0 z-[210]">
             <span
                 ref={progressRef}
                 aria-hidden="true"
@@ -247,9 +280,14 @@ const Nav = () => {
                     </svg>
                 </button>
             </div>
+        </header>
 
             {open && (
-                <div ref={mobileMenuRef} id="mobile-menu" className="md:hidden fixed inset-0 top-[68px] bg-bg px-5 pt-6">
+                <div
+                    ref={mobileMenuRef}
+                    id="mobile-menu"
+                    className="md:hidden fixed inset-x-0 top-[68px] bottom-0 z-[200] bg-bg px-5 pt-6 pb-[env(safe-area-inset-bottom)] overflow-y-auto overscroll-none"
+                >
                     <ul className="flex flex-col">
                         {LINKS.map((link, i) => (
                             <li key={link.name} className="relative overflow-hidden">
@@ -260,7 +298,7 @@ const Nav = () => {
                                     {...(link.download ? { download: true } : {})}
                                     onClick={(e) => {
                                         // Release the scroll lock before the tween starts, or GSAP's auto-kill cancels it.
-                                        document.body.style.overflow = '';
+                                        unlockScroll();
                                         setOpen(false);
                                         window.setTimeout(() => goToHash(link.href), 60);
                                         if (link.href.startsWith('#')) e.preventDefault();
@@ -280,7 +318,7 @@ const Nav = () => {
                     </ul>
                 </div>
             )}
-        </header>
+        </>
     );
 };
 

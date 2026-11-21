@@ -19,7 +19,7 @@ const Win = ({ id, draggable, title, tone, className, zIndex, onClose, children 
         data-win={id}
         data-cursor={draggable ? 'Drag' : undefined}
         style={{ zIndex }}
-        className={`${tone} will-change-transform md:cursor-grab md:active:cursor-grabbing ${className}`}
+        className={`${tone} md:will-change-transform md:cursor-grab md:active:cursor-grabbing ${className}`}
     >
         <div className="flex items-center justify-between pl-2.5 pr-1 py-1 text-[13px] leading-none select-none">
             <span>{title}</span>
