@@ -1,31 +1,31 @@
-import { GroupLabel, Muted, Row, SectionShell, TextLink } from './SectionShell';
+import { FeaturedLink, GroupLabel, Muted, Row, SectionShell, TextLink } from './SectionShell';
 
 const About = () => (
     <SectionShell id="about" title="About" subtitle="Where I've worked">
         <GroupLabel>Experience</GroupLabel>
-        <Row label={<TextLink href="https://beekrowd.com/en">BeeKrowd</TextLink>}>
-            Software Engineer <Muted>/ 2026 &ndash; Present</Muted>
+        <Row label={<FeaturedLink href="https://beekrowd.com/en">BeeKrowd</FeaturedLink>}>
+            Software Engineer <Muted>/ Onsite · 2026 &ndash; Present</Muted>
         </Row>
         <Row label="Ad Venture Studio">
-            Software Engineer <Muted>/ 2026 &ndash; Present</Muted>
+            Software Engineer <Muted>/ Remote · 2026 &ndash; Present</Muted>
             <p className="text-muted mt-1">
                 Building and shipping mobile apps for the App Store and Google Play: product engineering, store
                 releases, and app infrastructure.
             </p>
         </Row>
         <Row label={<TextLink href="https://bravestep.ai/">Bravestep</TextLink>}>
-            Founding Engineer <Muted>/ Present</Muted>
+            Founding Engineer <Muted>/ Remote · Present</Muted>
             <p className="text-muted mt-1">Founding engineering role covering systems direction and product infrastructure.</p>
         </Row>
         <Row label={<TextLink href="https://malibu.tech/">Malibu</TextLink>}>
-            Release-Acceptance Engineer, independent <Muted>/ Present</Muted>
+            Release-Acceptance Engineer, independent <Muted>/ Remote · Present</Muted>
             <p className="text-muted mt-1">
                 The physical-hardware validation gate between CI-green and fleet rollout for a macOS
                 distributed-compute marketplace.
             </p>
         </Row>
         <Row label={<TextLink href="https://www.facebook.com/aiot.global.inc">AIOT Inc</TextLink>}>
-            Software Development Intern <Muted>/ Internship</Muted>
+            Software Development Intern <Muted>/ Onsite · Internship</Muted>
             <p className="text-muted mt-1">
                 Backend integration, application structure, and production-minded software practices.
             </p>

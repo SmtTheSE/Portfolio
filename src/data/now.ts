@@ -11,9 +11,9 @@ export type NowStatus = {
 };
 
 export const nowStatus: NowStatus = {
-  status: 'Building and shipping mobile apps at Ad Venture Studio',
+  status: 'Working as a Software Engineer at BeeKrowd',
   focus: 'Mobile apps · Store releases · Backend systems',
   location: 'Ho Chi Minh City, VN',
   availableForWork: false,
-  updatedAt: '2026-07-24',
+  updatedAt: '2026-11-23',
 };

@@ -122,3 +122,15 @@ export const TextLink = ({ href, children }: { href: string; children: ReactNode
         {children}
     </a>
 );
+
+/** A more visible in-copy link for featured names such as BeeKrowd. */
+export const FeaturedLink = ({ href, children }: { href: string; children: ReactNode }) => (
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold text-win-sun underline decoration-win-sun underline-offset-[5px] hover:text-fg hover:decoration-fg transition-colors"
+    >
+        {children}
+    </a>
+);

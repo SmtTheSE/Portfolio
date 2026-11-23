@@ -2,6 +2,7 @@ import Reveal from '../Reveal';
 import { useNowStatus, useTealListening } from '../../hooks/useAtproto';
 import { formatRelativeTime } from '../../lib/atproto/format';
 import SectionHeader from '../SectionHeader';
+import { FeaturedLink } from '../SectionShell';
 
 /** Full Now section — status from PDS/local, plus Teal listening when available. */
 export default function NowSection() {
@@ -37,7 +38,15 @@ export default function NowSection() {
 
             <div className="p-6 md:p-8 flex flex-col gap-6">
               <p className="text-[20px] md:text-[24px] font-light tracking-tight text-text-main leading-snug">
-                {data.status}
+                {data.status.split(/(BeeKrowd)/g).map((part, i) =>
+                  part === 'BeeKrowd' ? (
+                    <FeaturedLink key={i} href="https://beekrowd.com/en">
+                      BeeKrowd
+                    </FeaturedLink>
+                  ) : (
+                    <span key={i}>{part}</span>
+                  ),
+                )}
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

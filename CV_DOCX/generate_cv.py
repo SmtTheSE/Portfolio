@@ -20,6 +20,7 @@ PDF_PATH = OUT_DIR / "Sitt_Min_Thar_Resume.pdf"
 FONT = "Times New Roman"
 LINK_BLUE = RGBColor(0x05, 0x63, 0xC1)
 BLACK = RGBColor(0x00, 0x00, 0x00)
+FEATURED_LINK_URLS = {"https://beekrowd.com/en", "https://pillr.lol/"}
 
 NAME = "SITT MIN THAR"
 EMAIL = "sittminthar005@gmail.com"
@@ -32,12 +33,14 @@ EXPERIENCE = [
         "org": "BeeKrowd",
         "org_url": "https://beekrowd.com/en",
         "dates": "2026 -- Present",
+        "work_type": "Onsite",
         "bullets": [],
     },
     {
         "title": "Software Engineer",
         "org": "Ad Venture Studio",
         "dates": "2026 -- Present",
+        "work_type": "Remote",
         "bullets": [
             "Building and shipping mobile apps for App Store and Google Play, owning product engineering, store releases, and app infrastructure",
             "Partnering with design and monetization leads on UX, performance, and retention-oriented product engineering",
@@ -48,6 +51,7 @@ EXPERIENCE = [
         "org": "Bravestep",
         "org_url": "https://bravestep.ai/",
         "dates": "Present",
+        "work_type": "Remote",
         "bullets": [
             "Founding engineering role focused on systems direction and product infrastructure",
         ],
@@ -57,6 +61,7 @@ EXPERIENCE = [
         "org": "Malibu",
         "org_url": "https://malibu.tech/",
         "dates": "Present",
+        "work_type": "Remote",
         "bullets": [
             "Independent release-acceptance engineer for a macOS distributed-compute marketplace, serving as the physical-hardware validation gate between CI-green and fleet rollout",
         ],
@@ -66,6 +71,7 @@ EXPERIENCE = [
         "org": "AIOT Inc",
         "org_url": "https://www.facebook.com/aiot.global.inc",
         "dates": "Internship",
+        "work_type": "Onsite",
         "bullets": [
             "Internship focused on backend integration, application structure, and production-minded software practices",
         ],
@@ -346,7 +352,7 @@ def build_docx() -> None:
     sr = summary_p.add_run("Working as a Software Engineer at ")
     sr.font.name = FONT
     sr.font.size = Pt(10.5)
-    add_hyperlink(summary_p, "BeeKrowd", "https://beekrowd.com/en", bold=False, size=10.5)
+    add_hyperlink(summary_p, "BeeKrowd", "https://beekrowd.com/en", bold=True, size=10.5)
     se = summary_p.add_run(".")
     se.font.name = FONT
     se.font.size = Pt(10.5)
@@ -355,6 +361,8 @@ def build_docx() -> None:
     section_heading(doc, "Experience")
     for exp in EXPERIENCE:
         left = f"{exp['title']} | {exp['org']}"
+        if exp.get("work_type"):
+            left = f"{left} · {exp['work_type']}"
         org_url = exp.get("org_url")
         two_col_line(doc, left, exp["dates"], left_url=org_url, left_link_text=exp["org"] if org_url else None)
         add_bullets(doc, exp["bullets"])
@@ -437,7 +445,23 @@ class CVPdf(FPDF):
         self.cell(left_w, 5.6, pdf_text(left))
         self.cell(right_w, 5.6, pdf_text(right), align="R", new_x="LMARGIN", new_y="NEXT")
 
-    def exp_line(self, title: str, org: str, right: str, size: float = 10.5, org_url: str | None = None) -> None:
+    def write_featured_link(self, text: str, url: str, size: float = 10.5) -> None:
+        self.set_font("Times", "BU", size)
+        self.set_text_color(*self.link_blue)
+        self.write(5.6, pdf_text(text), link=url)
+        self.set_text_color(0, 0, 0)
+
+    def write_org_link(self, text: str, url: str, size: float = 10.5) -> None:
+        if url in FEATURED_LINK_URLS:
+            self.write_featured_link(text, url, size)
+            self.set_font("Times", "B", size)
+        else:
+            self.set_text_color(*self.link_blue)
+            self.write(5.6, pdf_text(text), link=url)
+            self.set_text_color(0, 0, 0)
+
+    def exp_line(self,
+ title: str, org: str, right: str, size: float = 10.5, org_url: str | None = None, work_type: str | None = None) -> None:
         self.set_font("Times", "B", size)
         self.set_text_color(0, 0, 0)
         usable = self.w - self.l_margin - self.r_margin
@@ -447,13 +471,17 @@ class CVPdf(FPDF):
         x0, y0 = self.get_x(), self.get_y()
         self.write(5.6, pdf_text(f"{title} | "))
         if org_url:
-            self.set_text_color(*self.link_blue)
-            self.write(5.6, pdf_text(org), link=org_url)
-            self.set_text_color(0, 0, 0)
+            self.write_org_link(org, org_url, size)
         else:
             self.write(5.6, pdf_text(org))
+        if work_type:
+            self.set_font("Times", "B", size)
+            self.set_text_color(0, 0, 0)
+            self.write(5.6, pdf_text(f" · {work_type}"))
 
         self.set_xy(x0 + left_w, y0)
+        self.set_font("Times", "B", size)
+        self.set_text_color(0, 0, 0)
         self.cell(right_w, 5.6, pdf_text(right), align="R", new_x="LMARGIN", new_y="NEXT")
 
     def bullet(self, text: str) -> None:
@@ -464,9 +492,12 @@ class CVPdf(FPDF):
         self.multi_cell(self.w - indent - self.r_margin, 4.6, pdf_text(f"-  {text}"))
 
     def link_line(self, name_text: str, url: str) -> None:
-        self.set_font("Times", "B", 11)
-        self.set_text_color(*self.link_blue)
-        self.write(5.6, pdf_text(name_text), link=url)
+        if url in FEATURED_LINK_URLS:
+            self.write_featured_link(name_text, url, 11)
+        else:
+            self.set_font("Times", "B", 11)
+            self.set_text_color(*self.link_blue)
+            self.write(5.6, pdf_text(name_text), link=url)
         self.set_text_color(0, 0, 0)
         self.ln(6)
 
@@ -489,16 +520,15 @@ def build_pdf() -> None:
     # Summary
     pdf.set_font("Times", "", 10.5)
     pdf.write(5.6, pdf_text("Working as a Software Engineer at "))
-    pdf.set_text_color(*pdf.link_blue)
-    pdf.write(5.6, "BeeKrowd", link="https://beekrowd.com/en")
-    pdf.set_text_color(0, 0, 0)
+    pdf.write_featured_link("BeeKrowd", "https://beekrowd.com/en", 10.5)
+    pdf.set_font("Times", "", 10.5)
     pdf.write(5.6, ".")
     pdf.ln(2)
 
     # Experience
     pdf.section_heading("Experience")
     for exp in EXPERIENCE:
-        pdf.exp_line(exp["title"], exp["org"], exp["dates"], org_url=exp.get("org_url"))
+        pdf.exp_line(exp["title"], exp["org"], exp["dates"], org_url=exp.get("org_url"), work_type=exp.get("work_type"))
         for b in exp["bullets"]:
             pdf.bullet(b)
         pdf.ln(0.5)
