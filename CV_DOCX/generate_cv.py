@@ -125,10 +125,10 @@ PROJECTS = [
 
 OPEN_SOURCE = [
     {
-        "name": "BuddyUsage",
-        "url": "https://github.com/SmtTheSE/BuddyUsage",
+        "name": "Pillr",
+        "url": "https://pillr.lol/",
         "bullets": [
-            "Menu-bar usage tracker for Claude, Codex, Gemini, Cursor and Copilot with pace prediction and local agent control; exposes usage as a local MCP server. 25 releases, macOS/Windows/Linux (Electron, TypeScript)",
+            "Collaborator on Chris Nguyen's macOS notch and menu-bar app for coding-agent usage limits, sessions, done cards, approvals and API spend. Signed and notarized, 11 releases (Swift). github.com/chrisnguyen1211/pillrdotlol",
         ],
     },
 ]

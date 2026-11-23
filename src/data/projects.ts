@@ -165,7 +165,7 @@ export const projects: Project[] = [
         kind: 'Research tool',
         tech: ['Python', 'Flask', 'PostgreSQL'],
         links: [
-            { label: 'Live preview', href: 'https://dental-blinding-process-project.vercel.app/' },
+            { label: 'Live preview', href: 'https://udmmdental.xyz/' },
             { label: 'Source code', href: 'https://github.com/SmtTheSE/Dental-Blinding-Process-Project' },
         ],
         image: '/media/dental.jpg',
