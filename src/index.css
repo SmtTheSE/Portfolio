@@ -66,4 +66,18 @@
   .mono-label {
     @apply font-mono text-[11px] uppercase tracking-[0.08em] text-muted;
   }
+
+  .avatar-motion {
+    transform-origin: center center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .avatar-motion {
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .avatar-motion:hover,
+    .avatar-motion:focus-visible {
+      transform: rotate(-2.8deg) scale(1.045);
+    }
+  }
 }

@@ -1,8 +1,14 @@
 import { ReactNode, useRef, useState } from 'react';
-import profilePortrait from '../assets/profile-portrait.webp';
+import profilePhoto from '../assets/profile-portrait.webp';
+import profileAvatar from '../assets/profile-avatar.webp';
 import { Draggable, EASE, gsap, prefersReducedMotion, SplitText, useGSAP } from '../lib/gsap';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { FeaturedLink } from './SectionShell';
+
+// Temporary cartoon GitHub avatar in the About window.
+// Set USE_AVATAR to false to restore the original photo (profile-portrait.webp is untouched).
+const USE_AVATAR = true;
+const profilePortrait = USE_AVATAR ? profileAvatar : profilePhoto;
 
 type WinProps = {
     id: string;
@@ -212,14 +218,46 @@ const HeroWindows = () => {
                     onClose={close}
                 >
                     <div className="px-2 pb-1">
-                        <div className="relative aspect-[4/5] overflow-hidden bg-win-green">
-                            <img
-                                ref={portraitRef}
-                                src={profilePortrait}
-                                alt="Portrait of Sitt Min Thar"
-                                draggable={false}
-                                className="absolute inset-0 w-full h-full object-cover object-[50%_30%] select-none will-change-transform"
-                            />
+                        <div className="relative">
+                            <div
+                                className={
+                                    USE_AVATAR
+                                        ? 'relative aspect-[4/5] overflow-hidden bg-[#C2E8FC]'
+                                        : 'relative aspect-[4/5] overflow-hidden bg-win-green'
+                                }
+                            >
+                                <div
+                                    className={
+                                        USE_AVATAR
+                                            ? 'absolute inset-0 origin-center avatar-motion'
+                                            : 'absolute inset-0'
+                                    }
+                                >
+                                    <img
+                                        ref={portraitRef}
+                                        src={profilePortrait}
+                                        alt={
+                                            USE_AVATAR
+                                                ? 'Cartoon portrait of Sitt Min Thar'
+                                                : 'Portrait of Sitt Min Thar'
+                                        }
+                                        draggable={false}
+                                        className={
+                                            USE_AVATAR
+                                                ? 'h-full w-full object-contain select-none will-change-transform'
+                                                : 'h-full w-full object-cover object-[50%_30%] select-none will-change-transform'
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            {USE_AVATAR && (
+                                <span
+                                    aria-hidden="true"
+                                    className="pointer-events-none absolute -right-1 bottom-4 -rotate-[8deg] bg-win-sun text-ink font-mono text-[10px] uppercase tracking-[0.08em] px-2 py-1 shadow-[1px_2px_0_rgb(38_20_12_/_0.18)]"
+                                >
+                                    that&rsquo;s me
+                                </span>
+                            )}
                         </div>
                         <p className="font-serif text-[19px] md:text-[20px] leading-[1.25] px-0.5 pt-2.5 pb-2">
                             Hello, I&rsquo;m Sitt Min Thar. A software engineer based in Ho Chi Minh City.
