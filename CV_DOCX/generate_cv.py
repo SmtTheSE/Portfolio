@@ -29,6 +29,13 @@ WEBSITE = "sittminthar.from-mm.dev"
 EXPERIENCE = [
     {
         "title": "Software Engineer",
+        "org": "BeeKrowd",
+        "org_url": "https://beekrowd.com/en",
+        "dates": "2026 -- Present",
+        "bullets": [],
+    },
+    {
+        "title": "Software Engineer",
         "org": "Ad Venture Studio",
         "dates": "2026 -- Present",
         "bullets": [
@@ -333,6 +340,17 @@ def build_docx() -> None:
     sep2.font.size = Pt(10.5)
     add_link_run(contact_p, WEBSITE, bold=False, size=10.5)
 
+    # --- Summary ---
+    summary_p = doc.add_paragraph()
+    summary_p.paragraph_format.space_after = Pt(2)
+    sr = summary_p.add_run("Working as a Software Engineer at ")
+    sr.font.name = FONT
+    sr.font.size = Pt(10.5)
+    add_hyperlink(summary_p, "BeeKrowd", "https://beekrowd.com/en", bold=False, size=10.5)
+    se = summary_p.add_run(".")
+    se.font.name = FONT
+    se.font.size = Pt(10.5)
+
     # --- Experience ---
     section_heading(doc, "Experience")
     for exp in EXPERIENCE:
@@ -467,6 +485,15 @@ def build_pdf() -> None:
     pdf.cell(0, 5.5, pdf_text(contact), new_x="LMARGIN", new_y="NEXT", align="C")
     pdf.set_text_color(0, 0, 0)
     pdf.ln(1)
+
+    # Summary
+    pdf.set_font("Times", "", 10.5)
+    pdf.write(5.6, pdf_text("Working as a Software Engineer at "))
+    pdf.set_text_color(*pdf.link_blue)
+    pdf.write(5.6, "BeeKrowd", link="https://beekrowd.com/en")
+    pdf.set_text_color(0, 0, 0)
+    pdf.write(5.6, ".")
+    pdf.ln(2)
 
     # Experience
     pdf.section_heading("Experience")

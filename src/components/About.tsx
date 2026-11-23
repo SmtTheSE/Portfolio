@@ -3,6 +3,9 @@ import { GroupLabel, Muted, Row, SectionShell, TextLink } from './SectionShell';
 const About = () => (
     <SectionShell id="about" title="About" subtitle="Where I've worked">
         <GroupLabel>Experience</GroupLabel>
+        <Row label={<TextLink href="https://beekrowd.com/en">BeeKrowd</TextLink>}>
+            Software Engineer <Muted>/ 2026 &ndash; Present</Muted>
+        </Row>
         <Row label="Ad Venture Studio">
             Software Engineer <Muted>/ 2026 &ndash; Present</Muted>
             <p className="text-muted mt-1">

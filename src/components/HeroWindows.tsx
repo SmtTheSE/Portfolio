@@ -236,7 +236,16 @@ const HeroWindows = () => {
                     onClose={close}
                 >
                     <p className="px-3 pt-2 pb-3.5 text-[14px] leading-[1.45]">
-                        Currently shipping mobile apps at Ad Venture Studio, and working as a Release-Acceptance
+                        Currently working as a Software Engineer at{" "}
+                        <a
+                            href="https://beekrowd.com/en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline decoration-current/50 underline-offset-2 hover:decoration-current transition-colors"
+                        >
+                            BeeKrowd
+                        </a>
+                        , also shipping mobile apps at Ad Venture Studio, and working as a Release-Acceptance
                         Engineer at Malibu.
                     </p>
                 </Win>

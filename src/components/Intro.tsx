@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { gsap, prefersReducedMotion, ScrollTrigger, SplitText, useGSAP } from '../lib/gsap';
 
 /** Workplaces only. */
-const PLACES = ['Ad Venture Studio', 'Bravestep', 'Malibu', 'AIOT Inc'];
+const PLACES = ['BeeKrowd', 'Ad Venture Studio', 'Bravestep', 'Malibu', 'AIOT Inc'];
 
 /** Two identical halves, each long enough to cover a wide screen, so a -50% shift loops seamlessly. */
 const TRACK = [...PLACES, ...PLACES, ...PLACES, ...PLACES];
@@ -90,7 +90,16 @@ const Intro = () => {
                     ref={textRef}
                     className="max-w-[760px] text-[28px] md:text-[38px] leading-[1.18] font-light tracking-[-0.03em] text-fg"
                 >
-                    Currently shipping mobile apps at Ad Venture Studio, building as Founding Engineer at
+                    Currently working as a Software Engineer at{" "}
+                    <a
+                        href="https://beekrowd.com/en"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-fg/35 underline-offset-[5px] hover:decoration-fg transition-colors"
+                    >
+                        BeeKrowd
+                    </a>
+                    , also shipping mobile apps at Ad Venture Studio, building as Founding Engineer at
                     Bravestep, and validating macOS hardware releases at Malibu, with a love for backend systems,
                     data, and AI that ships. This is a curation of what I&rsquo;ve built &#10023; and where.
                 </p>
